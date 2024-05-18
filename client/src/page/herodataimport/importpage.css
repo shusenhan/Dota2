@@ -1,0 +1,32 @@
+.HeroImportPageContent {
+    padding: 12px;
+    margin: 0px 24px;
+    background-color: rgba(0, 0, 0, 0);
+    height:100%;
+}
+
+.HeroImportPageBox2 {
+    display: flex;
+    gap: 24px;
+    background-color: rgba(255, 255, 255, 0.65);
+    border-radius: 12px;
+    height: 100%;
+    overflow-y: auto;
+    flex-direction: column;
+    padding: 12px 24px;
+}
+
+.HeroImportPageBox2::-webkit-scrollbar {
+    width: 12px;
+}
+
+.HeroImportPageBox2::-webkit-scrollbar-thumb {
+    background-color: rgba(62, 61, 62, 1);
+    border-radius: 6px; /* 圆角滑块 */
+    border: 2px solid rgba(94, 94, 94, 0.5); /* 滑块边框 */
+}
+
+.HeroImportPageBox2::-webkit-scrollbar-track {
+    background: rgba(124, 124, 124, 0.25);
+    border-radius: 6px; /* 圆角轨道 */
+}

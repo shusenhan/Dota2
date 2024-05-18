@@ -1,0 +1,17 @@
+.NavbarContent{
+    margin:16px 24px;
+}
+
+.SearchBar {
+    border: 1px solid #FFB546;
+    border-radius: 5px;
+}
+
+.Button {
+    height: 28px;
+    width: 92px;
+}
+
+.Button:hover {
+    /* box-shadow: 0 0 5px rgba(74, 144, 226, 1);  */
+}

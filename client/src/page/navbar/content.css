@@ -1,0 +1,8 @@
+.NavbarContentContent {
+    display: flex;
+    gap: 40px
+}
+
+.item {
+    margin-right: 20px;
+}
