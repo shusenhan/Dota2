@@ -29,7 +29,7 @@ export const insertHero = async(req, res) => {
 
             console.log('insert result:',result)
             if(result.code === 200){
-                res.status(200).json(hero);
+                res.status(200).json({message:result.message, data: hero});
             }
             else{
                 res.status(result.code).json({message: result.message});
@@ -38,7 +38,7 @@ export const insertHero = async(req, res) => {
         else{
             const result = await InsertHero(hero);
             if(result.code === 200){
-                res.status(200).json(hero);
+                res.status(200).json({message:result.message, data: hero});
             }
             else{
                 res.status(result.code).json({message: result.message});

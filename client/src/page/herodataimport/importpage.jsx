@@ -5,6 +5,7 @@ import './importpage.css'
 import CustomTextField from "../../component/MytTextField";
 import CustomSelect from '../../component/MySelect';
 import MyImage from '../../component/Image';
+import notify from '../../component/ToastBox.tsx';
 
 const heroSchema = yup.object().shape({
     HeroName: yup.string().required('请输入值'),
@@ -86,7 +87,13 @@ const HeroDataImportPage = () => {
         );
 
         const result = await serverResponse.json();
-        console.log(result);
+        
+        if(serverResponse.status === 200){
+            notify('success', result.message);
+        }
+        else{
+            notify('error', result.message);
+        }
     };
 
     return(

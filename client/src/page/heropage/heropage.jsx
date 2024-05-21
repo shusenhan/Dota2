@@ -1,12 +1,15 @@
-import Image from '../../component/Image';
 import './heropage.css'
+import HeroInfo from '../../component/HeroInfo';
 
 const HeroPage = ({}) => {
     return(
         <div className="HeroPageContent">
             HeroPage
             <div className='HeroPageBox2'>
-                <Image width='220px' height='124px' src='http://localhost:3001/assets/heros/Warlock_icon.webp'/>
+                <div className='HeroPageBox3'>
+                    <HeroInfo/>
+                </div>
+                <div>技能，天赋，内容目录</div>
             </div>
         </div>
     )
