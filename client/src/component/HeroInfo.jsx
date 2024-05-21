@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Image from './Image';
 import { Box, Slider } from '@mui/material';
 import Talents from './Talents/Talents';
+import Iventory from './Iventory/Iventory';
 
 const HeroInfo = ({}) => {
     const [level, setLevl] = useState(1);
@@ -12,7 +13,8 @@ const HeroInfo = ({}) => {
 
     return(
         <div style={{
-            display: 'flex'
+            display: 'flex',
+            gap: '24px'
         }}>
             <div style={{
                 backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -496,7 +498,16 @@ const HeroInfo = ({}) => {
                     </div>
                 </Box>
             </div>
-            <Talents/>
+
+            <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center'
+            }}>
+                <Talents/>
+                <Iventory/>
+            </div>
         </div>
     )
 }

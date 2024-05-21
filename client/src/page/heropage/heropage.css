@@ -8,9 +8,30 @@
 .HeroPageBox2 {
     display: flex;
     gap: 24px;
-    background-color: rgba(255, 255, 255, 0.65);
-    border-radius: 12px;
     height: 100%;
     overflow-y: auto;
     justify-content:center;
+}
+
+.HeroPageBox4 {
+    height: 100%;
+    overflow-y: auto;
+    background-color: rgba(255, 255, 255, 0.65);
+    border-radius: 12px;
+    overflow-x: hidden;
+}
+
+.HeroPageBox4::-webkit-scrollbar {
+    width: 12px;
+}
+
+.HeroPageBox4::-webkit-scrollbar-thumb {
+    background-color: rgba(62, 61, 62, 1);
+    border-radius: 6px; /* 圆角滑块 */
+    border: 2px solid rgba(94, 94, 94, 0.5); /* 滑块边框 */
+}
+
+.HeroPageBox4::-webkit-scrollbar-track {
+    background: rgba(124, 124, 124, 0.25);
+    border-radius: 6px; /* 圆角轨道 */
 }
