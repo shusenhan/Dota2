@@ -173,7 +173,7 @@ const HeroList = (props) => {
                 justifyContent: 'center',
                 alignItems: 'center'
             }}>
-                <img style={{flexShrink: 0}} src="http://localhost:3001/assets/commons/Agility_attribute_symbol.webp" alt="Strength Hero"/>敏捷英雄({agilityHeroList.length})
+                <img style={{flexShrink: 0}} src="http://localhost:3001/assets/commons/Agility_attribute_symbol.webp" alt="Agility Hero"/>敏捷英雄({agilityHeroList.length})
             </div>
             <div style={{
                 display: 'flex',
@@ -194,7 +194,7 @@ const HeroList = (props) => {
                 justifyContent: 'center',
                 alignItems: 'center'
             }}>
-                <img style={{flexShrink: 0}} src="http://localhost:3001/assets/commons/Intelligence_attribute_symbol.webp" alt="Strength Hero"/>智力英雄({intelligenceHeroList.length})
+                <img style={{flexShrink: 0}} src="http://localhost:3001/assets/commons/Intelligence_attribute_symbol.webp" alt="Intelligence Hero"/>智力英雄({intelligenceHeroList.length})
             </div>
             <div style={{
                 display: 'flex',
@@ -215,7 +215,7 @@ const HeroList = (props) => {
                 justifyContent: 'center',
                 alignItems: 'center'
             }}>
-                <img style={{flexShrink: 0}} src="http://localhost:3001/assets/commons/Intelligence_attribute_symbol.webp" alt="Strength Hero"/>全才英雄({universalHeroList.length})
+                <img style={{flexShrink: 0}} src="http://localhost:3001/assets/commons/Universal_attribute_symbol.webp" alt="Universal Hero"/>全才英雄({universalHeroList.length})
             </div>
             <div style={{
                 display: 'flex',

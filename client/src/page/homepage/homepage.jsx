@@ -11,9 +11,7 @@ const HomePage = () => {
     return (
         <div className="HomePageContent"
             style={{ 
-                color:color2, 
         }}>
-            Homepage
             <div className="Box2">
 
                 <div className="Box3">

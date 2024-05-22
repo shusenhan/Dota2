@@ -9,14 +9,18 @@ import './navbar.css';
 import NavbarContent from "./content";
 import SearchIcon from '@mui/icons-material/Search';
 import { useTheme } from "@emotion/react";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
     const theme = useTheme();
+    const navigate = useNavigate();
 
     return(
         <div className="NavbarContent">
             <FlexBetween>
-                <Image width='78px' height='90px' src='../common/Dota-2-Logo.png'/>
+                <div className="Dota2Logo" onClick={() => navigate('/')}>
+                    <Image width='78px' height='90px' src='../common/Dota-2-Logo.png'/>
+                </div>
                 
                 <div style={{flexBasis:'66%'}}>
                     <FlexBetween sx={{ justifyContent: 'flex-end', gap:'10px' }}>

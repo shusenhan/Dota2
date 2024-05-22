@@ -203,6 +203,23 @@ export async function UpdateHero(hero){
         }
 }
 
+export async function GetAllHeroName(){
+    const sql = `select distinct HeroName, HeroCNName, HeroType from heros`;
+
+    try{
+        const [results, ] = await pool.promise().query(sql, [])
+        if(results.length){
+            return {code: 200, data: results}
+        }
+        else{
+            return {code: 404, message: `数据库中还没有英雄！`}
+        }
+    }
+    catch(error){
+        return {code: 500, message: `获取所有已存在英雄的名称失败，错误信息：${error.message}`};
+    }
+}
+
 export async function GetSkillByName(skillName){
     const sql = `select * from skills where SkillName = ?`;
 

@@ -1,36 +1,38 @@
-.HeroPageContent {
+.ExistedHeroBox1 {
     padding: 12px;
     margin: 0px 24px;
     background-color: rgba(0, 0, 0, 0);
     height:100%;
 }
 
-.HeroPageBox2 {
-    display: flex;
-    gap: 24px;
-    height: 100%;
-    justify-content:center;
-}
-
-.HeroPageBox4 {
+.ExistedHeroBox2 {
     height: 100%;
     overflow-y: auto;
     background-color: rgba(255, 255, 255, 0.65);
     border-radius: 12px;
     overflow-x: hidden;
+    padding: 12px 24px;
 }
 
-.HeroPageBox4::-webkit-scrollbar {
+.ExistedHeroBox3 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 0px 0px 24px 0px;
+}
+
+.ExistedHeroBox2::-webkit-scrollbar {
     width: 12px;
 }
 
-.HeroPageBox4::-webkit-scrollbar-thumb {
+.ExistedHeroBox2::-webkit-scrollbar-thumb {
     background-color: rgba(62, 61, 62, 1);
     border-radius: 6px; /* 圆角滑块 */
     border: 2px solid rgba(94, 94, 94, 0.5); /* 滑块边框 */
 }
 
-.HeroPageBox4::-webkit-scrollbar-track {
+.ExistedHeroBox2::-webkit-scrollbar-track {
     background: rgba(124, 124, 124, 0.25);
     border-radius: 6px; /* 圆角轨道 */
 }

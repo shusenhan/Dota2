@@ -34,7 +34,8 @@ const Iventory = () => {
                     width: '60px',
                     height: '60px',
                     borderRadius: '30px',
-                    backgroundColor: '#807F7F'
+                    backgroundColor: '#807F7F',
+                    margin: '5px',
                 }}>
                     中立装备
                 </div>

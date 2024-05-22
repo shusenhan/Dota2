@@ -1,5 +1,5 @@
 import Hero from '../models/hero.js';
-import { GetHeroByName, InsertHero, UpdateHero } from '../Database.js';
+import { GetHeroByName, InsertHero, UpdateHero, GetAllHeroName } from '../Database.js';
 
 export const getHeroByName = async(req, res) => {
     try{
@@ -47,5 +47,21 @@ export const insertHero = async(req, res) => {
     }
     catch(error){
         res.status(500).json({message: error.message})
+    }
+}
+
+export const getAllHeroName = async(req, res) => {
+    try{
+        const result = await GetAllHeroName();
+
+        if(result.code === 200){
+            res.status(200).json(result.data);
+        }
+        else{
+            res.status(result.code).json(result.message);
+        }
+    }
+    catch(error){
+        res.status(500).json({message: error.message});
     }
 }

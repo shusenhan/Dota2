@@ -6,6 +6,8 @@ import CustomTextField from "../../component/MytTextField";
 import CustomSelect from '../../component/MySelect';
 import MyImage from '../../component/Image';
 import notify from '../../component/ToastBox.tsx';
+import { useSearchParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 const heroSchema = yup.object().shape({
     HeroName: yup.string().required('请输入值'),
@@ -54,28 +56,53 @@ const initValue = {
     AgilityGrowth: 0,
     InitIntelligence: 0,
     IntelligenceGrowth: 0,
-    InitHealth: 0,
+    InitHealth: 80,
     InitHealthRecover: 0,
-    InitMana: 0,
+    InitMana: 75,
     InitManaRecover: 0,
     InitArmor: 0,
     InitMagicResist: 25,
     DamageMin: 0,
     DamageMax: 0,
     AttackType: 0,
-    AttackRange: 0,
-    InitAttackSpeed: 0,
-    AttackRate: 0,
-    AttackAnimation1: 0,
-    AttackAnimation2: 0,
-    ProjectileSpeed: 0,
+    AttackRange: 150,
+    InitAttackSpeed: 100,
+    AttackRate: 1.7,
+    AttackAnimation1: 0.3,
+    AttackAnimation2: 0.3,
+    ProjectileSpeed: 9999,
     MoveSpeed: 0,
-    TurnRate: 0,
+    TurnRate: 0.6,
     DayVision: 1800,
     NightVision: 800,
 };
 
 const HeroDataImportPage = () => {
+    let [searchParams] = useSearchParams();  
+    let heroName = searchParams.get('heroName');
+    const [heroData, setHeroData] = useState(null);
+
+    const GetHeroData = async () => {
+        const serverResponse = await fetch(
+            `http://localhost:3001/hero/gethero/${heroName}`, 
+            { 
+                method: "GET",
+            }
+        )
+
+        const result = await serverResponse.json();
+
+        if(serverResponse.status === 200){
+            setHeroData(result.data);
+        }
+    }
+
+    useEffect(() => {
+        if(heroName){
+            GetHeroData();
+        }
+    }, []);
+
     const handleFormSubmit = async (values, onSubmitProps) => {
         const serverResponse = await fetch(
             "http://localhost:3001/hero/insert",
@@ -90,6 +117,9 @@ const HeroDataImportPage = () => {
         
         if(serverResponse.status === 200){
             notify('success', result.message);
+            if(!heroName){
+                onSubmitProps.resetForm();
+            }
         }
         else{
             notify('error', result.message);
@@ -108,10 +138,12 @@ const HeroDataImportPage = () => {
                 >
                     英雄信息录入
                 </div>
+
                 <Formik
                     onSubmit={handleFormSubmit}
-                    initialValues={initValue}
+                    initialValues={heroData ? heroData : initValue}
                     validationSchema={heroSchema}
+                    enableReinitialize
                 >
                     {({
                         values,
@@ -443,6 +475,22 @@ const HeroDataImportPage = () => {
                                         <MenuItem value={1}>远程</MenuItem>
                                     </CustomSelect>
                                 </FormControl>
+
+                                <CustomTextField  
+                                    label='基础攻击间隔'  
+                                    onBlur={handleBlur}  
+                                    onChange={handleChange}  
+                                    value={values.AttackRate}
+                                    name="AttackRate"
+                                    error={touched.AttackRate && Boolean(errors.AttackRate)}  
+                                    helperText={errors.AttackRate}
+                                    style={{  
+                                        gridColumn: "span 2",  
+                                        display: 'flex',  
+                                        alignItems: 'center',
+                                    }}  
+                                    size="small"  
+                                />
 
                                 <CustomTextField  
                                     label='攻击范围'  

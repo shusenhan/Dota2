@@ -4,8 +4,91 @@ import { Box, Slider } from '@mui/material';
 import Talents from './Talents/Talents';
 import Iventory from './Iventory/Iventory';
 
-const HeroInfo = ({}) => {
+const HeroInfo = ({hero}) => {
+
     const [level, setLevl] = useState(1);
+    const [extraHealth, setExtraHealth] = useState(0);
+    const [extraStrength, setExtraStrength] = useState(0);
+    const [extraHealthRecover, setExtraHealthRecover] = useState(0);
+    const [extraMana, setExtraMana] = useState(0);
+    const [extraManaRecover, setExtraManaRecover] = useState(0);
+    const [extraIntelligence, setExtraIntelligence] = useState(0);
+    const [extraAgility, setExtraAgility] = useState(0);
+    const [extraArmor, setExtraArmor] = useState(0);
+    const [extraMagicResist, setExtraMagicResist] = useState(0);
+    const [extraAttackSpeed, setExtraAttackSpeed] = useState(0);
+    const [extraMoveSpeed, setExtraMoveSpeed] = useState(0);
+    const [extraMoveSpeedPercentage, setExtraMoveSpeedPercentage] = useState(0);
+    const [extraDamage, setExtraDamage] = useState(0);
+
+
+    const strengthToHealth = 18;
+    const strengthToHealthRecover = 0.1;
+    const agilityToArmor = 0.17;
+    const agilityToAttackSpeed = 1;
+    const intelligenceToMana = 12;
+    const intelligenceToManaRecover = 0.05;
+    const intelligenceToMaicResist = 0.1;
+
+    const GetBackgroundColor = () => {
+        if(hero.HeroType === 0){
+            return 'linear-gradient(0deg, #4A3000, #B9500B)'
+        }
+        else if(hero.HeroType === 1){
+            return 'linear-gradient(0deg, #2C4A00, #167C13)'
+        }
+        else if(hero.HeroType === 2){
+            return 'linear-gradient(0deg, #00494A, #257DAE)'
+        }
+        else if(hero.HeroType === 3){
+            return 'linear-gradient(0deg, #460051, ##AE11C7)'
+        }
+    }
+
+    const GetAttributeIcon = () => {
+        if(hero.HeroType === 0){
+            return 'http://localhost:3001/assets/commons/Strength_attribute_symbol.webp'
+        }
+        else if(hero.HeroType === 1){
+            return 'http://localhost:3001/assets/commons/Agility_attribute_symbol.webp'
+        }
+        else if(hero.HeroType === 2){
+            return 'http://localhost:3001/assets/commons/Intelligence_attribute_symbol.webp'
+        }
+        else if(hero.HeroType === 3){
+            return 'http://localhost:3001/assets/commons/Universal_attribute_symbol.webp'
+        }
+    }
+
+    const CalculateDamage = () => {
+        var damage = 0;
+        if(hero.HeroType === 0){
+            damage = hero.InitStrength * 1 
+                + extraDamage 
+                + level * hero.StrengthGrowth * 1
+                + extraStrength * 1;
+        }
+        else if(hero.HeroType === 1){
+            damage = hero.InitAgility * 1 
+                + extraDamage 
+                + level * hero.AgilityGrowth * 1
+                + extraAgility * 1;
+        }
+        else if(hero.HeroType === 2){
+            damage = hero.InitIntelligence * 1 
+                + extraDamage 
+                + level * hero.IntelligenceGrowth * 1
+                + extraIntelligence * 1;
+        }
+        else if(hero.HeroType === 3){
+            damage = (hero.InitStrength + hero.InitAgility + hero.InitIntelligence) * 0.7 
+                + extraDamage 
+                + level * (hero.StrengthGrowth + hero.AgilityGrowth + hero.IntelligenceGrowth) * 0.7
+                + (extraStrength + extraAgility + extraIntelligence) * 0.7;
+        }
+
+        return damage;
+    }
 
     const ChangeLevel = (event) => {
         setLevl(event.target.value)
@@ -22,14 +105,14 @@ const HeroInfo = ({}) => {
                 border: '2px solid rgb(0,0,0)',
             }}>
                 <div style={{
-                    background: 'linear-gradient(0deg, #4A3000, #B9500B)'
+                    background: GetBackgroundColor()
                 }}>
-                    <div>术士</div>
+                    <div>{hero.HeroCNName}</div>
                     <div style={{
                         margin: '5px 0px',
                         position: 'relative'
                     }}>
-                        <Image width='220px' height='124px' src='http://localhost:3001/assets/heros/Warlock_icon.webp'/>
+                        <Image width='220px' height='124px' src={`http://localhost:3001/assets/heros/${hero.HeroName}_icon.webp`}/>
                         <Box 
                             sx={{
                                 width:'40px', 
@@ -75,10 +158,7 @@ const HeroInfo = ({}) => {
                         </Box>
                     </div>
                     <div >
-                        <img src='http://localhost:3001/assets/commons/Strength_attribute_symbol.webp'/>
-                        {/* <img src='http://localhost:3001/assets/commons/Agility_attribute_symbol.webp'/>
-                        <img src='http://localhost:3001/assets/commons/Intelligence_attribute_symbol.webp'/>
-                        <img src='http://localhost:3001/assets/commons/Universal_attribute_symbol.webp'/> */}
+                        <img src={GetAttributeIcon()}/>
                     </div>
                 </div>
 
@@ -108,7 +188,11 @@ const HeroInfo = ({}) => {
                             textShadow: '1px 1px 2px #000',
                             color: 'white'
                         }}>
-                            {500 + level * 100}
+                            {Math.floor(hero.InitHealth 
+                            + strengthToHealth * hero.InitStrength 
+                            + level * strengthToHealth * hero.StrengthGrowth 
+                            + extraHealth 
+                            + extraStrength * strengthToHealth)}
                         </div>
                         <div style={{
                             display: 'table-cell',
@@ -116,7 +200,11 @@ const HeroInfo = ({}) => {
                             width:'20%',
                             color: 'black'
                         }}>
-                            +{5.0}
+                            +{(hero.InitHealthRecover
+                            + strengthToHealthRecover * hero.InitStrength 
+                            + level * strengthToHealthRecover * hero.StrengthGrowth
+                            + extraHealthRecover
+                            + extraStrength * strengthToHealthRecover).toFixed(2)}
                         </div>
                     </div>
 
@@ -142,7 +230,11 @@ const HeroInfo = ({}) => {
                             textShadow: '1px 1px 2px #000',
                             color: 'white'
                         }}>
-                            {300}
+                            {Math.floor(hero.InitMana 
+                            + intelligenceToMana * hero.InitIntelligence
+                            + level * intelligenceToMana * hero.IntelligenceGrowth 
+                            + extraMana 
+                            + extraIntelligence * intelligenceToMana)}
                         </div>
                         <div style={{
                             display: 'table-cell',
@@ -150,7 +242,11 @@ const HeroInfo = ({}) => {
                             width:'20%',
                             color: 'black'
                         }}>
-                            +{2.0}
+                            +{(hero.InitManaRecover 
+                            + intelligenceToManaRecover * hero.InitIntelligence
+                            + level * intelligenceToManaRecover * hero.IntelligenceGrowth 
+                            + extraManaRecover 
+                            + extraIntelligence * intelligenceToManaRecover).toFixed(2)}
                         </div>
                     </div>
                 </div>
@@ -184,7 +280,9 @@ const HeroInfo = ({}) => {
                             textShadow: '1px 1px 2px #000',
                             color: 'white'
                         }}>
-                            {30}
+                            {Math.floor(hero.InitStrength
+                            + level * hero.StrengthGrowth
+                            + extraStrength)}
                         </div>
                         <div style={{
                             display: 'table-cell',
@@ -193,7 +291,7 @@ const HeroInfo = ({}) => {
                             color: 'black'
                         }}>
                             
-                            +{3.0}
+                            +{hero.StrengthGrowth.toFixed(1)}
                         </div>
                     </div>
 
@@ -220,7 +318,9 @@ const HeroInfo = ({}) => {
                             textShadow: '1px 1px 2px #000',
                             color: 'white'
                         }}>
-                            {14}
+                            {Math.floor(hero.InitAgility
+                            + level * hero.AgilityGrowth
+                            + extraAgility)}
                         </div>
                         <div style={{
                             display: 'table-cell',
@@ -228,7 +328,7 @@ const HeroInfo = ({}) => {
                             width:'20%',
                             color: 'black'
                         }}>
-                            +{2.0}
+                            +{hero.AgilityGrowth.toFixed(1)}
                         </div>
                     </div>
 
@@ -258,7 +358,9 @@ const HeroInfo = ({}) => {
                             textShadow: '1px 1px 2px #000',
                             color: 'white'
                         }}>
-                            {14}
+                            {Math.floor(hero.InitIntelligence
+                            + level * hero.IntelligenceGrowth
+                            + extraIntelligence)}
                         </div>
                         <div style={{
                             display: 'table-cell',
@@ -266,7 +368,7 @@ const HeroInfo = ({}) => {
                             width:'20%',
                             color: 'black'
                         }}>
-                            +{2.0}
+                            +{hero.IntelligenceGrowth.toFixed(1)}
                         </div>
                     </div>
                 </div>
@@ -296,7 +398,11 @@ const HeroInfo = ({}) => {
                             width:'70%',
                             color: 'black'
                         }}>
-                            {3}
+                            {Math.floor(hero.InitArmor
+                            + hero.InitAgility * agilityToArmor
+                            + level * hero.AgilityGrowth * agilityToArmor
+                            + extraAgility * agilityToArmor
+                            + extraArmor)}
                         </div>
                     </Box>
 
@@ -318,7 +424,11 @@ const HeroInfo = ({}) => {
                             width:'80%',
                             color: 'black'
                         }}>
-                            {25}%
+                            {Math.floor(hero.InitMagicResist
+                            + hero.InitIntelligence * intelligenceToMaicResist
+                            + level * hero.IntelligenceGrowth * intelligenceToMaicResist
+                            + extraIntelligence * intelligenceToMaicResist
+                            + extraMagicResist)}%
                         </div>
                     </div>
 
@@ -341,7 +451,7 @@ const HeroInfo = ({}) => {
                             width:'80%',
                             color: 'black'
                         }}>
-                            {300}
+                            {Math.floor((hero.MoveSpeed + extraMoveSpeed) * (1 + extraMoveSpeedPercentage))}
                         </div>
                     </div>
 
@@ -364,7 +474,7 @@ const HeroInfo = ({}) => {
                             width:'80%',
                             color: 'black'
                         }}>
-                            {34}
+                            {(hero.TurnRate).toFixed(2)}
                         </div>
                     </div>
 
@@ -385,7 +495,7 @@ const HeroInfo = ({}) => {
                             width:'65%',
                             color: 'black'
                         }}>
-                            {30}-{50}
+                            {Math.floor(hero.DamageMin + CalculateDamage())}-{Math.floor(hero.DamageMax + CalculateDamage())}
                         </div>
                     </div>
 
@@ -406,7 +516,11 @@ const HeroInfo = ({}) => {
                             width:'65%',
                             color: 'black'
                         }}>
-                            {100}
+                            {Math.floor(hero.InitAttackSpeed
+                            + hero.InitAgility * agilityToAttackSpeed
+                            + level * hero.AgilityGrowth * agilityToAttackSpeed
+                            + extraAttackSpeed
+                            + extraAgility * agilityToAttackSpeed)}
                         </div>
                     </div>
 
@@ -427,7 +541,7 @@ const HeroInfo = ({}) => {
                             width:'65%',
                             color: 'black'
                         }}>
-                            {1.7}
+                            {(hero.AttackRate).toFixed(2)}
                         </div>
                     </div>
 
@@ -440,8 +554,7 @@ const HeroInfo = ({}) => {
                             width:'35%',
                             color: 'black'
                         }}>
-                            <Image height='12px' src='http://localhost:3001/assets/commons/Ranged_icon.webp'/>
-                            {/* <Image height='12px' src='http://localhost:3001/assets/commons/Melee_icon.webp'/> */}
+                            {!hero.AttackType ? <Image height='12px' src='http://localhost:3001/assets/commons/Melee_icon.webp'/> : <Image height='12px' src='http://localhost:3001/assets/commons/Ranged_icon.webp'/>}
                             攻击距离
                         </div>
                         <div style={{
@@ -450,7 +563,7 @@ const HeroInfo = ({}) => {
                             width:'65%',
                             color: 'black'
                         }}>
-                            {600}
+                            {Math.floor(hero.AttackRange)}
                         </div>
                     </div>
 
@@ -471,7 +584,7 @@ const HeroInfo = ({}) => {
                             width:'65%',
                             color: 'black'
                         }}>
-                            {0.45}/{0.25}
+                            {(hero.AttackAnimation1).toFixed(2)}/{(hero.AttackAnimation2).toFixed(2)}
                         </div>
                     </div>
 
@@ -492,8 +605,8 @@ const HeroInfo = ({}) => {
                             width:'65%',
                             color: 'black'
                         }}>
-                            {1800}<Image height='12px' src='http://localhost:3001/assets/commons/Daytime_icon.webp'/>/
-                            {800}<Image height='12px' src='http://localhost:3001/assets/commons/Nighttime_icon.webp'/>
+                            {Math.floor(hero.DayVision)}<Image height='12px' src='http://localhost:3001/assets/commons/Daytime_icon.webp'/>/
+                            {Math.floor(hero.NightVision)}<Image height='12px' src='http://localhost:3001/assets/commons/Nighttime_icon.webp'/>
                         </div>
                     </div>
                 </Box>

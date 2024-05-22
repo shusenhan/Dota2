@@ -12,6 +12,6 @@
     width: 92px;
 }
 
-.Button:hover {
-    /* box-shadow: 0 0 5px rgba(74, 144, 226, 1);  */
+.Dota2Logo:hover {
+    cursor: pointer;
 }

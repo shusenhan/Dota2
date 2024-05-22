@@ -1,12 +1,12 @@
 import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const HeroCell = ({engName, cnName}) => {
+const ExistedHeroCell = ({engName, cnName}) => {
     const navigate = useNavigate();
 
     return(
         <Box 
-            onClick={() => {navigate(`\hero?heroName=${engName}`)}}
+            onClick={() => {navigate(`/importhero?heroName=${engName}`)}}
             sx={{
                 backgroundImage: `url(http://localhost:3001/assets/heros/${engName}_icon.webp)`,
                 backgroundSize: 'cover',
@@ -30,4 +30,4 @@ const HeroCell = ({engName, cnName}) => {
     )
 }
 
-export default HeroCell;
+export default ExistedHeroCell;

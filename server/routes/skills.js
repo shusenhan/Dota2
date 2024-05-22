@@ -3,7 +3,7 @@ import { insertSkill, getSkillByName } from "../controller/skills.js";
 
 const skillRouter = express.Router();
 
-skillRouter.get("/:skillName", getSkillByName);
+skillRouter.get("/getskill/:skillName", getSkillByName);
 skillRouter.post("/insert", insertSkill);
 
 export default skillRouter;

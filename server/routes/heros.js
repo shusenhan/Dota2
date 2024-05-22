@@ -1,9 +1,10 @@
 import express from "express";
-import { insertHero, getHeroByName } from "../controller/heros.js";
+import { insertHero, getHeroByName, getAllHeroName } from "../controller/heros.js";
 
 const heroRouter = express.Router();
 
-heroRouter.get("/:heroName", getHeroByName);
+heroRouter.get("/gethero/:heroName", getHeroByName);
 heroRouter.post("/insert", insertHero);
+heroRouter.get('/getallheroname', getAllHeroName);
 
 export default heroRouter;
