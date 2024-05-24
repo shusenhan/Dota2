@@ -1,0 +1,25 @@
+.FriendComponentContent {
+    height: 65%;
+    width: 100%;
+}
+
+.FriendSearch {
+    height: 10%;
+    width: 100%;
+    background-color: rgb(10, 10, 10);
+    padding: 0% 2%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.FriendSearchBar {
+    flex-basis: 85%;
+    width: 85%;
+    height: 80%;
+    border: 2px solid gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1%;
+}

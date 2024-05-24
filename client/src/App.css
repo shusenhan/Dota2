@@ -1,44 +1,42 @@
 .App {
   text-align: center;
-  width: 100%;
   height: 100vh;
   overflow: hidden;
-  position: relative;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  min-height: 632px;
+  min-width: 1128px;
 }
 
 .Content {
+  width: 100%;
+  height: 90%;
+  /* 后面要锁定最小高度，宽度，可以解决高度问题 */
+}
+
+.AppBox2 {
+  width: calc(100vh * 1.78);
+  height: 100%;
   position: relative;
-  z-index: 2;
-  border-radius: 8px;
-  flex: 1;
-  max-height: calc(100vh - 150px); 
+  min-height: 632px;
+  min-width: 1128px;
 }
 
 .Navbar {
-  height:150px
+  height:5%
 }
 
-.UserBox {
-  width: 250px;
-  flex-basis: 20%;
-  margin: 0px 24px;
-  padding: 0px 12px;
+.Footer {
+  height:5%
 }
 
-.AppBackground {
-  filter: blur(4px);
+.Background {
   position: absolute;
   width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
   z-index: -1;
-  opacity: 0.9
 }
 
-.FirstBox {
-  display: flex;
-  flex-basis: 80%;
+.Background > video {
+  width: 100%;
+  object-fit: cover;
 }

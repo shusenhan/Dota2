@@ -1,0 +1,51 @@
+.FooterContent {
+    width: 100%;
+    position: relative;
+    height: 100%;
+}
+
+.BeginDOTA {
+    position: absolute;
+    right: 2%;
+    bottom: 35%;
+    z-index: 1;
+    width: 16%;
+    height: 80%;
+    background-color: rgb(67, 161, 98);
+    color: white;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    border: none;
+    box-shadow: 0px 0px 4px 0px #27a3f5;
+}
+
+.HomePageChatBox {
+    position: absolute;
+    bottom: 35%;
+    width: 3%;
+    width: 38%;
+    right: 49%;
+    background-color: rgb(20, 20, 20);
+    transform: translateX(50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.HomePageChatInput {
+    flex-basis: 68%;
+    background-color: rgba(0,0,0,0);
+    border: none;
+    font-size: 12px;
+    color: rgb(200, 200, 200);
+}
+
+.UserBoxGroup {
+    margin: 0 1.5%;
+    position: absolute;
+    bottom: 35%;
+    height: 100%;
+    width: 19.4%; /* 96.5% * 20% */
+    background-color: rgb(40, 40, 40);
+    color:rgb(203, 203, 203)
+}

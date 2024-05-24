@@ -13,11 +13,12 @@ import { themeSetting } from './theme';
 import Navbar from './page/navbar/navbar';
 import UserBox from './component/UserBox/UserBox';
 import CreateLoginAnimation from './theme/createAnimation';
-import HeroPage from "./page/heropage/heropage";
+import AllHeroPage from "./page/heropage/AllHeroPage";
 import HeroDataImportPage from "./page/herodataimport/importpage";
 import { ToastContainer } from "react-toastify";
 import SkillDataImportPage from "./page/skilldataimport/skillimportpage";
 import ExistedHero from "./page/herodataimport/existhero";
+import Footer from "./page/footer/footer";
 
 function App() {
   const [mode, setMode] = useState("1");
@@ -38,36 +39,38 @@ function App() {
 
   return (
     <div className="App">
-      <ToastContainer/>
-      <BrowserRouter>
-        <ThemeProvider theme={theme}>
-          <CssBaseline/>
-          <div className='AppBackground' style={{backgroundImage:`url(${theme.picture.background})`}}/>
-          <GlobalStyles styles={animation}/>
-    
-          <div className='Navbar'>
-            <Navbar/>
-          </div>
+      <div className="AppBox2">
+        <ToastContainer/>
+        <BrowserRouter>
+          <ThemeProvider theme={theme}>
+            <CssBaseline/>
+            <GlobalStyles styles={animation}/>
+      
+            <div className='Navbar'>
+              <Navbar/>
+            </div>
 
-          <div className="FirstBox">
-            {largeScreen && (
-              <div className="UserBox">
-                  123
-                  <UserBox/>
-              </div>
-            )}
-
+            <div className='Background'>
+              <video autoPlay loop muted className="VideoBackground">
+                <source src="http://localhost:3001/assets/videos/commons/background.webm" type="video/mp4"/>
+              </video>
+            </div>
+              
             <Routes>
               <Route path='/' element={<div className='Content'><HomePage/></div>}/>
-              <Route path='/hero' element={<div className='Content'><HeroPage/></div>}/>
+              <Route path='/allhero' element={<div className='Content'><AllHeroPage/></div>}/>
               <Route path='/importhero' element={<div className='Content'><HeroDataImportPage/></div>}/>
               <Route path='/existedhero' element={<div className='Content'><ExistedHero/></div>}/>
               <Route path='/importskill' element={<div className='Content'><SkillDataImportPage/></div>}/>
             </Routes>
-          </div>
-          
-        </ThemeProvider>
-      </BrowserRouter>
+
+            <div className="Footer">
+              <Footer/>
+            </div>
+            
+          </ThemeProvider>
+        </BrowserRouter>
+      </div>
     </div>
   );
 }

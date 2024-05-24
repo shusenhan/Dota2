@@ -1,0 +1,16 @@
+.UserCardContent {
+    height: 35%;
+    width: 100%;
+}
+
+.UserCardTitle {
+    display: flex;
+    height: 22%;
+    width: 100%;
+    background-color: rgb(40, 40, 40);
+}
+
+.UserSomething {
+    width: 100%;
+    height: 78%;
+}
