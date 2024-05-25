@@ -8,7 +8,7 @@ const NavbarContentItem = ({name, first=false, goto='/'}) => {
     const borderLeft = !first ? '3px solid #414141' : 'none';
     const navigate = useNavigate();
     const selected = useSelector(state => state.selectedPage);
-    const fontColor = selected === name ? 'rgb(205, 205, 205)' : 'rgb(116, 116, 116)';
+    const fontColor = selected === name ? 'rgb(215, 215, 215)' : 'rgb(116, 116, 116)';
 
     return (
         <Box sx={{
@@ -21,6 +21,7 @@ const NavbarContentItem = ({name, first=false, goto='/'}) => {
             alignItems:'center',
             borderLeft:{borderLeft},
             borderRight:'3px solid rgb(17, 17, 17)',
+            // borderBottom:'3px solid #414141',
             marigin: '0px',
             
         }}>
@@ -39,7 +40,7 @@ const NavbarContentItem = ({name, first=false, goto='/'}) => {
                     alignItems:'center',
                     '&:hover':{
                         textShadow:'0 0 5px #27a3f5',
-                        color:'rgb(205, 205, 205)',
+                        color:'rgb(215, 215, 215)',
                         cursor:'pointer'
                     },
                     marigin: '0px',
@@ -49,6 +50,7 @@ const NavbarContentItem = ({name, first=false, goto='/'}) => {
                 <Box style={{
                     position:'relative',
                     zIndex:2,
+                    textShadow: (selected === name ? '0 0 5px #27a3f5' : '')
                 }}>
                     {name}
                 </Box>
@@ -59,8 +61,8 @@ const NavbarContentItem = ({name, first=false, goto='/'}) => {
                     width:'200%',
                     height:'600%',
                     borderRadius:'50%',
-                    zIndex:1,
-                    background: 'radial-gradient(circle, rgba(39, 163, 245, 0.4), rgba(0, 0, 0, 0) 65%)',
+                    zIndex:10,
+                    background: 'radial-gradient(circle, rgba(39, 163, 245, 0.2) 15%, rgba(0, 0, 0, 0) 50%)',
                     pointerEvents:'none',
                 }}>
             </Box>}

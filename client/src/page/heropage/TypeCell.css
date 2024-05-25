@@ -1,0 +1,18 @@
+.HeroTypeCellContent {
+    height: 87%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 2.8% 1.4%;
+}
+
+.HeroTypeCellTitle{
+    display: flex;
+    height: 12%;
+    width: 100%;
+    color: rgb(161, 161, 161);
+    font-size: 14px;
+    align-items: center;
+    letter-spacing: 0.1em;
+}

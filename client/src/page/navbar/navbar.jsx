@@ -6,6 +6,9 @@ import NavbarContentItem from "./item";
 import { useDispatch, useSelector } from "react-redux";
 import { useMemo, useState } from "react";
 import { changePage } from "../../state/state";
+import NavbarContentItem2 from "./item2";
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
+import MailIcon from '@mui/icons-material/Mail';
 
 const Navbar = () => {
     const theme = useTheme();
@@ -58,9 +61,26 @@ const Navbar = () => {
                         <NavbarContentItem name="训练" />
                         <NavbarContentItem name="游廊" />
                         <div style={{
+                            height:'100%',
                             borderLeft:'3px solid #414141',
                             marigin: '0px'
                         }}><br/></div>
+                    </div>
+
+                    <div className="NavbarItems2">
+                        <div style={{
+                            height:'100%',
+                            borderLeft:'3px solid rgb(17, 17, 17)',
+                            marigin: '0px'
+                        }}><br/></div>
+                        <NavbarContentItem2 >
+                            <MailIcon/>
+                        </NavbarContentItem2>
+                        <NavbarContentItem2></NavbarContentItem2>
+                        <NavbarContentItem2></NavbarContentItem2>
+                        <NavbarContentItem2 background="radial-gradient(circle at center, rgba(255, 0, 0, 0.45), rgba(255, 0, 0, 0.2))">
+                            <PowerSettingsNewIcon/>
+                        </NavbarContentItem2>
                     </div>
 
             </FlexBetween>

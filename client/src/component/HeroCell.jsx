@@ -6,26 +6,40 @@ const HeroCell = ({engName, cnName}) => {
 
     return(
         <Box 
-            onClick={() => {navigate(`\hero?heroName=${engName}`)}}
+            onClick={() => {navigate(`/heroinfo?heroName=${engName}`)}}
             sx={{
                 backgroundImage: `url(http://localhost:3001/assets/heros/${engName}_icon.webp)`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
-                width: '110px',
-                height: '62px',
-                display: 'grid',
-                gridTemplateRows: '1fr auto',
+                fontSize: '8px',
+                lineHeight: '10px',
+                color: 'rgba(0, 0, 0, 0)',
+                fontWeight: 'bold',
                 transition: 'transform 0.3s ease',
                 '&:hover': {
-                    transform: 'scale(1.2)'
+                    transform: 'scale(2)',
+                    color: 'gold',
                 }
         }}>
-            <span style={{
-                alignSelf: 'end',
-                color: '#F9BA1A',
-                fontSize: '13px',
-                fontWeight: 700
-            }}>{cnName}</span>
+            <Box  
+                sx={{ 
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center', 
+                    justifyContent: 'center',
+            }} >  
+                {cnName.split('').map((char, index) => (  
+                    <Box  
+                        key={index} // 确保每个元素都有唯一的 key  
+                        sx={{  
+                            margin: '0px'
+                        }}  
+                    >  
+                        {char}  
+                    </Box>  
+                ))}  
+            </Box>  
         </Box>
     )
 }

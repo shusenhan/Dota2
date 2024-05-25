@@ -3,6 +3,7 @@
 .NavbarContent{
     height:100%;
     position: relative;
+    border-bottom: 3px solid #414141;
     /* background: radial-gradient(circle at 15% center, #ff7847 0%, rgb(48, 48, 48) 10%, rgb(17, 17, 17)) */
 }
 
@@ -20,6 +21,7 @@
     /* border-bottom: 3px solid #eebb79; */
     border-left: 3px solid #414141;
     border-right: 3px solid #414141;
+    z-index: 10;
 }
 
 .SettingLogo {
@@ -47,4 +49,19 @@
     color: rgb(116, 116, 116);
     text-shadow: 0px 1px 5px #000000;
     font-size: 20px;
+}
+
+.NavbarItems2 {
+    position: absolute;
+    height: 100%;
+    width: 14%;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Test {
+    color: rgb(255, 0, 0);
 }

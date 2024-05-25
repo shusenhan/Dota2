@@ -19,6 +19,7 @@ import { ToastContainer } from "react-toastify";
 import SkillDataImportPage from "./page/skilldataimport/skillimportpage";
 import ExistedHero from "./page/herodataimport/existhero";
 import Footer from "./page/footer/footer";
+import HeroPage from "./page/heropage/heropage";
 
 function App() {
   const [mode, setMode] = useState("1");
@@ -62,6 +63,7 @@ function App() {
               <Route path='/importhero' element={<div className='Content'><HeroDataImportPage/></div>}/>
               <Route path='/existedhero' element={<div className='Content'><ExistedHero/></div>}/>
               <Route path='/importskill' element={<div className='Content'><SkillDataImportPage/></div>}/>
+              <Route path='/heroinfo' element={<div className='Content'><HeroPage/></div>}/>
             </Routes>
 
             <div className="Footer">

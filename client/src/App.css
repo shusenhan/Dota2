@@ -10,8 +10,7 @@
 
 .Content {
   width: 100%;
-  height: 90%;
-  /* 后面要锁定最小高度，宽度，可以解决高度问题 */
+  height: 95%;
 }
 
 .AppBox2 {
@@ -23,11 +22,14 @@
 }
 
 .Navbar {
-  height:5%
+  height:5%;
 }
 
 .Footer {
-  height:5%
+  position: absolute;
+  bottom: 0;
+  height: 5%;
+  width: 100%;
 }
 
 .Background {

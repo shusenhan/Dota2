@@ -10,75 +10,66 @@ const HeroPage = ({}) => {
     let heroName = searchParams.get('heroName'); 
     const [heroData, setHeroData] = useState(null);
     
-    const GetHeroData = async () => {
-        const serverResponse = await fetch(
-            `http://localhost:3001/hero/gethero/${heroName}`, 
-            { 
-                method: "GET",
-            }
-        )
+    // const GetHeroData = async () => {
+    //     const serverResponse = await fetch(
+    //         `http://localhost:3001/hero/gethero/${heroName}`, 
+    //         { 
+    //             method: "GET",
+    //         }
+    //     )
 
-        const result = await serverResponse.json();
+    //     const result = await serverResponse.json();
 
-        if(serverResponse.status === 200){
-            setHeroData(result.data);
-        }
-    }
+    //     if(serverResponse.status === 200){
+    //         setHeroData(result.data);
+    //     }
+    // }
 
-    useEffect(() => {
-        GetHeroData()
-    }, [])
+    // useEffect(() => {
+    //     GetHeroData()
+    // }, [])
 
     return(
         <div className="HeroPageContent">
-            <div className='HeroPageBox4'>
-                <div style={{
-                    display:'flex',
-                    margin: '5px 40px',
-                    fontSize: '14px'
+            <div className='HeroPageLeft'>
+                <div className='HeroPageHeroName'
+                    style={{
+                        height: '15%',
+                        fontSize: '5vh',
+                        display: 'flex',
                 }}>
-                    <Typography sx={{
-                        color: '#1A9CF9',
-                        fontSize: '14px',
-                        whiteSpace: 'pre'
-                    }}>英雄 </Typography>
-                    /
-                    <Typography sx={{
-                        color: '#1A9CF9',
-                        fontSize: '14px',
-                        whiteSpace: 'pre'
-                    }}> {heroData ? heroData.HeroCNName: '英雄名'}</Typography>
+                    大地之灵
                 </div>
+                <div style={{
+                    height: '10%',
+                    fontSize: '100%'
+                }}>
+                    一行
+                </div>
+                <div style={{
+                    height: '15%',
+                    fontSize: '100%'
+                }}>
+                    一行
+                </div>
+                <div style={{
+                    height: '15%',
+                    fontSize: '100%'
+                }}>
+                    一行
+                </div>
+                <div style={{
+                    height: '45%',
+                    fontSize: '100%'
+                }}>
+                    一行
+                </div>
+            </div>
+            <div className='HeroPageMiddle'>
+               
+            </div>
+            <div className='HeroPageRight'>
                 
-                <div style={{
-                    display:'flex',
-                    margin: '5px 40px'
-                }}>
-                    <Typography sx={{
-                        fontSize: '40px',
-                    }}>{heroData ? heroData.HeroCNName: '英雄名'}</Typography>
-                </div>
-
-                <div style={{
-                    margin: '5px 40px',
-                    textAlign: 'left'
-                }}>
-                    <img src='http://localhost:3001/assets/commons/Filter_support_icon.webp'/>
-                    <img src='http://localhost:3001/assets/commons/Filter_support_icon.webp'/>
-                    <img src='http://localhost:3001/assets/commons/Filter_support_icon.webp'/>
-                </div>
-
-                <div>
-                    <div className='HeroPageBox2'>
-                        <div className='HeroPageBox3'>
-                            {heroData && <HeroInfo hero={heroData}/>}
-                        </div>
-                    </div>
-
-                    <div>
-                        {heroData && <SkillPanel hero={heroData}/>}
-                    </div>
-                </div>    
             </div>
         </div>
     )

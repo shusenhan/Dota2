@@ -22,9 +22,9 @@
 .HomePageChatBox {
     position: absolute;
     bottom: 35%;
-    width: 3%;
     width: 38%;
     right: 49%;
+    height: 60%;
     background-color: rgb(20, 20, 20);
     transform: translateX(50%);
     display: flex;
@@ -44,7 +44,7 @@
     margin: 0 1.5%;
     position: absolute;
     bottom: 35%;
-    height: 100%;
+    height: 110%;
     width: 19.4%; /* 96.5% * 20% */
     background-color: rgb(40, 40, 40);
     color:rgb(203, 203, 203)

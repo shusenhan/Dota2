@@ -1,4 +1,4 @@
-import HeroCell from "./HeroCell";
+import HeroTypeCell from "./TypeCell";
 
 const HeroList = (props) => {
     const strenghHeroList = [
@@ -139,94 +139,19 @@ const HeroList = (props) => {
     return(
         <div className="HeroList" 
             style={{
+                height: '100%',
                 display: 'grid',
+                gap: '1% 4%',
+                gridTemplateColumns: 'repeat(2, 1fr)',
+                gridTemplateRows: '50% 50%',
                 justifyContent: 'center',
                 alignSelf: "flex-start",
                 ...props.style
         }}>
-            <div style={{
-                height: '60px', 
-                borderBottom: '10px solid #B9500B', 
-                margin: '10px 0px',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center'
-            }}>
-                <img style={{flexShrink: 0}} src="http://localhost:3001/assets/commons/Strength_attribute_symbol.webp" alt="Strength Hero"/>力量英雄({strenghHeroList.length})
-            </div>
-            <div style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                justifyContent: 'center',
-                gap: '10px',
-            }}>
-                {strenghHeroList.map(([imageSrc, name2], index) => (
-                    <HeroCell key={index} engName={imageSrc} cnName={name2}/>
-                ))}
-            </div>
-
-            <div style={{
-                height: '60px', 
-                borderBottom: '10px solid #167C13', 
-                margin: '10px 0px',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center'
-            }}>
-                <img style={{flexShrink: 0}} src="http://localhost:3001/assets/commons/Agility_attribute_symbol.webp" alt="Agility Hero"/>敏捷英雄({agilityHeroList.length})
-            </div>
-            <div style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                justifyContent: 'center',
-                gap: '10px',
-            }}>
-                {agilityHeroList.map(([imageSrc, name2], index) => (
-                    <HeroCell key={index} engName={imageSrc} cnName={name2}/>
-                ))}
-            </div>
-
-            <div style={{
-                height: '60px', 
-                borderBottom: '10px solid #257DAE', 
-                margin: '10px 0px',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center'
-            }}>
-                <img style={{flexShrink: 0}} src="http://localhost:3001/assets/commons/Intelligence_attribute_symbol.webp" alt="Intelligence Hero"/>智力英雄({intelligenceHeroList.length})
-            </div>
-            <div style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                justifyContent: 'center',
-                gap: '10px',
-            }}>
-                {intelligenceHeroList.map(([imageSrc, name2], index) => (
-                    <HeroCell key={index} engName={imageSrc} cnName={name2}/>
-                ))}
-            </div>
-
-            <div style={{
-                height: '60px', 
-                borderBottom: '10px solid #5D3FD3', 
-                margin: '10px 0px',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center'
-            }}>
-                <img style={{flexShrink: 0}} src="http://localhost:3001/assets/commons/Universal_attribute_symbol.webp" alt="Universal Hero"/>全才英雄({universalHeroList.length})
-            </div>
-            <div style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                justifyContent: 'center',
-                gap: '10px',
-            }}>
-                {universalHeroList.map(([imageSrc, name2], index) => (
-                    <HeroCell key={index} engName={imageSrc} cnName={name2}/>
-                ))}
-            </div>
+            <HeroTypeCell heroList={strenghHeroList} type='Strength' cnType='力量'/>
+            <HeroTypeCell heroList={agilityHeroList} type='Agility' cnType='敏捷'/>
+            <HeroTypeCell heroList={intelligenceHeroList} type='Intelligence' cnType='智力'/>
+            <HeroTypeCell heroList={universalHeroList} type='Universal' cnType='全才'/>
         </div>
     )
 }
