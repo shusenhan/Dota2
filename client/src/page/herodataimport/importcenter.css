@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap');
+
+.ImportCenterContent {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    color: white;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 12%;
+}
+
+.ImportCenterHero {
+    height: 65%;
+    flex-basis: 14%;
+    margin: 5% 0 0 0%;
+    background: url('http://localhost:3001/assets/commons/Hero_import.jpg');
+    background-size: cover; /* 或 cover */  
+    background-repeat: no-repeat;  
+    background-position: center;
+    border-top: 5px solid #414141;
+    border-left: 4px solid #272727;
+    border-right: 4px solid #272727;
+    border-bottom: 3px solid #181818;
+    transition: transform 0.3s ease;
+    gap: 2%;
+    font-size: 4.5vh;
+    font-family: "Ma Shan Zheng", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.ImportCenterHero:hover {
+    box-shadow: 0 0 10px 5px #ff7847;
+    transform: scale(1.1);
+    border-top: 5px solid #c28169;
+    border-left: 4px solid #a26a52;
+    border-right: 4px solid #a26a52;
+    border-bottom: 3px solid #8c4f2f;
+}
+
+.ImportCenterHero > .ImportCenterText {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.25s ease-in-out;
+    color: gold;
+    text-shadow: 0 0 10px gold;
+}
+
+.ImportCenterHero > .ImportCenterText:hover {
+    opacity: 1;
+}
+
+.ImportCenterItem {
+    height: 65%;
+    flex-basis: 14%;
+    margin: 5% 0 0 0%;
+    background: url('http://localhost:3001/assets/commons/Import_item.png');
+    background-size: cover; /* 或 cover */  
+    background-repeat: no-repeat;  
+    background-position: center;
+    border-top: 5px solid #414141;
+    border-left: 4px solid #272727;
+    border-right: 4px solid #272727;
+    border-bottom: 3px solid #181818;
+    transition: transform 0.3s ease;
+    gap: 2%;
+    font-size: 4.5vh;
+    font-family: "Ma Shan Zheng", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.ImportCenterItem:hover {
+    box-shadow: 0 0 10px 5px #037dff;
+    transform: scale(1.1);
+    border-top: 5px solid #5ea1ea;
+    border-left: 4px solid #3071b6;
+    border-right: 4px solid #3071b6;
+    border-bottom: 3px solid #234a74;
+}
+
+.ImportCenterItem > .ImportCenterText {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.25s ease-in-out;
+    color: gold;
+    text-shadow: 0 0 10px rgb(0, 132, 255);
+}
+
+.ImportCenterItem > .ImportCenterText:hover {
+    opacity: 1;
+}
+
+.ImportCenterSkill {
+    height: 65%;
+    flex-basis: 14%;
+    margin: 5% 0 0 0%;
+    background: url('http://localhost:3001/assets/commons/Skill_import.jpg');
+    background-size: cover; /* 或 cover */  
+    background-repeat: no-repeat;  
+    background-position: center;
+    border-top: 5px solid #414141;
+    border-left: 4px solid #272727;
+    border-right: 4px solid #272727;
+    border-bottom: 3px solid #181818;
+    transition: transform 0.3s ease;
+    gap: 2%;
+    font-size: 4.5vh;
+    font-family: "Ma Shan Zheng", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.ImportCenterSkill:hover {
+    box-shadow: 0 0 10px 5px #47007a;
+    transform: scale(1.1);
+    border-top: 5px solid #791dbb;
+    border-left: 4px solid #5b2581;
+    border-right: 4px solid #5b2581;
+    border-bottom: 3px solid #5c009e;
+}
+
+.ImportCenterSkill > .ImportCenterText {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.25s ease-in-out;
+    color: gold;
+    text-shadow: 0 0 10px rgb(45, 29, 60);
+}
+
+.ImportCenterSkill > .ImportCenterText:hover {
+    opacity: 1;
+}

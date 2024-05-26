@@ -59,7 +59,7 @@ const Navbar = () => {
                         <NavbarContentItem name="兵器库" />
                         <NavbarContentItem name="观战" />
                         <NavbarContentItem name="训练" />
-                        <NavbarContentItem name="游廊" />
+                        <NavbarContentItem name="导入" goto='/importcenter'/>
                         <div style={{
                             height:'100%',
                             borderLeft:'3px solid #414141',

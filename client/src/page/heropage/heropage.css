@@ -10,7 +10,7 @@
 }
 
 .HeroPageLeft {
-    padding: 8% 0% 15% 5%;
+    padding: 6% 0% 15% 5%;
     flex-basis: 50%;
     height: 100%;
     display: flex;
@@ -34,4 +34,243 @@
     font-family: "Ma Shan Zheng", cursive;
     font-weight: 400;
     font-style: normal;
+}
+
+.HeroPageAttributeIcon {
+    height: 100%;
+    padding: 0 2%;
+    display: flex;
+    align-items: center;
+    flex-basis: 6%;
+}
+
+.HeroPageAttributeIcon > img {
+    height: 65%;
+}
+
+.HeroPageComplexity {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-basis: 9%;
+}
+
+.HeroPageComplexity > img {
+    height: 35%;
+    filter: invert(82.5%);
+}
+
+.HeroPageAttackType {
+    font-size: 1.75vh;
+    flex-basis: 15%;
+    height: 100%;
+    display: flex;
+    align-items: center
+}
+
+.HeroPageAttackType > img{
+    filter:invert(82.5%);
+    height: 35%;
+}
+
+.HeroPageRole{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-basis: 50%;
+    font-size: 1.75vh;
+}
+
+.HeroPageRole > img{
+    height: 45%;
+    filter:invert(82.5%);
+}
+
+.HeroPageInitTalent1 {
+    height: 70%;
+    flex-basis: 27%;
+    margin: 0 1% 0 0;
+    border-radius: 5%;
+    background: radial-gradient(circle at 25% center, #aee22a, rgb(70, 76, 53));
+}
+
+.HeroPageInitTalent2 {
+    height: 70%;
+    flex-basis: 27%;
+    border-radius: 5%;
+    background: radial-gradient(circle at 25% center, rgba(161, 161, 161, 0.75), rgba(50, 50, 50, 0.75));
+}
+
+.HeroPageTalentTree {
+    height: 70%;
+    flex-basis: 7%;
+    margin: 0 0.5% 0 0;
+    position: relative;
+}
+
+.HeroPageTalentTree > img{
+    position: absolute;
+    left: 0;
+    height: 100%;
+    flex-basis: 25%;
+    filter: invert(60%);
+}
+
+.HeroPageTalentTree > div {
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 90%;
+    background-color: rgb(22, 22, 22);
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.HeroPageInitSkill {
+    height: 70%;
+    flex-basis: 7%;
+    margin: 0 0.5% 0 0;
+    position: relative;
+}
+
+.HeroPageInitSkill > img{
+    position: absolute;
+    left: 0;
+    height: 100%;
+    flex-basis: 25%;
+    filter: invert(60%);
+}
+
+.HeroPageSkill {
+    margin: 0 1.5% 0 0;
+    font-size: 12px;
+    height: 70%;
+    flex-basis: 6.5%;
+    background-color: green;
+}
+
+.HeroPageAttributePanel1 {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-basis: 17%;
+}
+
+.HeroPageAttributeName1 {
+    font-size: 1.5vh;
+    display: flex;
+    height: 5%;
+    color: rgba(161, 161, 161, 0.75);
+    position: relative;
+}
+
+.HeroPageAttributeData1 {
+    font-size: 2vh;
+    display: flex;
+    align-items: center;
+}
+
+.HeroPageAttributeData1 > img {
+    height: 55%;
+    margin-right: 2%;
+}
+
+.HeroPageDataPanel {
+    padding-top: 3%;
+    margin-top: 2%;
+    border-top: 2px solid rgba(161, 161, 161, 0.75);
+    height: 48%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+}
+
+.HeroPageAttributePanel2 {
+    padding-left: 4%;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-basis: 40%;
+}
+
+.HeroPageOtherAttribute {
+    /* flex-basis: 15%; */
+    margin-bottom: 6%;
+    height: 15%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.HeroPageAttributeData2 {
+    height: 100%;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.HeroPageAttributeData2 > img {
+    height: 60%;
+}
+
+.HeroPageAttributeData2 > div {
+    font-size: 1.75vh;
+}
+
+.HeroPageHealthManaPanel {
+    flex-basis: 45%;
+}
+
+.HeroPageHealth {
+    height: 45%;
+    font-size: 1.5vh;
+    color: rgba(161, 161, 161, 0.75);
+    text-align: start;
+}
+
+.HeroPageMana {
+    height: 45%;
+    font-size: 1.5vh;
+    color: rgba(161, 161, 161, 0.75);
+    text-align: start;
+}
+
+.HeroPageHealthBar {
+    color: white;
+    font-size: 1.9vh;
+    font-weight: 700;
+    height: 50%;
+    background: linear-gradient(to right, #286323, #7AF03C);
+    width: 85%;
+    text-align: center;
+}
+
+.HeroPageManaBar {
+    color: white;
+    font-size: 1.9vh;
+    font-weight: 700;
+    height: 50%;
+    background: linear-gradient(to right, #1056DB, #73F5FE);
+    width: 85%;
+    text-align: center;
+}
+
+.HeroPageExtraAttribute {
+    height: 15%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.SingleHeroPageNavbar {
+    width: 100%;
+    height: 4%;
+    background-color: rgba(16, 16, 16, 0.7);
+    position: absolute;
 }

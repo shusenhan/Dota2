@@ -20,6 +20,7 @@ import SkillDataImportPage from "./page/skilldataimport/skillimportpage";
 import ExistedHero from "./page/herodataimport/existhero";
 import Footer from "./page/footer/footer";
 import HeroPage from "./page/heropage/heropage";
+import ImportCenter from "./page/herodataimport/importcenter";
 
 function App() {
   const [mode, setMode] = useState("1");
@@ -60,9 +61,9 @@ function App() {
             <Routes>
               <Route path='/' element={<div className='Content'><HomePage/></div>}/>
               <Route path='/allhero' element={<div className='Content'><AllHeroPage/></div>}/>
-              <Route path='/importhero' element={<div className='Content'><HeroDataImportPage/></div>}/>
+              <Route path='/importcenter' element={<div className='Content'><ImportCenter/></div>}/>
               <Route path='/existedhero' element={<div className='Content'><ExistedHero/></div>}/>
-              <Route path='/importskill' element={<div className='Content'><SkillDataImportPage/></div>}/>
+              {/* <Route path='/importskill' element={<div className='Content'><SkillDataImportPage/></div>}/> */}
               <Route path='/heroinfo' element={<div className='Content'><HeroPage/></div>}/>
             </Routes>
 
