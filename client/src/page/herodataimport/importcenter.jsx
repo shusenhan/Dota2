@@ -3,9 +3,11 @@ import { useDispatch } from 'react-redux';
 import { changePage } from '../../state/state';
 import { useEffect } from 'react';
 import { Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const ImportCenter = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(changePage({newPage: '导入'}));
@@ -13,7 +15,7 @@ const ImportCenter = () => {
 
     return(
         <div className='ImportCenterContent'>
-            <div className='ImportCenterHero'>
+            <div className='ImportCenterHero' onClick={() => navigate('\hero')}>
                 <div className='ImportCenterText'>
                     {"导入英雄数据".split('').map((char, index) => (
                         <Box key={index}

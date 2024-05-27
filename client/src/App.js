@@ -62,7 +62,9 @@ function App() {
               <Route path='/' element={<div className='Content'><HomePage/></div>}/>
               <Route path='/allhero' element={<div className='Content'><AllHeroPage/></div>}/>
               <Route path='/importcenter' element={<div className='Content'><ImportCenter/></div>}/>
-              <Route path='/existedhero' element={<div className='Content'><ExistedHero/></div>}/>
+              <Route path='/importcenter/hero' element={<div className='Content'><ExistedHero/></div>}/>
+              {<Route path='/importcenter/hero/import' element={<div className='Content'><HeroDataImportPage/></div>}/>}
+              {/* <Route path='/existedhero' element={<div className='Content'><ExistedHero/></div>}/> */}
               {/* <Route path='/importskill' element={<div className='Content'><SkillDataImportPage/></div>}/> */}
               <Route path='/heroinfo' element={<div className='Content'><HeroPage/></div>}/>
             </Routes>

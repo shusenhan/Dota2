@@ -16,10 +16,37 @@ function CustomSelect({ label, value, onChange, onBlur, error, helperText, child
                 onBlur={onBlur}
                 onChange={onChange}
                 value={value}
-                inputProps={{sx:{display:'flex', alignItems:'center'}}}
+
+                inputProps={{
+                    sx:{
+                        display:'flex', 
+                        alignItems:'center',
+                        color: 'white',
+                        height: '30px',
+                        paddingTop: '0',
+                        paddingBottom: '0',
+                        border: '1px solid white',
+                }}}
+                SelectProps={{
+                    style:{
+                        height: '30px',
+                        border: '1px solid red',
+                }}}
+                itemProp={{
+                    style:{
+                        height: '30px',
+                        border: '1px solid red',
+                }}}
+                SelectDisplayProps={{
+                    style:{
+                        height: '30px',
+                        border: '1px solid white',
+                }}}
+                prop
                 {...props} 
                 style={{
                     gridColumn: "span 3",
+                    height: '30px',
             }}>
                 {children}
             </Select>

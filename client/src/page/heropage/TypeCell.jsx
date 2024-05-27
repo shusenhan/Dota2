@@ -1,7 +1,8 @@
 import HeroCell from "../../component/HeroCell";
 import './TypeCell.css';
 
-const HeroTypeCell = ({heroList, type, cnType}) => {
+const HeroTypeCell = ({heroList, type, cnType, importing=false}) => {
+
     return (
         <div style={{height: '100%'}}>
             <div className="HeroTypeCellTitle">
@@ -12,12 +13,12 @@ const HeroTypeCell = ({heroList, type, cnType}) => {
                 {cnType}
             </div>
             
-            <div className="HeroTypeCellContent">
-
+            
+            {heroList && <div className="HeroTypeCellContent">
                 {heroList.map(([imageSrc, name2], index) => (
-                        <HeroCell key={index} engName={imageSrc} cnName={name2}/>
+                        <HeroCell key={index} engName={imageSrc} cnName={name2} importing={importing}/>
                     ))}
-            </div>
+            </div>}
         </div>
     )
 }

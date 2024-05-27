@@ -2,12 +2,6 @@ import { createTheme } from "@mui/material";
 
 export const Theme1 = createTheme({
     palette:{
-        primary: {
-            main: '#E690B8',
-        },
-        secondary: {
-            main: '#92CF8A',
-        },
     },
     picture:{
         background:'../theme/background/1.jpg'
@@ -22,6 +16,13 @@ export const Theme1 = createTheme({
                     },  
                 },
             }
+        },
+        MuiInputLabel: {
+            styleOverrides: {
+                root: {
+                    color: 'white',
+                }
+            }
         }
     }
 });
@@ -29,12 +30,6 @@ export const Theme1 = createTheme({
 
 export const Theme2 = createTheme({
     palette:{
-        primary: {
-            main: '#8ACDCF',
-        },
-        secondary: {
-            main: '#B58ACF',
-        },
     },
     picture:{
         background:'../theme/background/2.jpg'

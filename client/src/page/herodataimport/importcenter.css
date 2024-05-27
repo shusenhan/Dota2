@@ -108,7 +108,7 @@
     flex-basis: 14%;
     margin: 5% 0 0 0%;
     background: url('http://localhost:3001/assets/commons/Skill_import.jpg');
-    background-size: cover; /* 或 cover */  
+    background-size: cover;
     background-repeat: no-repeat;  
     background-position: center;
     border-top: 5px solid #414141;

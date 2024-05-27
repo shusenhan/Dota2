@@ -19,7 +19,20 @@ function CustomTextField({ label, value, onChange, onBlur, error, helperText, ..
             helperText={null} 
             FormHelperTextProps={{ sx: { display: 'none' } }}
             InputProps={{
-            }}  
+                sx: {
+                    color: 'white',
+                    border: '1px solid rgba(255, 255, 255, 0.5)',
+                    '&:hover': {
+                        boxShadow: '0 0 0 2px rgba(255, 255, 255, 0.5)',
+                    },
+                }
+            }}
+            
+            InputLabelProps={{
+                style: {
+                    color: 'white',
+                }
+            }}
             {...props} 
             style={{
                 gridColumn: "span 3",

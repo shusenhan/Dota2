@@ -1,12 +1,12 @@
 import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const HeroCell = ({engName, cnName}) => {
+const HeroCell = ({engName, cnName, importing=false}) => {
     const navigate = useNavigate();
 
     return(
         <Box 
-            onClick={() => {navigate(`/heroinfo?heroName=${engName}`)}}
+            onClick={() => {importing ? navigate(`\import?heroName=${engName}`) : navigate(`/heroinfo?heroName=${engName}`)}}
             sx={{
                 backgroundImage: `url(http://localhost:3001/assets/heros/${engName}_icon.webp)`,
                 backgroundSize: 'cover',
@@ -31,7 +31,7 @@ const HeroCell = ({engName, cnName}) => {
             }} >  
                 {cnName.split('').map((char, index) => (  
                     <Box  
-                        key={index} // 确保每个元素都有唯一的 key  
+                        key={index} 
                         sx={{  
                             margin: '0px'
                         }}  
