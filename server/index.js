@@ -45,7 +45,7 @@ const upload1 = multer({ storage: storageHero });
 const upload2 = multer({ storage: storageSkill });
 
 app.use("/hero", upload1.single("Image1"), heroRouter);
-app.use("/skill", upload2.single("ImageFile1"), skillRouter)
+app.use("/skill",upload2.single("ImageFile1"), skillRouter)
 
 const PORT = 3001;
 

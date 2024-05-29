@@ -1,12 +1,22 @@
 import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const HeroCell = ({engName, cnName, importing=false}) => {
+const HeroCell = ({engName, cnName, importing=false, skill=false}) => {
     const navigate = useNavigate();
 
     return(
         <Box 
-            onClick={() => {importing ? navigate(`\import?heroName=${engName}`) : navigate(`/heroinfo?heroName=${engName}`)}}
+            onClick={() => {
+                if(importing){
+                    navigate(`\import?heroName=${engName}`);
+                }
+                else if(skill){
+                    navigate(`\import?heroName=${engName}`);
+                }
+                else if(!importing && !skill){
+                    navigate(`/heroinfo?heroName=${engName}`)
+                }
+            }}
             sx={{
                 backgroundImage: `url(http://localhost:3001/assets/heros/${engName}_icon.webp)`,
                 backgroundSize: 'cover',

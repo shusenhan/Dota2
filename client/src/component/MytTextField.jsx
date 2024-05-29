@@ -35,7 +35,7 @@ function CustomTextField({ label, value, onChange, onBlur, error, helperText, ..
             }}
             {...props} 
             style={{
-                gridColumn: "span 3",
+                gridColumn: "span 4",
         }}/>
 
         {helperText && (  
@@ -43,7 +43,7 @@ function CustomTextField({ label, value, onChange, onBlur, error, helperText, ..
                 color: 'red', 
                 margin: '0px 12px',
                 fontSize: '12px',
-                gridColumn: "span 2"
+                gridColumn: "span 1"
             }}>  
                 {helperText}  
             </div>  

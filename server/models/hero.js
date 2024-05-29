@@ -31,7 +31,14 @@ class Hero {
         MoveSpeed,
         TurnRate,
         DayVision,
-        NightVision
+        NightVision,
+        Complixity,
+        IsDisable,
+        IsDurable,
+        IsEscape,
+        IsInitiator,
+        IsNuker,
+        IsPuher
     }){
         this.HeroId = HeroId;
         this.HeroName = HeroName;
@@ -65,6 +72,13 @@ class Hero {
         this.TurnRate = TurnRate;
         this.DayVision = DayVision;
         this.NightVision = NightVision;
+        this.Complixity = Complixity;
+        this.IsDisable = IsDisable;
+        this.IsDurable = IsDurable;
+        this.IsEscape = IsEscape;
+        this.IsInitiator = IsInitiator;
+        this.IsNuker = IsNuker;
+        this.IsPuher = IsPuher;
     }
 }
 

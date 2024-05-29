@@ -17,4 +17,4 @@ const SkillPanel = ({}) => {
     )
 }
 
-export default SkillPanel;
+// export default SkillPanel;

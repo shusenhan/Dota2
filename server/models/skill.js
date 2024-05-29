@@ -5,16 +5,27 @@ class Skill {
         SkillCNName,
         SkillDescription,
         SkillImage1,
+
         SkillImage2,
         SkillImage3,
-        SkillType,
         Cost,
         SkillCD,
         Sequence,
+
         ExtraInfo1,
         ExtraInfo2,
         ExtraInfo3,
-        Owner
+        Owner,
+        Affect,
+
+        InitTalent,
+        InitTalentDescription,
+        IgnoreBKB,
+        Dispellable,
+        Ability,
+
+        DamageType,
+        CastRange,
     }){
         this.SkillId = SkillId;
         this.SkillName = SkillName;
@@ -23,7 +34,6 @@ class Skill {
         this.SkillImage1 = SkillImage1;
         this.SkillImage2 = SkillImage2;
         this.SkillImage3 = SkillImage3;
-        this.SkillType = SkillType;
         this.Cost = Cost;
         this.SkillCD = SkillCD;
         this.Sequence = Sequence;
@@ -31,6 +41,14 @@ class Skill {
         this.ExtraInfo2 = ExtraInfo2;
         this.ExtraInfo3 = ExtraInfo3;
         this.Owner = Owner;
+        this.Affect = Affect;
+        this.InitTalent = InitTalent;
+        this.IgnoreBKB = IgnoreBKB;
+        this.InitTalentDescription = InitTalentDescription;
+        this.Dispellable = Dispellable;
+        this.Ability = Ability;
+        this.DamageType = DamageType;
+        this.CastRange = CastRange;
     }
 }
 

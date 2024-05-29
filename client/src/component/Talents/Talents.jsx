@@ -3,15 +3,29 @@ import { Typography } from "@mui/material";
 
 const Talents = () => {
     return(
-        <div>
+        <div style={{
+            height: '100%',
+            width: '100%',
+            position:'absolute',
+            zIndex: 5,
+            background: 'radial-gradient(circle at 10% 25%, #464646, #303030)',
+            boxShadow: '0px 0px 10px 5px #000000',
+        }}>
             <div style={{
-                backgroundColor: 'rgba(0, 0, 0, 0.85)',
-                height: '200px',
-                position:'relative'
+                height: '100%',
+                width: '100%',
+                position:'relative',
+                color: 'white',
+                fontSize: '20px',
+                
             }}>
                 <Typography sx={{
-                    fontSize: '18px',
-                    color: 'white'
+                    fontSize: '2vh',
+                    color: 'white',
+                    height: '18%',
+                    textAlign: 'center',
+                    paddingTop: '2%',
+                    letterSpacing: '0.5em',
                 }}>
                     天赋树
                 </Typography>
@@ -19,8 +33,9 @@ const Talents = () => {
                     display:'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    gap: '20px',
-                    margin: '5px 5px',
+                    gap: '5%',
+                    padding: '0.75% 3%',
+                    height: '20%'
                 }}>
                     <TalentCell></TalentCell>
                     <div style={{
@@ -28,36 +43,13 @@ const Talents = () => {
                         display:'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        width: '30px',
-                        height: '30px',
+                        width: '9%',
+                        height: '14%',
                         backgroundColor: '#2F2F2F',
                         color: '#EDC514',
                         borderRadius: '15px',
                         border: '3px solid #555555',
-                        fontWeight: 'bold',
-                        textShadow: '0px 0px 5px #EDC514'
-                    }}>25</div>
-                    <TalentCell L={false}></TalentCell>
-                </div>
-                <div style={{
-                    display:'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    gap: '20px',
-                    margin: '5px 5px',
-                }}>
-                    <TalentCell></TalentCell>
-                    <div style={{
-                        position: 'absolute',
-                        display:'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        width: '30px',
-                        height: '30px',
-                        backgroundColor: '#2F2F2F',
-                        color: '#EDC514',
-                        borderRadius: '15px',
-                        border: '3px solid #555555',
+                        fontSize: '2vh',
                         fontWeight: 'bold',
                         textShadow: '0px 0px 5px #EDC514'
                     }}>20</div>
@@ -67,8 +59,9 @@ const Talents = () => {
                     display:'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    gap: '20px',
-                    margin: '5px 5px',
+                    gap: '5%',
+                    padding: '0.75% 3%',
+                    height: '20%'
                 }}>
                     <TalentCell></TalentCell>
                     <div style={{
@@ -76,23 +69,25 @@ const Talents = () => {
                         display:'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        width: '30px',
-                        height: '30px',
+                        width: '9%',
+                        height: '14%',
                         backgroundColor: '#2F2F2F',
                         color: '#EDC514',
                         borderRadius: '15px',
                         border: '3px solid #555555',
+                        fontSize: '2vh',
                         fontWeight: 'bold',
                         textShadow: '0px 0px 5px #EDC514'
-                    }}>15</div>
+                    }}>20</div>
                     <TalentCell L={false}></TalentCell>
                 </div>
                 <div style={{
                     display:'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    gap: '20px',
-                    margin: '5px 5px',
+                    gap: '5%',
+                    padding: '0.75% 3%',
+                    height: '20%'
                 }}>
                     <TalentCell></TalentCell>
                     <div style={{
@@ -100,35 +95,45 @@ const Talents = () => {
                         display:'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        width: '30px',
-                        height: '30px',
+                        width: '9%',
+                        height: '14%',
                         backgroundColor: '#2F2F2F',
                         color: '#EDC514',
                         borderRadius: '15px',
                         border: '3px solid #555555',
+                        fontSize: '2vh',
                         fontWeight: 'bold',
                         textShadow: '0px 0px 5px #EDC514'
-                    }}>10</div>
+                    }}>20</div>
                     <TalentCell L={false}></TalentCell>
                 </div>
                 <div style={{
-                    position: 'absolute',
-                    background: 'rgba(0, 0, 0, 0.85)',
-                    height: '10px',
-                    width: '20px',
-                    right: '175px',
-                    bottom: '-10px'
+                    display:'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: '5%',
+                    padding: '0.75% 3%',
+                    height: '20%'
                 }}>
+                    <TalentCell></TalentCell>
+                    <div style={{
+                        position: 'absolute',
+                        display:'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        width: '9%',
+                        height: '14%',
+                        backgroundColor: '#2F2F2F',
+                        color: '#EDC514',
+                        borderRadius: '15px',
+                        border: '3px solid #555555',
+                        fontSize: '2vh',
+                        fontWeight: 'bold',
+                        textShadow: '0px 0px 5px #EDC514'
+                    }}>20</div>
+                    <TalentCell L={false}></TalentCell>
                 </div>
-            </div>
-
-            <div>
-                <img src='http://localhost:3001/assets/commons/talents_tree_full.png' style={{
-                    width: '64px',
-                    height: '64px',
-                    position: 'relative',
-                    zIndex: '1'
-                }}/>
+                
             </div>
         </div>
     )

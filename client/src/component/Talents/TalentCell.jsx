@@ -3,7 +3,7 @@ import { useState } from "react";
 
 const TalentCell = ({text, L=true}) => {
     const percentage = L === true ? '100%': '0%'
-    const [color, setColor] = useState('rgba(0, 0, 0, 0.87)');
+    const [color, setColor] = useState('rgba(141, 141, 141, 0.87)');
 
     const ChangeColor = () => {
         setColor('#EDC514');
@@ -13,14 +13,13 @@ const TalentCell = ({text, L=true}) => {
         <Box 
             onClick={ChangeColor}
             sx={{
-                backgroundColor: '',
-                background: `radial-gradient(circle at ${percentage} center, #848484, #3E3E3E)`,
-                height:'36px',
-                width:'170px',
+                background: `radial-gradient(circle at ${percentage} center, #363636, #202020)`,
+                height:'100%',
+                width:'100%',
                 display:'flex',
                 justifyContent: 'center',
                 color: color,
-                fontSize: '13px',
+                fontSize: '1.5vh',
                 alignItems: 'center',
                 '&:hover': {
                     color: 'white',

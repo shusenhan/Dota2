@@ -27,11 +27,6 @@ function CustomSelect({ label, value, onChange, onBlur, error, helperText, child
                         paddingBottom: '0',
                         border: '1px solid white',
                 }}}
-                SelectProps={{
-                    style:{
-                        height: '30px',
-                        border: '1px solid red',
-                }}}
                 itemProp={{
                     style:{
                         height: '30px',
@@ -42,7 +37,6 @@ function CustomSelect({ label, value, onChange, onBlur, error, helperText, child
                         height: '30px',
                         border: '1px solid white',
                 }}}
-                prop
                 {...props} 
                 style={{
                     gridColumn: "span 3",

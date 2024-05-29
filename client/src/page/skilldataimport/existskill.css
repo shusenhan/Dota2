@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap');
+
+.ExistedSkillContent {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    height:100%;
+}
+
+.ExistedSkills {
+    height: 100%;
+    display: grid;
+    gap: 1% 4%;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 50% 50%;
+    justify-content: center;
+    align-self: flex-start;
+}
+
+.ExistedSkillContainer {
+    height: 68%;
+    width: 100%;
+    padding: 1.5% 17% 0% 17%;
+}
+.ExistedSkillTitle {
+    color: rgb(210, 210, 210);
+    font-size: 3.25vh;
+    font-family: "Ma Shan Zheng", cursive;
+    font-weight: 400;
+    font-style: normal;
+    padding-top: 2%;
+}

@@ -18,6 +18,7 @@ import notify from '../../component/ToastBox.tsx';
 import { useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import InputPanel from './InputPanel.jsx';
+import Talents from '../../component/Talents/Talents.jsx';
 
 const heroSchema = yup.object().shape({
     HeroName: yup.string().required('请输入值'),
@@ -51,6 +52,13 @@ const heroSchema = yup.object().shape({
     TurnRate: yup.number().required('请输入值').typeError('请输入数字'),
     DayVision: yup.number().required('请输入值').typeError('请输入数字'),
     NightVision: yup.number().required('请输入值').typeError('请输入数字'),
+    Complexity: yup.number().required('请输入值').typeError('请输入数字'),
+    IsDisable: yup.number().required('请输入值').typeError('请输入数字'),
+    IsDurable: yup.number().required('请输入值').typeError('请输入数字'),
+    IsEscape: yup.number().required('请输入值').typeError('请输入数字'),
+    IsInitiator: yup.number().required('请输入值').typeError('请输入数字'),
+    IsNuker: yup.number().required('请输入值').typeError('请输入数字'),
+    IsPusher: yup.number().required('请输入值').typeError('请输入数字'),
 });
 
 const initValue = {
@@ -85,6 +93,13 @@ const initValue = {
     TurnRate: 0.6,
     DayVision: 1800,
     NightVision: 800,
+    Complexity: 1,
+    IsDisable: 0,
+    IsDurable: 0,
+    IsEscape: 0,
+    IsInitiator: 0,
+    IsNuker: 0,
+    IsPusher: 0,
 };
 
 const HeroDataImportPage = () => {
@@ -107,6 +122,7 @@ const HeroDataImportPage = () => {
 
         if(serverResponse.status === 200){
             setHeroData(result.data);
+            console.log(result.data)
         }
     }
 
@@ -151,31 +167,6 @@ const HeroDataImportPage = () => {
         }
         else if(HeroType === 3){
             return 'http://localhost:3001/assets/commons/Universal_attribute_symbol.webp'
-        }
-    }
-
-    const RenderInputPanel = ({ Component, props }) => {
-        let Component1 = null;
-        let Component2 = null;
-        let Component3 = null;
-
-        if(Component.length > 1){
-            Component1 = Component[0];
-            Component2 = Component[1];
-            Component3 = Component[2];
-
-            return(
-                <Component3 {...props[2]}>
-                    <Component1 {...props[0]}/>
-                    <Component2 {...props[1]}/>
-                </Component3>
-            )
-        }
-        else{
-            Component1 = Component[0];
-            return(
-                <Component1 {...props[0]}/>
-            )
         }
     }
 
@@ -750,6 +741,8 @@ const HeroDataImportPage = () => {
                                 }}  
                                 size="small"  
                             />}
+
+                        {inputPanelContent === 'Talent' &&  <Talents/> }
                     </InputPanel>
                 }
 
@@ -955,9 +948,12 @@ const HeroDataImportPage = () => {
                             <img src={hero ? GetAttributeIcon(values.HeroType) : 'http://localhost:3001/assets/commons/Strength_attribute_symbol.webp'}/>
                         </div>
                         <div className='HeroImportPageComplexity' onClick={() => {setOpenInputPanel(!openInputPanel); setInputPanelContent('Complexity')}}>
-                            <img src="http://localhost:3001/assets/commons/Filter_complexity_icon.webp"/>
-                            <img src="http://localhost:3001/assets/commons/Filter_complexity_icon.webp"/>
-                            <img src="http://localhost:3001/assets/commons/Filter_complexity_icon.webp"/>
+                            { values.Complexity && Array.from({ length: values.Complexity }, (_, index) => (  
+                                <img key={index} src="http://localhost:3001/assets/commons/Filter_complexity_icon.webp" />  
+                            ))}
+                            
+                            {/* <img src="http://localhost:3001/assets/commons/Filter_complexity_icon.webp"/>
+                            <img src="http://localhost:3001/assets/commons/Filter_complexity_icon.webp"/> */}
                         </div>
                         <div className='HeroImportPageAttackType' onClick={() => {setOpenInputPanel(!openInputPanel); setInputPanelContent('AttackType')}}>
                             攻击类型：
@@ -1000,7 +996,7 @@ const HeroDataImportPage = () => {
                         alignItems: 'center',
                         width: '100%',
                     }}>
-                        <div className='HeroImportPageTalentTree'>
+                        <div className='HeroImportPageTalentTree' onClick={() => {setOpenInputPanel(!openInputPanel); setInputPanelContent('Talent')}}>
                             <div></div>
                             <img src='http://localhost:3001/assets/commons/Talent_tree_icon.svg'/>
                         </div>

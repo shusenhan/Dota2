@@ -4,12 +4,19 @@ import { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import Talents from '../../component/Talents/Talents.jsx';
+import SkillInfo from '../../component/Skill/SkillInfo.jsx';
 
 const HeroPage = ({}) => {
     let [searchParams] = useSearchParams();  
     let heroName = searchParams.get('heroName'); 
     const [hero, setHero] = useState(null);
     const [heroPageType, setHeroPageType] = useState('简介');
+    const [isHovered, setIsHovered] = useState(-1);  
+    const [heroSkill, setHeroSkill] = useState(null);
+  
+    const handleMouseEnter = (index) => setIsHovered(index);  
+    const handleMouseLeave = () => setIsHovered(-1);  
 
 
     const [level, setLevl] = useState(1);
@@ -26,6 +33,7 @@ const HeroPage = ({}) => {
     const [extraMoveSpeed, setExtraMoveSpeed] = useState(0);
     const [extraMoveSpeedPercentage, setExtraMoveSpeedPercentage] = useState(0);
     const [extraDamage, setExtraDamage] = useState(0);
+    const [openTalentTree, setOpenTalentTree] = useState(false);
 
 
     const strengthToHealth = 18;
@@ -86,7 +94,7 @@ const HeroPage = ({}) => {
         if (action === 'up' && level < 30){
             setLevl(level + 1)
         } 
-        else if(action === 'down' && level > 2){
+        else if(action === 'down' && level > 1){
             setLevl(level - 1)
         } 
     };
@@ -106,9 +114,34 @@ const HeroPage = ({}) => {
         }
     }
 
+    const GetHeroSkills = async () => {
+        const serverResponse = await fetch(
+            `http://localhost:3001/skill/getheroskill/${heroName}`,
+            {
+                method: "GET",
+            }
+        );
+
+        const result = await serverResponse.json();
+
+        if(serverResponse.status === 200){
+            console.log(result)
+            if(result.data instanceof Array){
+                setHeroSkill(result.data);
+            }
+            else{
+                setHeroSkill([result.data]);
+            }
+        }
+    }
+
     useEffect(() => {
         GetHeroData()
     }, [])
+
+    useEffect(() => {
+        GetHeroSkills();
+    }, [hero])
 
     return(
         <div className="HeroPageContent">
@@ -292,6 +325,7 @@ const HeroPage = ({}) => {
                     社区
                 </Box>
             </div>
+
             <div className='HeroPageLeft'>
                 <div className='HeroPageHeroName'
                     style={{
@@ -354,10 +388,14 @@ const HeroPage = ({}) => {
                     display: 'flex',
                     justifyContent: 'flex-start',
                     alignItems: 'center',
+                    position: 'relative',
                     width: '100%',
                 }}>
-                    <div className='HeroPageTalentTree'>
-                        <div></div>
+                    <div className='HeroPageTalentTree' onClick={() => setOpenTalentTree(!openTalentTree)}>
+                        {openTalentTree && <Box className='HeroPageTalentTreeContainer'>
+                            <Talents/>
+                        </Box>}
+                        <div className='HeroPageTalentTreeBG'></div>
                         <img src='http://localhost:3001/assets/commons/Talent_tree_icon.svg'/>
                     </div>
 
@@ -365,16 +403,31 @@ const HeroPage = ({}) => {
                         <img src='http://localhost:3001/assets/commons/Talent_tree_icon.svg'/>
                     </div>
 
-                    {/* 用map打印出来 */}
-                    <div className='HeroPageSkill'>
-                        1
-                    </div>
+                    {heroSkill && heroSkill.map((skill, index) => {
+                        const keyNumber = index;
+                        return(
+                            <div key={keyNumber} className='HeroPageSkill'>
+                                <div className='HeroPageSkillImage' 
+                                    onMouseEnter={() => handleMouseEnter(keyNumber)}
+                                    onMouseLeave={() => handleMouseLeave()}
+                                >
+                                    <img src={`http://localhost:3001/assets/skills/${skill.SkillImage1}`} style={{width: '100%'}}/>
+                                </div>
+                                {isHovered === keyNumber && <Box className='HeroPageSkillInfo' 
+                                    sx={{
+                                        top: '-200%',
+                                        left: '120%',
+                                }}>
+                                    <SkillInfo skill={skill}/>
+                                </Box>}
+                            </div>)
+                    })}
 
-                    <div className='HeroPageSkill'>
+                    {/* {<div className='HeroPageSkill'>
                         2
-                    </div>
+                    </div>} */}
 
-                    <div className='HeroPageSkill'>
+                    {/* <div className='HeroPageSkill'>
                         3
                     </div>
 
@@ -388,7 +441,7 @@ const HeroPage = ({}) => {
 
                     <div className='HeroPageSkill'>
                         6
-                    </div>
+                    </div> */}
                 </div>
                 <div className='HeroPageDataPanel'>
                     <div className='HeroPageAttributePanel1'>

@@ -65,12 +65,22 @@ export async function InsertHero(hero){
         TurnRate,
         DayVision,
 
-        NightVision) values (?,?,?,?,?,
+        NightVision,
+        Complixity,
+        IsDisable,
+        IsDurable,
+        IsEscape,
+
+        IsInitiator,
+        IsNuker,
+        IsPuher,) values (?,?,?,?,?,
             ?,?,?,?,?,
             ?,?,?,?,?,
             ?,?,?,?,?,
             ?,?,?,?,?,
-            ?,?,?,?,?,?)`;
+            ?,?,?,?,?,
+            ?,?,?,?,?,
+            ?,?,?)`;
 
     try {
         const [results] = await pool.promise().query(sql, [
@@ -104,7 +114,14 @@ export async function InsertHero(hero){
             hero.MoveSpeed,
             hero.TurnRate,
             hero.DayVision,
-            hero.NightVision]);
+            hero.NightVision,
+            hero.Complixity,
+            hero.IsDisable,
+            hero.IsDurable,
+            hero.IsEscape,
+            hero.IsInitiator,
+            hero.IsNuker,
+            hero.IsPuher]);
 
         if(results.affectedRows) {
             return {code: 200, message:`英雄${hero.HeroName}已成功添加至数据库中！`};
@@ -127,32 +144,46 @@ export async function UpdateHero(hero){
             HeroType = ?,
             Image1 = ?,
             Image2 = ?,
+
             Image3 = ?,
             InitStrength = ?,
             StrengthGrowth = ?,
             InitAgility = ?,
             AgilityGrowth = ?,
+
             InitIntelligence = ?,
             IntelligenceGrowth = ?,
             InitHealth = ?,
             InitHealthRecover = ?,
             InitMana = ?,
+
             InitManaRecover = ?,
             InitArmor = ?,
             InitMagicResist = ?,
             DamageMin = ?,
             DamageMax = ?,
+
             AttackType = ?,
             AttackRange = ?,
             InitAttackSpeed = ?,
             AttackRate = ?,
             AttackAnimation1 = ?,
+
             AttackAnimation2 = ?,
             ProjectileSpeed = ?,
             MoveSpeed = ?,
             TurnRate = ?,
             DayVision = ?,
-            NightVision = ?
+
+            NightVision = ?,
+            Complixity = ?,
+            IsDisable = ?,
+            IsDurable = ?,
+            IsEscape = ?,
+
+            IsInitiator = ?,
+            IsNuker = ?,
+            IsPuher = ?,
         where HeroName = ? `;
 
         try {
@@ -188,7 +219,14 @@ export async function UpdateHero(hero){
                 hero.TurnRate,
                 hero.DayVision,
                 hero.NightVision,
-                hero.HeroName
+                hero.HeroName,
+                hero.Complixity,
+                hero.IsDisable,
+                hero.IsDurable,
+                hero.IsEscape,
+                hero.IsInitiator,
+                hero.IsNuker,
+                hero.IsPuher
             ]);
 
             if(results.affectedRows) {
@@ -220,6 +258,40 @@ export async function GetAllHeroName(){
     }
 }
 
+export async function GetSkillByHeroName(heroName){
+    const sql = `select * from skills where Owner = ?`;
+
+    try{
+        const [results, ] = await pool.promise().query(sql, [heroName])
+        if(results.length){
+            return {code: 200, data: results.map(skill => new Skill(skill))}
+        }
+        else{
+            return {code: 404, message: `未能取得${heroName}的技能！`}
+        }
+    }
+    catch(error){
+        return {code: 500, message: `获取${heroName}的技能失败，错误信息：${error.message}`};
+    }
+}
+
+export async function GetAllSkills(){
+    const sql = `select * from skills`;
+
+    try{
+        const [results, ] = await pool.promise().query(sql, [])
+        if(results.length){
+            return {code: 200, data: results}
+        }
+        else{
+            return {code: 404, message: `数据库中还没有技能！`}
+        }
+    }
+    catch(error){
+        return {code: 500, message: `获取所有已存在的技能失败，错误信息：${error.message}`};
+    }
+}
+
 export async function GetSkillByName(skillName){
     const sql = `select * from skills where SkillName = ?`;
 
@@ -246,7 +318,6 @@ export async function InsertSkill(skill){
         SkillImage2,
 
         SkillImage3,
-        SkillType,
         Cost,
         SkillCD,
         Sequence,
@@ -254,20 +325,31 @@ export async function InsertSkill(skill){
         ExtraInfo1,
         ExtraInfo2,
         ExtraInfo3,
-        Owner) values (?,?,?,?,?,
+        Owner,
+        Affect,
+        
+        InitTalent,
+        InitTalentDescription,
+        IgnoreBKB,
+        Dispellable,
+        DamageType,
+        
+        Ability,
+        CastRange) values (?,?,?,?,?,
+            ?,?,?,?,
             ?,?,?,?,?,
-            ?,?,?,?)`;
+            ?,?,?,?,?,
+            ?,?)`;
 
     try {
         const [results] = await pool.promise().query(sql, [
         skill.SkillName,
         skill.SkillCNName,
         skill.SkillDescription,
-        skill.SkillImage1,
+        skill.SkillImage1[1],
         skill.SkillImage2,
 
         skill.SkillImage3,
-        skill.SkillType,
         skill.Cost,
         skill.SkillCD,
         skill.Sequence,
@@ -275,17 +357,27 @@ export async function InsertSkill(skill){
         skill.ExtraInfo1,
         skill.ExtraInfo2,
         skill.ExtraInfo3,
-        skill.Owner]);
+        skill.Owner,
+        skill.Affect,
+        
+        skill.InitTalent,
+        Skill.InitTalentDescription,
+        skill.IgnoreBKB,
+        skill.Dispellable,
+        skill.DamageType,
+        
+        skill.Ability,
+        skill.CastRange]);
 
         if(results.affectedRows) {
-            return {code: 200, message:`技能${skill.skillName}已成功添加至数据库中！`};
+            return {code: 200, message:`技能${skill.SkillName}已成功添加至数据库中！`};
         }
         else{
-            return {code: 404, message:`技能${skill.skillName}未能添加至数据库中！`};
+            return {code: 404, message:`技能${skill.SkillName}未能添加至数据库中！`};
         }
     } 
     catch (error) {
-        return {code: 500, message:`技能${skill.skillName}信息插入失败，错误信息：${error.message}`};
+        return {code: 500, message:`技能${skill.SkillName}信息插入失败，错误信息：${error.message}`};
     }
 }
 
@@ -300,15 +392,24 @@ export async function UpdateSkill(skill){
             SkillImage2 = ?,
 
             SkillImage3 = ?,
-            SkillType = ?,
             Cost = ?,
             SkillCD = ?,
             Sequence = ?,
-
             ExtraInfo1 = ?,
+
             ExtraInfo2 = ?,
             ExtraInfo3 = ?,
-            Owner = ?
+            Owner = ?,
+            Affect = ?,
+            InitTalent = ?,
+
+            InitTalentDescription = ?,
+            IgnoreBKB = ?,
+            Dispellable = ?,
+            DamageType = ?,
+            Ability = ?,
+
+            CastRange = ?
         where SkillName = ? `;
 
         try {
@@ -316,18 +417,30 @@ export async function UpdateSkill(skill){
                 skill.SkillName,
                 skill.SkillCNName,
                 skill.SkillDescription,
-                skill.SkillImage1,
+                skill.SkillImage1[1],
                 skill.SkillImage2,
+
                 skill.SkillImage3,
-                skill.SkillType,
                 skill.Cost,
                 skill.SkillCD,
                 skill.Sequence,
                 skill.ExtraInfo1,
+
                 skill.ExtraInfo2,
                 skill.ExtraInfo3,
                 skill.Owner,
-                skill.SkillName
+                skill.Affect,
+                skill.InitTalent,
+
+                skill.InitTalentDescription,
+                skill.IgnoreBKB,
+                skill.Dispellable,
+                skill.DamageType,
+                skill.Ability,
+
+                skill.CastRange,
+                
+                skill.SkillName,
             ]);
 
             if(results.affectedRows) {
