@@ -38,7 +38,7 @@ class Hero {
         IsEscape,
         IsInitiator,
         IsNuker,
-        IsPuher
+        IsPusher
     }){
         this.HeroId = HeroId;
         this.HeroName = HeroName;
@@ -78,7 +78,7 @@ class Hero {
         this.IsEscape = IsEscape;
         this.IsInitiator = IsInitiator;
         this.IsNuker = IsNuker;
-        this.IsPuher = IsPuher;
+        this.IsPusher = IsPusher;
     }
 }
 

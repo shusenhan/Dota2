@@ -15,6 +15,7 @@ export async function GetHeroByName(heroName){
 
     try{
         const [results, ] = await pool.promise().query(sql, [heroName])
+
         if(results.length){
             return {code: 200, data: new Hero(results[0])}
         }
@@ -183,8 +184,8 @@ export async function UpdateHero(hero){
 
             IsInitiator = ?,
             IsNuker = ?,
-            IsPuher = ?,
-        where HeroName = ? `;
+            IsPusher = ?
+        where HeroName = ?`;
 
         try {
             const [results] = await pool.promise().query(sql, [
@@ -193,40 +194,48 @@ export async function UpdateHero(hero){
                 hero.HeroType,
                 hero.Image1,
                 hero.Image2,
+
                 hero.Image3,
                 hero.InitStrength,
                 hero.StrengthGrowth,
                 hero.InitAgility,
                 hero.AgilityGrowth,
+
                 hero.InitIntelligence,
                 hero.IntelligenceGrowth,
                 hero.InitHealth,
                 hero.InitHealthRecover,
                 hero.InitMana,
+
                 hero.InitManaRecover,
                 hero.InitArmor,
                 hero.InitMagicResist,
                 hero.DamageMin,
                 hero.DamageMax,
+
                 hero.AttackType,
                 hero.AttackRange,
                 hero.InitAttackSpeed,
                 hero.AttackRate,
                 hero.AttackAnimation1,
+
                 hero.AttackAnimation2,
                 hero.ProjectileSpeed,
                 hero.MoveSpeed,
                 hero.TurnRate,
                 hero.DayVision,
+
                 hero.NightVision,
-                hero.HeroName,
                 hero.Complixity,
                 hero.IsDisable,
                 hero.IsDurable,
                 hero.IsEscape,
+
                 hero.IsInitiator,
                 hero.IsNuker,
-                hero.IsPuher
+                hero.IsPusher,
+
+                hero.HeroName
             ]);
 
             if(results.affectedRows) {
@@ -335,11 +344,12 @@ export async function InsertSkill(skill){
         DamageType,
         
         Ability,
-        CastRange) values (?,?,?,?,?,
+        CastRange,
+        IsAghanim) values (?,?,?,?,?,
             ?,?,?,?,
             ?,?,?,?,?,
             ?,?,?,?,?,
-            ?,?)`;
+            ?,?,?)`;
 
     try {
         const [results] = await pool.promise().query(sql, [
@@ -367,7 +377,8 @@ export async function InsertSkill(skill){
         skill.DamageType,
         
         skill.Ability,
-        skill.CastRange]);
+        skill.CastRange,
+        skill.IsAghanim]);
 
         if(results.affectedRows) {
             return {code: 200, message:`技能${skill.SkillName}已成功添加至数据库中！`};
@@ -409,7 +420,8 @@ export async function UpdateSkill(skill){
             DamageType = ?,
             Ability = ?,
 
-            CastRange = ?
+            CastRange = ?,
+            IsAghanim = ?
         where SkillName = ? `;
 
         try {
@@ -439,6 +451,7 @@ export async function UpdateSkill(skill){
                 skill.Ability,
 
                 skill.CastRange,
+                skill.IsAghanim,
                 
                 skill.SkillName,
             ]);
@@ -451,5 +464,169 @@ export async function UpdateSkill(skill){
             }
         } catch (error) {
             return {code: 500, message:`更新技能${skill.SkillName}的数据失败，错误信息：${error.message}`};
+        }
+}
+
+export async function GetAghanimByHeroName(heroName){
+    const sql = `select * from aghanim where EffectOwner = ?`;
+
+    try{
+        const [results, ] = await pool.promise().query(sql, [heroName])
+        if(results.length){
+            return {code: 200, data: results}
+        }
+        else{
+            return {code: 404, message: `未能取得${heroName}的阿哈利姆数据！`}
+        }
+    }
+    catch(error){
+        return {code: 500, message: `获取${heroName}的阿哈利姆数据失败，错误信息：${error.message}`};
+    }
+}
+
+export async function InsertAghanim(aghanim){
+    console.log(aghanim);
+    
+    const sql = `insert into aghanim (
+        EffectOwner,
+        AffectSkill1,
+        Description1,
+        IsNewSkill1,
+        IsShard1,
+
+        ExtraInfo1,
+        AffectSkill2,
+        Description2,
+        IsNewSkill2,
+        IsShard2,
+
+        ExtraInfo2,
+        AffectSkill3,
+        Description3,
+        IsNewSkill3,
+        IsShard3,
+
+        ExtraInfo3,
+        AffectSkill4,
+        Description4,
+        IsNewSkill4,
+        IsShard4,
+
+        ExtraInfo4) values (?,?,?,?,?,
+        ?,?,?,?,?,
+        ?,?,?,?,?,
+        ?,?,?,?,?,
+        ?)`;
+
+    try{
+        const [result] = await pool.promise().query(sql, [
+            aghanim.EffectOwner,
+            aghanim.AffectSkill1,
+            aghanim.Description1,
+            aghanim.IsNewSkill1,
+            aghanim.IsShard1,
+
+            aghanim.ExtraInfo1,
+            aghanim.AffectSkill2,
+            aghanim.Description2,
+            aghanim.IsNewSkill2,
+            aghanim.IsShard2,
+
+            aghanim.ExtraInfo2,
+            aghanim.AffectSkill3,
+            aghanim.Description3,
+            aghanim.IsNewSkill3,
+            aghanim.IsShard3,
+
+            aghanim.ExtraInfo3,
+            aghanim.AffectSkill4,
+            aghanim.Description4,
+            aghanim.IsNewSkill4,
+            aghanim.IsShard4,
+
+            aghanim.ExtraInfo4
+        ]);
+
+        if(result.affectedRows){
+            return {code: 200, message: `阿哈利姆数据已成功添加至数据库中！`};
+        }
+        else{
+            return {code: 404, message: `阿哈利姆数据未能添加至数据库中！`};
+        }
+    }
+    catch(error){
+        return {code: 500, message: `阿哈利姆数据插入失败，错误信息：${error.message}`};
+    }
+}
+
+export async function UpdateAghanim(aghanim){
+    const sql = `
+        update aghanim 
+        set
+            EffectOwner = ?,
+            AffectSkill1 = ?,
+            Description1 = ?,
+            IsNewSkill1 = ?,
+            IsShard1 = ?,
+
+            ExtraInfo1 = ?,
+            AffectSkill2 = ?,
+            Description2 = ?,
+            IsNewSkill2 = ?,
+            IsShard2 = ?,
+
+            ExtraInfo2 = ?,
+            AffectSkill3 = ?,
+            Description3 = ?,
+            IsNewSkill3 = ?,
+            IsShard3 = ?,
+
+            ExtraInfo3 = ?,
+            AffectSkill4 = ?,
+            Description4 = ?,
+            IsNewSkill4 = ?,
+            IsShard4 = ?,
+
+            ExtraInfo4 = ?
+        where EffectOwner = ? `;
+
+        try {
+            const [results] = await pool.promise().query(sql, [
+                aghanim.EffectOwner,
+                aghanim.AffectSkill1,
+                aghanim.Description1,
+                aghanim.IsNewSkill1,
+                aghanim.IsShard1,
+
+                aghanim.ExtraInfo1,
+                aghanim.AffectSkill2,
+                aghanim.Description2,
+                aghanim.IsNewSkill2,
+                aghanim.IsShard2,
+
+                aghanim.ExtraInfo2,
+                aghanim.AffectSkill3,
+                aghanim.Description3,
+                aghanim.IsNewSkill3,
+                aghanim.IsShard3,
+
+                aghanim.ExtraInfo3,
+                aghanim.AffectSkill4,
+                aghanim.Description4,
+                aghanim.IsNewSkill4,
+                aghanim.IsShard4,
+
+                aghanim.ExtraInfo4,
+                aghanim.EffectOwner
+            ]);
+
+            if(results.affectedRows) {
+                return {code: 200, message:`已成功更新${aghanim.EffectOwner}的阿哈利姆数据！`};
+            }
+            else{
+                return {code: 404, message:`未能更新${aghanim.EffectOwner}的阿哈利姆数据！`};
+            }
+        } catch (error) {
+            return {code: 500, message:`更新${aghanim.EffectOwner}的阿哈利姆数据失败，错误信息：${error.message}`};
         }
 }

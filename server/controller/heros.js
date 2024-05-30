@@ -27,7 +27,6 @@ export const insertHero = async(req, res) => {
         if(isExist.code == 200){
             const result = await UpdateHero(hero);
 
-            console.log('insert result:',result)
             if(result.code === 200){
                 res.status(200).json({message:result.message, data: hero});
             }

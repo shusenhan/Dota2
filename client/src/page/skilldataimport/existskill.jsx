@@ -3,6 +3,7 @@ import './existskill.css'
 import { useNavigate } from 'react-router-dom';
 import {strenghHeroList, agilityHeroList, intelligenceHeroList, universalHeroList} from'../../heroList.js'
 import HeroTypeCell from '../heropage/TypeCell.jsx';
+import { Button } from '@mui/material';
 
 const ExistedSkill = () => {
     const [skillList, setSkillList] = useState(null);
@@ -81,6 +82,16 @@ const ExistedSkill = () => {
         <div className="ExistedSkillContent">
             <div className='ExistedSkillTitle'>
                 已有技能
+                <div className='ExistedSkillImportButton'>
+                    <Button onClick={() => navigate('\import')} 
+                        sx={{
+                            color:'rgb(161, 161, 161)',
+                            '&:hover': {
+                                color: 'rgb(210, 210, 210)',
+                            }
+                    }}>
+                    导入新技能</Button>
+                </div>
             </div>
             <div className='ExistedSkillContainer'>
                 {skillList &&

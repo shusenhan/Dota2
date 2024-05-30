@@ -26,6 +26,7 @@ class Skill {
 
         DamageType,
         CastRange,
+        IsAghanim
     }){
         this.SkillId = SkillId;
         this.SkillName = SkillName;
@@ -49,6 +50,7 @@ class Skill {
         this.Ability = Ability;
         this.DamageType = DamageType;
         this.CastRange = CastRange;
+        this.IsAghanim = IsAghanim;
     }
 }
 

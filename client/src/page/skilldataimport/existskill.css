@@ -28,4 +28,11 @@
     font-weight: 400;
     font-style: normal;
     padding-top: 2%;
+    position: relative;
+}
+
+.ExistedSkillImportButton {
+    position: absolute;
+    left: 60%;
+    top: 65%;
 }

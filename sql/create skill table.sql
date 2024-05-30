@@ -7,11 +7,19 @@ create table skills (
     SkillImage1 varchar(200),
     SkillImage2 varchar(200),
     SkillImage3 varchar(200),
-    SkillType int not null,
     Cost varchar(100) not null,
     SkillCD varchar(100) not null,
     Sequence int not null,
     ExtraInfo1 varchar(1000),
     ExtraInfo2 varchar(1000),
-    ExtraInfo3 varchar(1000)
+    ExtraInfo3 varchar(1000),
+    SkillOwner varchar(100) not null,
+    Affect varchar(100) not null default '',
+    InitTalent varchar(100) not null default '',
+    IgnoreBKB varchar(100) not null default '',
+    InitTalentDescription varchar(1000) not null default '',
+    Dispellable varchar(100) not null default '',
+    DamageType varchar(100) not null default '',
+    Ability varchar(100) not null default '',
+    CastRange int not null default 0
 );

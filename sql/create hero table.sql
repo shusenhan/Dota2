@@ -30,5 +30,11 @@ create table heros (
     MoveSpeed int not null,
     TurnRate float not null,
     DayVision int not null,
-    NightVision int not null
+    NightVision int not null,
+    IsDiable tinyint not null default 0,
+    IsEscape tinyint not null default 0,
+    IsInitiator tinyint not null default 0,
+    IsNuker tinyint not null default 0,
+    IsPusher tinyint not null default 0,
+    Complixity int not null default 1
 );

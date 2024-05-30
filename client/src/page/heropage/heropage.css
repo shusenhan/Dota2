@@ -291,7 +291,13 @@
     position: absolute;
     top: 110%;
     left: -158%;
-    height: 520%;
+    height: 550%;
     width: 800%;
 }
 
+.HeroPageAghanimContainer{
+    position: absolute;
+    top: -200%;
+    left: 105%;
+    width: 800%;
+}

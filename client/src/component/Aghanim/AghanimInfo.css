@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap');
+
+.AghanimInfo {
+    width: 100%;
+}
+
+.AghanimTitle {
+    width: 100%;
+    background: linear-gradient(to right, rgb(60, 60, 60), rgb(45, 45, 45));
+    color: rgb(81, 144, 195);
+    font-size: 2vh;
+    letter-spacing: 0.1em;
+    text-align: start;
+    padding: 2% 7%;
+}
+
+.AghanimDisplay {
+    display: flex;
+    margin-right: 2%;
+    margin-bottom: 2%;
+}
+
+.AghanimImage{
+    flex-basis: 14%;
+    margin: 2%;
+}
+
+.AghanimDisplay img {
+    width: 100%;
+}
+
+.AghanimDescription {
+    width: 100%;
+    text-align: start;
+}
+
+.AghanimSkillName {
+    font-family: "Ma Shan Zheng", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.75vh;
+    margin-top: 2%;
+}
+
+.AghanimIsNew {
+    font-size: 1.75vh;
+    color:rgb(183, 198, 217);
+    background-color: rgb(69, 119, 161);
+    width: 15%;
+    text-align: center;
+}
+
+.AghanimDetails {
+    margin: 1% 0 ;
+    color: rgb(190, 190, 210);
+    font-size: 1.75vh;
+}
+
+.AghanimStatistic {
+    margin: 1% 0 ;
+    color: rgb(111, 111, 111);
+    font-size: 1.75vh;
+}

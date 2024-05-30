@@ -35,6 +35,7 @@ const heroSchema = yup.object().shape({
     DamageType: yup.string().required('请输入值'),
     Ability: yup.string().required('请输入值'),
     CastRange: yup.string().required('请输入值'),
+    IsAghanim: yup.number().required('请输入值'),
 });
 
 const initValue = {
@@ -60,6 +61,7 @@ const initValue = {
     DamageType: '物理',
     Ability: '点目标',
     CastRange: '0',
+    IsAghanim: 0,
 };
 
 const SkillDataImportPage = () => {
@@ -67,8 +69,9 @@ const SkillDataImportPage = () => {
     let heroName = searchParams.get('heroName');
     const [openInputPanel, setOpenInputPanel] = useState(false);
     const [inputPanelContent, setInputPanelContent] = useState('');
-    const [heroSkill, setHeroSkill] = useState([]);
+    const [heroSkill, setHeroSkill] = useState(null);
     const [currentSkill, setCurrentSkill] = useState(null);
+    const [currentSkillIndex, setCurrentSkillIndex] = useState(0);
 
     const GetHeroSkills = async () => {
         const serverResponse = await fetch(
@@ -91,7 +94,6 @@ const SkillDataImportPage = () => {
     }
 
     const UploadData = async (values, onSubmitProps) => {
-        console.log(values);
         const formData = new FormData();
 
         for (let key in values) {  
@@ -129,17 +131,35 @@ const SkillDataImportPage = () => {
         await UploadData(values, onSubmitProps);
     }
 
+    const SwitchSkill = (action) => {
+        if(action === 'next'){
+            if(heroSkill[currentSkillIndex+1]){
+                setCurrentSkill(heroSkill[currentSkillIndex+1]);
+                setCurrentSkillIndex(currentSkillIndex + 1);
+            }
+        }
+        else if(action === 'previous'){
+            if(heroSkill[currentSkillIndex - 1]){
+                setCurrentSkill(heroSkill[currentSkillIndex - 1]);
+                setCurrentSkillIndex(currentSkillIndex - 1);
+            }
+        }
+    }
+
     useEffect(() => {
         if(heroName){
             GetHeroSkills();
+
         }
         else {
-            setCurrentSkill(initValue);
+            setCurrentSkill(initValue); 
         }
     }, []);
 
     useEffect(() => {
-        setCurrentSkill(heroSkill[0]);
+        if(heroSkill){
+            setCurrentSkill(heroSkill[currentSkillIndex]);
+        }
     }, [heroSkill]);
 
     return( 
@@ -149,6 +169,7 @@ const SkillDataImportPage = () => {
                 onSubmit={handleFormSubmit}
                 initialValues={currentSkill}
                 validationSchema={heroSchema}
+                enableReinitialize={true}
             >
                 {({
                     values,
@@ -553,44 +574,75 @@ const SkillDataImportPage = () => {
                                     }}  
                                     size="small"  
                                 />}
+
+                            {inputPanelContent === 'Aghanim' && 
+                                <FormControl fullWidth sx={{gridColumn: "span 2"}}>
+                                    <InputLabel id="IsAghanim">阿哈利姆效果</InputLabel>
+                                    <CustomSelect
+                                        labelId="IsAghanim"
+                                        label="IsAghanim"
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        value={values.IsAghanim}
+                                        defaultValue={0}
+                                        name="IsAghanim"
+                                        error={Boolean(touched.IsAghanim) && Boolean(errors.IsAghanim)}
+                                        helperText={touched.IsAghanim && errors.IsAghanim}
+                                        style={{  
+                                            gridColumn: "span 2",  
+                                            display: 'flex',  
+                                            alignItems: 'center',
+                                    }}>
+                                        <MenuItem value={0}>无
+                                        </MenuItem>
+                                        <MenuItem value={1}>阿哈利姆神杖技能
+                                            <img src='http://localhost:3001/assets/commons/Aghanim_Scepter.webp' style={{width: '100%', borderRadius:'50%'}}/>
+                                        </MenuItem>
+                                        <MenuItem value={2}>阿哈利姆魔晶技能
+                                            <img src='http://localhost:3001/assets/commons/Aghanim_Shard.webp' style={{width: '100%', borderRadius:'50%'}}/>
+                                        </MenuItem>
+                                    </CustomSelect>
+                                </FormControl>}
                         </InputPanel>}
 
                         <div className='SkillImportPageNavbar'>
-                            <Box 
-                                sx={{
-                                    position: 'absolute',
-                                    left: '2.5%',
-                                    width: "10%",
-                                    height: '100%',
-                                    color: 'rgb(161, 161, 161)',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    '&:hover':{
-                                        color:'rgb(255, 255, 255)',
-                                        cursor:'pointer'
-                                    }
-                            }}>
-                                上个技能
-                            </Box>
+                            {heroName && <div>
+                                <Box onClick={() => SwitchSkill('previous')}
+                                    sx={{
+                                        position: 'absolute',
+                                        left: '2.5%',
+                                        width: "10%",
+                                        height: '100%',
+                                        color: 'rgb(161, 161, 161)',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        '&:hover':{
+                                            color:'rgb(255, 255, 255)',
+                                            cursor:'pointer'
+                                        }
+                                }}>
+                                    上个技能
+                                </Box>
 
-                            <Box 
-                                sx={{
-                                    position: 'absolute',
-                                    right: '2.5%',
-                                    width: "10%",
-                                    height: '100%',
-                                    color: 'rgb(161, 161, 161)',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    '&:hover':{
-                                        color:'rgb(255, 255, 255)',
-                                        cursor:'pointer'
-                                    }
-                            }}>
-                                下个技能
-                            </Box>
+                                <Box onClick={() => SwitchSkill('next')}
+                                    sx={{
+                                        position: 'absolute',
+                                        right: '2.5%',
+                                        width: "10%",
+                                        height: '100%',
+                                        color: 'rgb(161, 161, 161)',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        '&:hover':{
+                                            color:'rgb(255, 255, 255)',
+                                            cursor:'pointer'
+                                        }
+                                }}>
+                                    下个技能
+                                </Box>
+                            </div>}
                         </div>
 
                         <div className='SkillImportPageTitle'>
@@ -612,6 +664,11 @@ const SkillDataImportPage = () => {
 
                                     <div className='SkillImportPageSequence' onClick={() => {setOpenInputPanel(!openInputPanel); setInputPanelContent('Sequence')}}>
                                         {values.Sequence ? values.Sequence : '序'}
+                                    </div>
+
+                                    <div className='SkillImportPageAghanim' onClick={() => {setOpenInputPanel(!openInputPanel); setInputPanelContent('Aghanim')}}>
+                                        {/* {values.Sequence ? values.Sequence : '序'} */}
+                                        <img src='http://localhost:3001/assets/commons/Aghanim_Scepter.webp' style={{width: '100%', borderRadius:'50%'}}></img>
                                     </div>
                                     技能视频，暂无。技能视频，暂无。技能视频，暂无
                                 </div>

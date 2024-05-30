@@ -274,3 +274,10 @@
     background-color: rgba(16, 16, 16, 0.7);
     position: absolute;
 }
+
+.HeroImportPageSubmitButton {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+}

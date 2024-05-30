@@ -6,6 +6,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Talents from '../../component/Talents/Talents.jsx';
 import SkillInfo from '../../component/Skill/SkillInfo.jsx';
+import AghanimInfo from '../../component/Aghanim/AghanimInfo.jsx';
 
 const HeroPage = ({}) => {
     let [searchParams] = useSearchParams();  
@@ -33,8 +34,7 @@ const HeroPage = ({}) => {
     const [extraMoveSpeed, setExtraMoveSpeed] = useState(0);
     const [extraMoveSpeedPercentage, setExtraMoveSpeedPercentage] = useState(0);
     const [extraDamage, setExtraDamage] = useState(0);
-    const [openTalentTree, setOpenTalentTree] = useState(false);
-
+    const [aghanim, setAghanim] = useState(null);
 
     const strengthToHealth = 18;
     const strengthToHealthRecover = 0.1;
@@ -111,8 +111,25 @@ const HeroPage = ({}) => {
 
         if(serverResponse.status === 200){
             setHero(result.data);
+            console.log(result.data)
         }
     }
+
+    const GetAghanimData = async () => {
+
+        const serverResponse = await fetch(
+            `http://localhost:3001/aghanim/getaghanim/${heroName}`, 
+            { 
+                method: "GET",
+            }
+        );
+
+        const result = await serverResponse.json();
+
+        if(serverResponse.status === 200){
+            setAghanim(result.data[0]);
+        }
+    };
 
     const GetHeroSkills = async () => {
         const serverResponse = await fetch(
@@ -141,6 +158,7 @@ const HeroPage = ({}) => {
 
     useEffect(() => {
         GetHeroSkills();
+        GetAghanimData();
     }, [hero])
 
     return(
@@ -345,9 +363,9 @@ const HeroPage = ({}) => {
                         <img src={hero ? GetAttributeIcon() : 'http://localhost:3001/assets/commons/Strength_attribute_symbol.webp'}/>
                     </div>
                     <div className='HeroPageComplexity'>
-                        <img src="http://localhost:3001/assets/commons/Filter_complexity_icon.webp"/>
-                        <img src="http://localhost:3001/assets/commons/Filter_complexity_icon.webp"/>
-                        <img src="http://localhost:3001/assets/commons/Filter_complexity_icon.webp"/>
+                        { hero && Array.from({ length: hero.Complixity }, (_, index) => (  
+                            <img key={index} src="http://localhost:3001/assets/commons/Filter_complexity_icon.webp" />  
+                        ))}
                     </div>
                     <div className='HeroPageAttackType'>
                         攻击类型：
@@ -359,12 +377,12 @@ const HeroPage = ({}) => {
                     </div>
                     <div className='HeroPageRole'>
                         标签：
-                        <img src='http://localhost:3001/assets/commons/Filter_disabler_icon.webp'/>
-                        <img src='http://localhost:3001/assets/commons/Filter_durable_icon.webp'/>
-                        <img src='http://localhost:3001/assets/commons/Filter_escape_icon.webp'/>
-                        <img src='http://localhost:3001/assets/commons/Filter_initiator_icon.webp'/>
-                        <img src='http://localhost:3001/assets/commons/Filter_nuker_icon.webp'/>
-                        {/* <img src='http://localhost:3001/assets/commons/Filter_pusher_icon.webp'/> */}
+                        {hero && hero.IsDisable === 1 && <img src='http://localhost:3001/assets/commons/Filter_disabler_icon.webp'/>}
+                        {hero && hero.IsDurable === 1 && <img src='http://localhost:3001/assets/commons/Filter_durable_icon.webp'/>}
+                        {hero && hero.IsEscape === 1 && <img src='http://localhost:3001/assets/commons/Filter_escape_icon.webp'/>}
+                        {hero && hero.IsInitiator === 1 && <img src='http://localhost:3001/assets/commons/Filter_initiator_icon.webp'/>}
+                        {hero && hero.IsNuker === 1 && <img src='http://localhost:3001/assets/commons/Filter_nuker_icon.webp'/>}
+                        {hero && hero.IsPusher === 1 && <img src='http://localhost:3001/assets/commons/Filter_pusher_icon.webp'/>}
                     </div>
                 </div>
                 <div style={{
@@ -391,8 +409,11 @@ const HeroPage = ({}) => {
                     position: 'relative',
                     width: '100%',
                 }}>
-                    <div className='HeroPageTalentTree' onClick={() => setOpenTalentTree(!openTalentTree)}>
-                        {openTalentTree && <Box className='HeroPageTalentTreeContainer'>
+                    <div className='HeroPageTalentTree' 
+                        onMouseEnter={() => handleMouseEnter(98)}
+                        onMouseLeave={() => handleMouseLeave()}
+                    >
+                        {isHovered === 98 && <Box className='HeroPageTalentTreeContainer'>
                             <Talents/>
                         </Box>}
                         <div className='HeroPageTalentTreeBG'></div>
@@ -423,25 +444,14 @@ const HeroPage = ({}) => {
                             </div>)
                     })}
 
-                    {/* {<div className='HeroPageSkill'>
-                        2
-                    </div>} */}
-
-                    {/* <div className='HeroPageSkill'>
-                        3
+                    <div className='HeroPageInitSkill'>
+                        <img src='http://localhost:3001/assets/commons/Talent_tree_icon.svg' 
+                            onMouseEnter={() => handleMouseEnter(99)}
+                            onMouseLeave={() => handleMouseLeave()}/>
+                        {isHovered === 99 && <div className='HeroPageAghanimContainer'>
+                            <AghanimInfo aghanim={aghanim}/>
+                        </div>}
                     </div>
-
-                    <div className='HeroPageSkill'>
-                        4
-                    </div>
-
-                    <div className='HeroPageSkill'>
-                        5
-                    </div>
-
-                    <div className='HeroPageSkill'>
-                        6
-                    </div> */}
                 </div>
                 <div className='HeroPageDataPanel'>
                     <div className='HeroPageAttributePanel1'>
