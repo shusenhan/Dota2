@@ -29,7 +29,7 @@ const InputPanel = ({children, switcher}) => {
                     alignItems: 'center',
                     transform: 'translate(-50%, -50%)',
                     backgroundColor: 'rgb(50, 50, 50, 0.5)',
-                    padding: '3%',
+                    padding: '1.5%',
                     border: '3px solid rgb(161, 161, 161, 0.5)',
                 }}>
                     {children}

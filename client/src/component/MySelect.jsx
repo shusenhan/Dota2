@@ -10,7 +10,6 @@ function CustomSelect({ label, value, onChange, onBlur, error, helperText, child
             gridTemplateColumns:'repeat(5, minmax(0, 1fr))'
         }}> 
             <Select
-                size='small'
                 labelId={label}
                 label={label}
                 onBlur={onBlur}
@@ -21,26 +20,26 @@ function CustomSelect({ label, value, onChange, onBlur, error, helperText, child
                     sx:{
                         display:'flex', 
                         alignItems:'center',
+                        height: '40px',
                         color: 'white',
-                        height: '30px',
                         paddingTop: '0',
                         paddingBottom: '0',
                         border: '1px solid white',
                 }}}
                 itemProp={{
                     style:{
-                        height: '30px',
                         border: '1px solid red',
+                        height: '40px',
                 }}}
                 SelectDisplayProps={{
                     style:{
-                        height: '30px',
                         border: '1px solid white',
+                        height: '40px',
                 }}}
                 {...props} 
                 style={{
-                    gridColumn: "span 3",
-                    height: '30px',
+                    gridColumn: "span 4",
+                    height: '40px',
             }}>
                 {children}
             </Select>
@@ -50,7 +49,7 @@ function CustomSelect({ label, value, onChange, onBlur, error, helperText, child
                     color: 'red', 
                     margin: '0px 12px',
                     fontSize: '12px',
-                    gridColumn: "span 2"
+                    gridColumn: "span 1"
                 }}>  
                     {helperText}  
                 </div>  

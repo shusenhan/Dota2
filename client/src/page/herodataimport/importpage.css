@@ -86,19 +86,41 @@
     filter:invert(82.5%);
 }
 
-.HeroImportPageInitTalent1 {
-    height: 70%;
-    flex-basis: 27%;
-    margin: 0 1% 0 0;
-    border-radius: 5%;
-    background: radial-gradient(circle at 25% center, #aee22a, rgb(70, 76, 53));
+.HeroImportPageInitTalentPanel{
+    height: 12%;
+    font-size: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    gap: 1%;
 }
 
-.HeroImportPageInitTalent2 {
+.HeroImportPageInitTalentAddButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(98, 98, 98);
+    border-radius: 50%;
+    color: rgb(156, 156, 156);
+}
+
+.HeroImportPageInitTalentAddButton:hover{
+    background-color: #898989;
+    color: rgb(208, 208, 208);
+}
+
+.HeroImportPageInitTalent {
     height: 70%;
     flex-basis: 27%;
     border-radius: 5%;
     background: radial-gradient(circle at 25% center, rgba(161, 161, 161, 0.75), rgba(50, 50, 50, 0.75));
+    font-family: "Ma Shan Zheng", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.3vh;
+    display: flex;
+    gap: 2%;
 }
 
 .HeroImportPageTalentTree {

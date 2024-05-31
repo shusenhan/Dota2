@@ -86,19 +86,21 @@
     filter:invert(82.5%);
 }
 
-.HeroPageInitTalent1 {
-    height: 70%;
-    flex-basis: 27%;
-    margin: 0 1% 0 0;
-    border-radius: 5%;
-    background: radial-gradient(circle at 25% center, #aee22a, rgb(70, 76, 53));
-}
-
-.HeroPageInitTalent2 {
+.HeroPageInitTalent {
     height: 70%;
     flex-basis: 27%;
     border-radius: 5%;
     background: radial-gradient(circle at 25% center, rgba(161, 161, 161, 0.75), rgba(50, 50, 50, 0.75));
+    display: flex;
+    gap: 2%;
+    position: relative;
+}
+
+.HeroPageInitTalentName{
+    font-family: "Ma Shan Zheng", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.3vh;
 }
 
 .HeroPageTalentTree {
@@ -300,4 +302,13 @@
     top: -200%;
     left: 105%;
     width: 800%;
+}
+
+.InitTalentContainer {
+    position: absolute;
+    top: 100%;
+    width: 160%;
+    left: -30%;
+    height: 100%;
+    margin-top: 4%;
 }

@@ -10,6 +10,7 @@ import { fileURLToPath } from "url";
 import heroRouter from './routes/heros.js';
 import skillRouter from './routes/skills.js'
 import aghanimRouter from "./routes/aghanim.js";
+import inittalentRouter from "./routes/inittalent.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -48,6 +49,7 @@ const upload2 = multer({ storage: storageSkill });
 app.use("/hero", upload1.single("Image1"), heroRouter);
 app.use("/skill",upload2.single("ImageFile1"), skillRouter);
 app.use("/aghanim", aghanimRouter);
+app.use("/inittalent", inittalentRouter);
 
 const PORT = 3001;
 

@@ -1,0 +1,22 @@
+create table inittalent (
+	InitTalentId int primary key auto_increment,
+    TalentOwner varchar(100) default '',
+    Sequence int not null default 0,
+    TalentImage varchar(100) default '',
+    TalentName varchar(100) default '',
+    TalentCNName varchar(100) not null,
+    TalentColor varchar(100) default '',
+    TalentDescription varchar(1000) not null,
+    IsNewSkill1 tinyint default 0,
+    AffectSkill1 varchar(100) default '',
+    Details1 varchar(1000) default '',
+    Statistic1 varchar(1000) default '',
+    IsNewSkill2 tinyint default 0,
+    AffectSkill2 varchar(100) default '',
+    Details2 varchar(1000) default '',
+    Statistic2 varchar(1000) default '',
+    IsNewSkill3 tinyint default 0,
+    AffectSkill3 varchar(100) default '',
+    Details3 varchar(1000) default '',
+    Statistic3 varchar(1000) default ''
+);

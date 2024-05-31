@@ -7,6 +7,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Talents from '../../component/Talents/Talents.jsx';
 import SkillInfo from '../../component/Skill/SkillInfo.jsx';
 import AghanimInfo from '../../component/Aghanim/AghanimInfo.jsx';
+import InitTalentInfo from '../../component/InitTalent/InitTalentInfo.jsx';
 
 const HeroPage = ({}) => {
     let [searchParams] = useSearchParams();  
@@ -15,6 +16,7 @@ const HeroPage = ({}) => {
     const [heroPageType, setHeroPageType] = useState('简介');
     const [isHovered, setIsHovered] = useState(-1);  
     const [heroSkill, setHeroSkill] = useState(null);
+    const [initTalent, setInitTalent] = useState(null);
   
     const handleMouseEnter = (index) => setIsHovered(index);  
     const handleMouseLeave = () => setIsHovered(-1);  
@@ -111,7 +113,6 @@ const HeroPage = ({}) => {
 
         if(serverResponse.status === 200){
             setHero(result.data);
-            console.log(result.data)
         }
     }
 
@@ -142,7 +143,6 @@ const HeroPage = ({}) => {
         const result = await serverResponse.json();
 
         if(serverResponse.status === 200){
-            console.log(result)
             if(result.data instanceof Array){
                 setHeroSkill(result.data);
             }
@@ -152,6 +152,27 @@ const HeroPage = ({}) => {
         }
     }
 
+    const GetInitTalentData = async () => {
+
+        const serverResponse = await fetch(
+            `http://localhost:3001/inittalent/getinittalent/${heroName}`, 
+            { 
+                method: "GET",
+            }
+        );
+
+        const result = await serverResponse.json();
+
+        if(serverResponse.status === 200){
+            if(result.data instanceof Array){
+                setInitTalent(result.data);
+            }
+            else{
+                setInitTalent([result.data]);
+            }
+        }
+    };
+
     useEffect(() => {
         GetHeroData()
     }, [])
@@ -159,6 +180,7 @@ const HeroPage = ({}) => {
     useEffect(() => {
         GetHeroSkills();
         GetAghanimData();
+        GetInitTalentData();
     }, [hero])
 
     return(
@@ -392,13 +414,41 @@ const HeroPage = ({}) => {
                     justifyContent: 'flex-start',
                     alignItems: 'center',
                     width: '100%',
+                    gap:'2%'
                 }}>
-                    <div className='HeroPageInitTalent1'>
-                        命石1
-                    </div>
-                    <div className='HeroPageInitTalent2'>
-                        命石2
-                    </div>
+                    {initTalent && initTalent.map((IT, index) => {
+                        const keyNum = index + 10;
+                        return(
+                            <div 
+                                className='HeroPageInitTalent' 
+                                key={index}
+                                onMouseEnter={() => handleMouseEnter(keyNum)}
+                                onMouseLeave={() => handleMouseLeave()}
+                            >
+                                <div style={{
+                                    flexBasis:'20%',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    backgroundColor: 'rgba(0,0,0,0.5)',
+                                    fontSize: '1.75vh',
+                                }}>图标</div>
+
+                                <div className='HeroPageInitTalentName' style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'start',
+                                    flexDirection: 'column'
+                                }}>
+                                    <div>命石</div>
+                                    {IT.InitTalentCNName}
+                                </div>
+                                {isHovered === keyNum && 
+                                    <div className='InitTalentContainer'>
+                                        <InitTalentInfo talent={IT}/>
+                                    </div>}
+                            </div>
+                    )})}
                 </div>
                 <div style={{
                     height: '13%',

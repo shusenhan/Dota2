@@ -485,7 +485,6 @@ export async function GetAghanimByHeroName(heroName){
 }
 
 export async function InsertAghanim(aghanim){
-    console.log(aghanim);
     
     const sql = `insert into aghanim (
         EffectOwner,
@@ -628,5 +627,173 @@ export async function UpdateAghanim(aghanim){
             }
         } catch (error) {
             return {code: 500, message:`更新${aghanim.EffectOwner}的阿哈利姆数据失败，错误信息：${error.message}`};
+        }
+}
+
+export async function GetInitTalentByHeroName(heroName){
+    const sql = `select * from inittalent where InitTalentOwner = ?`;
+
+    try{
+        const [results, ] = await pool.promise().query(sql, [heroName])
+        if(results.length){
+            return {code: 200, data: results}
+        }
+        else{
+            return {code: 404, message: `未能取得${heroName}的命石数据！`}
+        }
+    }
+    catch(error){
+        return {code: 500, message: `获取${heroName}的命石数据失败，错误信息：${error.message}`};
+    }
+}
+
+export async function GetInitTalentByName(initTalentName){
+    const sql = `select * from inittalent where InitTalentCNName = ?`;
+
+    try{
+        const [results, ] = await pool.promise().query(sql, [initTalentName])
+        if(results.length){
+            return {code: 200, data: results[0]}
+        }
+        else{
+            return {code: 404, message: `未能取得${initTalentName}的数据！`}
+        }
+    }
+    catch(error){
+        return {code: 500, message: `获取${initTalentName}数据失败，错误信息：${error.message}`};
+    }
+
+}
+
+export async function InsertInitTalent(initTalent){
+    const sql = `insert into inittalent (
+        InitTalentOwner,
+        InitTalentSequence,
+        InitTalentImage,
+        InitTalentName,
+        InitTalentCNName,
+
+        InitTalentColor,
+        InitTalentDescription,
+        ITIsNewSkill1,
+        ITAffectSkill1,
+        ITDetails1,
+
+        ITStatistic1,
+        ITIsNewSkill2,
+        ITAffectSkill2,
+        ITDetails2,
+        ITStatistic2,
+
+        ITIsNewSkill3,
+        ITAffectSkill3,
+        ITDetails3,
+        ITStatistic3) values (?,?,?,?,?,
+            ?,?,?,?,?,
+            ?,?,?,?,?,
+            ?,?,?,?)`;
+
+    try {
+        const [results] = await pool.promise().query(sql, [
+            initTalent.InitTalentOwner,
+            initTalent.InitTalentSequence,
+            initTalent.InitTalentImage,
+            initTalent.InitTalentName,
+            initTalent.InitTalentCNName,
+
+            initTalent.InitTalentColor,
+            initTalent.InitTalentDescription,
+            initTalent.ITIsNewSkill1,
+            initTalent.ITAffectSkill1,
+            initTalent.ITDetails1,
+
+            initTalent.ITStatistic1,
+            initTalent.ITIsNewSkill2,
+            initTalent.ITAffectSkill2,
+            initTalent.ITDetails2,
+            initTalent.ITStatistic2,
+
+            initTalent.ITIsNewSkill3,
+            initTalent.ITAffectSkill3,
+            initTalent.ITDetails3,
+            initTalent.ITStatistic3
+        ]);
+
+        if(results.affectedRows) {
+            return {code: 200, message:`命石${initTalent.InitTalentCNName}数据已成功添加至数据库中！`};
+        }
+        else{
+            return {code: 404, message:`命石${initTalent.InitTalentCNName}数据未能添加至数据库中！`};
+        }
+    } 
+    catch (error) {
+        return {code: 500, message:`命石${initTalent.InitTalentCNName}数据插入失败，错误信息：${error.message}`};
+    }
+}
+
+export async function UpdateInitTalent(initTalent){
+    const sql = `
+        update inittalent 
+        set
+            InitTalentOwner = ?,
+            InitTalentSequence = ?,
+            InitTalentImage = ?,
+            InitTalentName = ?,
+            InitTalentCNName = ?,
+
+            InitTalentColor = ?,
+            InitTalentDescription = ?,
+            ITIsNewSkill1 = ?,
+            ITAffectSkill1 = ?,
+            ITDetails1 = ?,
+
+            ITStatistic1 = ?,
+            ITIsNewSkill2 = ?,
+            ITAffectSkill2 = ?,
+            ITDetails2 = ?,
+            ITStatistic2 = ?,
+
+            ITIsNewSkill3 = ?,
+            ITAffectSkill3 = ?,
+            ITDetails3 = ?,
+            ITStatistic3 = ?
+        where InitTalentCNName = ?`;
+
+        try {
+            const [results] = await pool.promise().query(sql, [
+                initTalent.InitTalentOwner,
+                initTalent.InitTalentSequence,
+                initTalent.InitTalentImage,
+                initTalent.InitTalentName,
+                initTalent.InitTalentCNName,
+
+                initTalent.InitTalentColor,
+                initTalent.InitTalentDescription,
+                initTalent.ITIsNewSkill1,
+                initTalent.ITAffectSkill1,
+                initTalent.ITDetails1,
+
+                initTalent.ITStatistic1,
+                initTalent.ITIsNewSkill2,
+                initTalent.ITAffectSkill2,
+                initTalent.ITDetails2,
+                initTalent.ITStatistic2,
+
+                initTalent.ITIsNewSkill3,
+                initTalent.ITAffectSkill3,
+                initTalent.ITDetails3,
+                initTalent.ITStatistic3,
+
+                initTalent.InitTalentCNName
+            ]);
+
+            if(results.affectedRows) {
+                return {code: 200, message:`已成功更新命石${initTalent.InitTalentCNName}的数据！`};
+            }
+            else{
+                return {code: 404, message:`未能更新命石${initTalent.InitTalentCNName}的数据！`};
+            }
+        } catch (error) {
+            return {code: 500, message:`更新命石${initTalent.InitTalentCNName}的数据失败，错误信息：${error.message}`};
         }
 }
