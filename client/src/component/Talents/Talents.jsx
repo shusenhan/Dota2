@@ -1,7 +1,7 @@
 import TalentCell from "./TalentCell";
 import { Typography } from "@mui/material";
 
-const Talents = () => {
+const Talents = ({talent}) => {
     return(
         <div style={{
             height: '100%',
@@ -37,7 +37,7 @@ const Talents = () => {
                     padding: '0.75% 3%',
                     height: '20%'
                 }}>
-                    <TalentCell></TalentCell>
+                    <TalentCell text={talent.Lvl25TalentL}></TalentCell>
                     <div style={{
                         position: 'absolute',
                         display:'flex',
@@ -52,8 +52,8 @@ const Talents = () => {
                         fontSize: '2vh',
                         fontWeight: 'bold',
                         textShadow: '0px 0px 5px #EDC514'
-                    }}>20</div>
-                    <TalentCell L={false}></TalentCell>
+                    }}>25</div>
+                    <TalentCell L={false} text={talent.Lvl25TalentR}></TalentCell>
                 </div>
                 <div style={{
                     display:'flex',
@@ -63,7 +63,7 @@ const Talents = () => {
                     padding: '0.75% 3%',
                     height: '20%'
                 }}>
-                    <TalentCell></TalentCell>
+                    <TalentCell text={talent.Lvl20TalentL}></TalentCell>
                     <div style={{
                         position: 'absolute',
                         display:'flex',
@@ -79,7 +79,7 @@ const Talents = () => {
                         fontWeight: 'bold',
                         textShadow: '0px 0px 5px #EDC514'
                     }}>20</div>
-                    <TalentCell L={false}></TalentCell>
+                    <TalentCell L={false} text={talent.Lvl20TalentR}></TalentCell>
                 </div>
                 <div style={{
                     display:'flex',
@@ -89,7 +89,7 @@ const Talents = () => {
                     padding: '0.75% 3%',
                     height: '20%'
                 }}>
-                    <TalentCell></TalentCell>
+                    <TalentCell text={talent.Lvl15TalentL}></TalentCell>
                     <div style={{
                         position: 'absolute',
                         display:'flex',
@@ -104,8 +104,8 @@ const Talents = () => {
                         fontSize: '2vh',
                         fontWeight: 'bold',
                         textShadow: '0px 0px 5px #EDC514'
-                    }}>20</div>
-                    <TalentCell L={false}></TalentCell>
+                    }}>15</div>
+                    <TalentCell L={false} text={talent.Lvl15TalentR}></TalentCell>
                 </div>
                 <div style={{
                     display:'flex',
@@ -115,7 +115,7 @@ const Talents = () => {
                     padding: '0.75% 3%',
                     height: '20%'
                 }}>
-                    <TalentCell></TalentCell>
+                    <TalentCell text={talent.Lvl10TalentL}></TalentCell>
                     <div style={{
                         position: 'absolute',
                         display:'flex',
@@ -130,8 +130,8 @@ const Talents = () => {
                         fontSize: '2vh',
                         fontWeight: 'bold',
                         textShadow: '0px 0px 5px #EDC514'
-                    }}>20</div>
-                    <TalentCell L={false}></TalentCell>
+                    }}>10</div>
+                    <TalentCell L={false} text={talent.Lvl10TalentR}></TalentCell>
                 </div>
                 
             </div>

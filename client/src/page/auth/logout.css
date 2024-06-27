@@ -1,0 +1,44 @@
+.LogoutContent {
+    height:185px;
+    width: 400px;
+    border: 1px solid rgb(173, 173, 173);
+    background:linear-gradient(to right, rgb(52, 52, 52) , rgb(25, 25, 25) );
+    display: flex;
+    flex-direction: column;
+}
+
+.LogoutContentTitle{
+    padding-top: 20px;
+    flex-basis: 33%;
+    color: rgb(155, 155, 155);
+    font-size: 22px;
+}
+
+.LogoutContentText {
+    flex-basis: 23%;
+    color: rgb(225, 225, 225);
+    font-size: 16px;
+}
+
+.LogoutContentButton{
+    flex-basis: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    gap:10px;
+}
+
+.LogoutContentButton2 {
+    color: rgb(225, 225, 225);
+    font-size: 14px;
+    width: 140px;
+    height: 35px;
+    border: none;
+    border: 1px solid rgb(172, 172, 172);
+    background: linear-gradient(180deg, rgb(41, 41, 41), rgb(105, 105, 105));
+}
+
+.LogoutContentButton2:hover {
+    cursor: pointer;
+    background: rgb(140, 140, 140);
+}

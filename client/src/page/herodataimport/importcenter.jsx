@@ -39,7 +39,7 @@ const ImportCenter = () => {
                         ))}
                     </div>
                 </div>
-            <div className='ImportCenterItem'>
+            <div className='ImportCenterItem' onClick={() => navigate('\item')}>
                 <div className='ImportCenterText'>
                     {"导入装备数据".split('').map((char, index) => (
                         <Box key={index}

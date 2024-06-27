@@ -11,7 +11,7 @@
 
 .HeroPageLeft {
     padding: 6% 0% 15% 5%;
-    flex-basis: 50%;
+    width: 50%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -19,10 +19,13 @@
     align-items: flex-start;
     font-size: 20px;
     color: white;
-}
+    position: absolute;
+    z-index: 1; 
+} 
 
 .HeroPageMiddle {
     position: absolute;
+    z-index: 0;
 }
 
 .HeroPageRight {
@@ -90,10 +93,18 @@
     height: 70%;
     flex-basis: 27%;
     border-radius: 5%;
-    background: radial-gradient(circle at 25% center, rgba(161, 161, 161, 0.75), rgba(50, 50, 50, 0.75));
     display: flex;
     gap: 2%;
     position: relative;
+}
+
+.HeroPageInitTalentTransparentBK{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-image: url('http://localhost:3001/assets/commons/ripple_texture.png');
+    background-size: cover;
+    filter: invert(50%);
 }
 
 .HeroPageInitTalentName{
@@ -136,14 +147,6 @@
     position: relative;
 }
 
-.HeroPageInitSkill > img{
-    position: absolute;
-    left: 0;
-    height: 100%;
-    flex-basis: 25%;
-    filter: invert(60%);
-}
-
 .HeroPageSkill {
     margin: 0 1.5% 0 0;
     font-size: 12px;
@@ -155,7 +158,6 @@
 .HeroPageSkillImage {
     height: 100%;
     width: 100%;
-    background-color: green;
 }
 
 .HeroPageSkillInfo {
@@ -168,7 +170,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    flex-basis: 17%;
+    flex-basis: 30%;
 }
 
 .HeroPageAttributeName1 {
@@ -198,7 +200,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    width: 100%;
+    width: 65%;
 }
 
 .HeroPageAttributePanel2 {
@@ -207,7 +209,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    flex-basis: 40%;
+    flex-basis: 55%;
 }
 
 .HeroPageOtherAttribute {
@@ -260,7 +262,7 @@
     font-weight: 700;
     height: 50%;
     background: linear-gradient(to right, #286323, #7AF03C);
-    width: 85%;
+    width: 100%;
     text-align: center;
 }
 
@@ -270,7 +272,7 @@
     font-weight: 700;
     height: 50%;
     background: linear-gradient(to right, #1056DB, #73F5FE);
-    width: 85%;
+    width: 100%;
     text-align: center;
 }
 
@@ -311,4 +313,31 @@
     left: -30%;
     height: 100%;
     margin-top: 4%;
+}
+
+.HeroPageMiddle {
+    height: 100%;
+    width: 40%;
+    left: 30%
+}
+
+.HeroPageHeroVideo {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.InitSkillContainer {
+    margin-top: 10%;
+    position: absolute;
+    width: 650%;
+    height: 100%;
+    left: -250%;
+    top: 100%;
+}
+
+.SingleHeroPageNavbar {
+    font-size: 2vh;
 }

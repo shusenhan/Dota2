@@ -5,11 +5,13 @@ import CustomTextField from "../../component/MytTextField";
 import CustomSelect from '../../component/MySelect';
 import CustomTextArea from '../../component/MyTextArea.jsx';
 import {
+    Box,
     Button,
     FormControl,
     InputLabel, 
     MenuItem,
 } from '@mui/material'; 
+import Dropzone from 'react-dropzone';
 
 const formSchema = yup.object({
     InitTalentSequence: yup.number().required('请输入值').typeError('请输入数字'),
@@ -64,12 +66,25 @@ const ChangeExistedInitTalent = ({Owner, InitTalent=null}) => {
     const SubmitIniTalent = async (values, onSubmitProps) => {
         const upload = {...values, 'InitTalentOwner': Owner};
 
+        const formData = new FormData();
+
+        for (let key in upload) {  
+            if (upload.hasOwnProperty(key) && key !== 'ImageFile1' && !(upload[key] instanceof File)) {  
+                formData.append(key, values[key]);  
+            }  
+        }
+
+        if(upload.ImageFile1){
+            formData.append('InitTalentImage', upload.ImageFile1.name);
+            formData.append('ImageFile1', upload.ImageFile1);
+        }
+
         const serverResponse = await fetch(
             "http://localhost:3001/inittalent/insert",
             {
                 method: "POST",
-                headers: {"Content-Type" : "application/json"},
-                body: JSON.stringify(upload)
+                // headers: {"Content-Type" : "application/json"},
+                body: formData
             }
         );
 
@@ -166,21 +181,50 @@ const ChangeExistedInitTalent = ({Owner, InitTalent=null}) => {
                             }}  
                             size="small"  
                         />
-                        <CustomTextField  
-                            label='图标'  
-                            onBlur={handleBlur}  
-                            onChange={handleChange}  
-                            value={values.InitTalentImage}
-                            name="InitTalentImage"
-                            error={touched.InitTalentImage && Boolean(errors.InitTalentImage)}  
-                            helperText={errors.InitTalentImage}
-                            style={{  
-                                gridColumn: "span 2",  
-                                display: 'flex',  
-                                alignItems: 'center',
-                            }}  
-                            size="small"  
-                        />
+
+                        <Dropzone
+                            acceptedFiles=".jpg,.jpeg,.png,.webp"
+                            multiple={false}
+                            onDrop={(acceptedFiles) => {
+                                const file = acceptedFiles[0];
+                                const reader = new FileReader;
+
+                                reader.onload = (e) => {
+                                    setFieldValue("imagePreviewUrl", e.target.result);
+                                };
+
+                                if(file){
+                                    reader.readAsDataURL(file);
+                                    setFieldValue("ImageFile1", file);
+                                }
+                            }}
+                        >
+                            {({ getRootProps, getInputProps }) => (
+                            <Box
+                                {...getRootProps()}
+                                border={`2px dashed gray`}
+                                p="1rem"
+                                sx={{ color: 'white', "&:hover": { cursor: "pointer" }, height:'80px' }}
+                            >
+                                <input {...getInputProps()} />
+                                {!values.ImageFile1 ? (
+                                    <p>添加图片</p>
+                                ) : (
+                                    <div style={{
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        height: '100%',
+                                    }}>
+                                        {values.imagePreviewUrl ? (  
+                                            <img src={values.imagePreviewUrl} alt="Selected Image" />  
+                                        ) : null}
+                                    </div>
+                                )}
+                            </Box>
+                            )}
+                        </Dropzone>
+
                         <CustomTextField  
                             label='命石颜色'  
                             onBlur={handleBlur}  

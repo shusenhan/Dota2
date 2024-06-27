@@ -11,7 +11,6 @@ import HomePage from './page/homepage/homepage';
 import { useMemo, useState } from 'react';
 import { themeSetting } from './theme';
 import Navbar from './page/navbar/navbar';
-import UserBox from './component/UserBox/UserBox';
 import CreateLoginAnimation from './theme/createAnimation';
 import AllHeroPage from "./page/heropage/AllHeroPage";
 import HeroDataImportPage from "./page/herodataimport/importpage";
@@ -22,6 +21,10 @@ import Footer from "./page/footer/footer";
 import HeroPage from "./page/heropage/heropage";
 import ImportCenter from "./page/herodataimport/importcenter";
 import ExistedSkill from "./page/skilldataimport/existskill";
+import TrainPage from "./page/practice/trainpage";
+import ExistedItem from "./page/itemdataimport/existeditem";
+import CommunityMianPage from "./page/community/community";
+import PersonalCenter from "./page/personal/peronalcenter";
 
 function App() {
   const [mode, setMode] = useState("1");
@@ -60,6 +63,7 @@ function App() {
             </div>
               
             <Routes>
+              <Route path='/personal' element={<div className='Content'><PersonalCenter/></div>}/>
               <Route path='/' element={<div className='Content'><HomePage/></div>}/>
               <Route path='/allhero' element={<div className='Content'><AllHeroPage/></div>}/>
               <Route path='/importcenter' element={<div className='Content'><ImportCenter/></div>}/>
@@ -67,8 +71,10 @@ function App() {
               <Route path='/importcenter/hero/import' element={<div className='Content'><HeroDataImportPage/></div>}/>
               <Route path='/importcenter/skill' element={<div className='Content'><ExistedSkill/></div>}/>
               <Route path='/importcenter/skill/import' element={<div className='Content'><SkillDataImportPage/></div>}/>
-              {/* <Route path='/importskill' element={<div className='Content'><SkillDataImportPage/></div>}/> */}
+              <Route path='/train' element={<div className='Content'><TrainPage/></div>}/>
               <Route path='/heroinfo' element={<div className='Content'><HeroPage/></div>}/>
+              <Route path='/importcenter/item' element={<div className='Content'><ExistedItem/></div>}/>
+              <Route path='/community' element={<div className='Content'><CommunityMianPage/></div>}/>
             </Routes>
 
             <div className="Footer">

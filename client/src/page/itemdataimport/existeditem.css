@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap');
+
+.ExistedItemContent {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+}
+
+.ExistedItemTitle {
+    color: rgb(210, 210, 210);
+    font-size: 3.25vh;
+    font-family: "Ma Shan Zheng", cursive;
+    font-weight: 400;
+    font-style: normal;
+    padding-top: 2%;
+}
+
+.ExistedItemContainer {
+    display: flex;
+    gap:1%;
+    padding: 2% 4% 2% 6%;
+    height: 85%;
+    font-size: 1.75vh;
+    color: rgb(158, 158, 158)
+}
+
+.ExistedItemPart1 {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 30%;
+}
+
+.ExistedItemPart2 {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 30%;
+}
+
+.ExistedItemPart3 {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 20%;
+}
+
+.ExistedItemPart4 {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 20%;
+}
+
+.ExistedItems {
+    flex:1;
+    background: radial-gradient(circle at 0% 0%, rgba(0,0,0,0.5), rgba(0,0,0,1))
+}
+
+.ExsitedItemGridDisplay1 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap:1% 4%;
+    font-size: 1.5vh;
+    text-align: start;
+}
+
+.ExsitedItemClassName {
+    margin-left: 4%;
+}
+
+.ExsitedItemGridDisplay2 {
+    margin: 0 3% ;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.ExistedItemTierTitle {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5vh;
+    margin: 2% 4% 0% 4%;
+}
+
+.ExistedItemDisplay3 {
+    display: grid;
+    gap: 0.75%;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    margin: 0 3%;
+}
+
+.ItemInfoTitle {
+    display: flex;
+    background-color: rgb(38, 53, 59);
+    font-size: 1.6vh;
+}
+
+.ItemInfoTitleImage {
+    flex-basis: 27%;
+    padding: 4%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ItemInfoTitleName {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    justify-content: center;
+    flex-basis: 35%;
+}
+
+.ItemInfoTitleCNName {
+    font-family: "Ma Shan Zheng", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.75vh;
+}
+
+.ItemInfoTitlePrice {
+    color: gold;
+}
+
+.ItemInfoStatistic {
+    text-align: start;
+    margin:2% 5%;
+    font-size: 1.5vh;
+}
+
+.ItemInfoDisplay {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 2% 0;
+    border-bottom: 2px solid rgb(158, 158, 158);
+    padding-top: 2%;
+}
+
+.ExistedItemPart4Display {
+    flex:1;
+    background: radial-gradient(circle at 0% 0%, rgb(15, 32, 39), rgb(6, 21, 28))
+}
+
+.ItemInfoExtraInfo {
+    background-color: rgb(64, 82, 96);
+    padding: 1% 2%;
+    color: rgb(194, 194, 194);
+    margin: 2% 0;
+}
+
+.ItemInfoBackground {
+    margin-top: 2%;
+    background-color: rgb(6, 14, 21);
+    font-size: 1.3vh;
+    padding: 1% 2%;
+    color: rgb(99, 99, 99);
+}
+
+.ExistedItemPart4Container {
+    flex:1;
+    display: flex;
+    flex-direction: column;
+}
+
+.ItemInfoSubmitButton {
+    display: flex;
+    flex: 1;
+    margin-right:3%;
+    justify-content: center;
+    align-items: center;
+}
+
+.ItemInfoSubmitButtonBox {
+    width: 100%;
+    color: rgb(140, 224, 249);
+    border: 2px solid rgb(6, 6, 6);
+    background-color :rgb(68, 68, 68);
+    font-size: 1.75vh;
+}
+
+.ItemInfoSubmitButtonBox:hover {
+    color: rgb(54, 208, 255);
+    border: 2px solid rgb(63, 63, 63);
+    background-color :rgb(137, 137, 137);
+    cursor: pointer;
+}

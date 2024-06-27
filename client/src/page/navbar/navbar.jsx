@@ -5,19 +5,33 @@ import { useNavigate } from "react-router-dom";
 import NavbarContentItem from "./item";
 import { useDispatch, useSelector } from "react-redux";
 import { useMemo, useState } from "react";
-import { changePage } from "../../state/state";
+import { changePage, logout } from "../../state/state";
 import NavbarContentItem2 from "./item2";
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import MailIcon from '@mui/icons-material/Mail';
+import AuthPanel from "../../component/AuthPanel.jsx";
+import LoginPage from "../auth/login.jsx";
+import LogoutPage from "../auth/logout.jsx";
 
 const Navbar = () => {
     const theme = useTheme();
     const navigate = useNavigate();
     const dispatch = useDispatch()
     const selected = useSelector(state => state.selectedPage);
+    const user = useSelector(state => state.user);
+    const [openPanel, setOpenPanel] = useState("");
+
     const [BK1, setBK1] = useState('radial-gradient(circle at 15% center, #ff7847 0%, rgb(48, 48, 48) 10%, rgb(17, 17, 17))');
     const [BK2, setBK2] = useState('radial-gradient(circle at center, gold, #ca6642)');
     const [BB, setBB] = useState('3px solid #eebb79');
+
+    const Logout = () => {
+        dispatch(logout());
+    }
+
+    const Login = () => {
+        
+    }
 
     useMemo(() => {
         if(selected === 'home'){
@@ -36,6 +50,18 @@ const Navbar = () => {
         <div className="NavbarContent" style={{
             background: BK1
         }}>
+            {openPanel === 'login' && <AuthPanel switcher={setOpenPanel}> 
+                <div>
+                    <LoginPage/>
+                </div>
+            </AuthPanel>}
+
+            {openPanel === 'logout' && <AuthPanel switcher={setOpenPanel}> 
+                <div>
+                    <LogoutPage/>
+                </div>
+            </AuthPanel>}
+
             <FlexBetween>
                     <div className="SettingLogo">
                         <img src="http://localhost:3001/assets/commons/setting.png" alt="Setting" height="50%"/>
@@ -56,9 +82,9 @@ const Navbar = () => {
 
                     <div className="NavbarItems">
                         <NavbarContentItem name="英雄" first={true} goto='/allhero'/>
-                        <NavbarContentItem name="兵器库" />
+                        <NavbarContentItem name="社区" goto="/community"/>
                         <NavbarContentItem name="观战" />
-                        <NavbarContentItem name="训练" />
+                        <NavbarContentItem name="训练" goto='/train'/>
                         <NavbarContentItem name="导入" goto='/importcenter'/>
                         <div style={{
                             height:'100%',
@@ -78,9 +104,16 @@ const Navbar = () => {
                         </NavbarContentItem2>
                         <NavbarContentItem2></NavbarContentItem2>
                         <NavbarContentItem2></NavbarContentItem2>
-                        <NavbarContentItem2 background="radial-gradient(circle at center, rgba(255, 0, 0, 0.45), rgba(255, 0, 0, 0.2))">
-                            <PowerSettingsNewIcon/>
-                        </NavbarContentItem2>
+                        {user ? <NavbarContentItem2 
+                                onClick={() => {setOpenPanel('logout');}}
+                                background="radial-gradient(circle at center, rgba(255, 0, 0, 0.45), rgba(255, 0, 0, 0.2))">
+                                <PowerSettingsNewIcon/>
+                            </NavbarContentItem2> :
+                            <NavbarContentItem2 
+                                onClick={() => {setOpenPanel('login');}}
+                                background="radial-gradient(circle at center, rgba(100, 255, 100, 0.45), rgba(100, 255, 100, 0.2))">
+                                <PowerSettingsNewIcon/>
+                            </NavbarContentItem2>}
                     </div>
 
             </FlexBetween>

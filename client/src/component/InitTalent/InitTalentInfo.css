@@ -11,6 +11,9 @@
     font-weight: 400;
     font-style: normal;
     display: flex;
+    text-align: start;
+    justify-content: start;
+    align-items: center;
 }
 
 .HeroPageInitTalentSkillName {
@@ -26,7 +29,12 @@
     display: flex;
     justify-self: center;
     align-self: center;
-    flex-basis: 20%;
+    flex-basis: 10%;
+    margin: 2%;
+}
+
+.InitTalentTitleImage img {
+    width: 100%;
 }
 
 .InitTalentDescription{

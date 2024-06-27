@@ -10,6 +10,8 @@ const pool = mysql.createPool({
     waitForConnections: true,
 });
 
+
+// 英雄
 export async function GetHeroByName(heroName){
     const sql = `select * from heros where HeroName = ?`;
 
@@ -267,6 +269,7 @@ export async function GetAllHeroName(){
     }
 }
 
+// 技能
 export async function GetSkillByHeroName(heroName){
     const sql = `select * from skills where Owner = ?`;
 
@@ -285,7 +288,7 @@ export async function GetSkillByHeroName(heroName){
 }
 
 export async function GetAllSkills(){
-    const sql = `select * from skills`;
+    const sql = `select * from skills where SkillType = 0`;
 
     try{
         const [results, ] = await pool.promise().query(sql, [])
@@ -300,6 +303,23 @@ export async function GetAllSkills(){
         return {code: 500, message: `获取所有已存在的技能失败，错误信息：${error.message}`};
     }
 }
+
+export async function GetAllItemSkills() {
+    const sql = `select * from skills where SkillType = 1`;
+
+    try{
+        const [results, ] = await pool.promise().query(sql, [])
+        if(results.length){
+            return {code: 200, data: results}
+        }
+        else{
+            return {code: 404, message: `数据库中还没有物品技能！`}
+        }
+    }
+    catch(error){
+        return {code: 500, message: `获取所有已存在的物品技能失败，错误信息：${error.message}`};
+    }
+};
 
 export async function GetSkillByName(skillName){
     const sql = `select * from skills where SkillName = ?`;
@@ -345,18 +365,22 @@ export async function InsertSkill(skill){
         
         Ability,
         CastRange,
-        IsAghanim) values (?,?,?,?,?,
+        IsAghanim,
+        IsInitSkill,
+        SkillType) values (?,?,?,?,?,
             ?,?,?,?,
             ?,?,?,?,?,
             ?,?,?,?,?,
-            ?,?,?)`;
+            ?,?,?,?,?)`;
 
     try {
+        const SkillImage1 = skill.SkillImage1 ? skill.SkillImage1[1] : '';
+        
         const [results] = await pool.promise().query(sql, [
         skill.SkillName,
         skill.SkillCNName,
         skill.SkillDescription,
-        skill.SkillImage1[1],
+        SkillImage1,
         skill.SkillImage2,
 
         skill.SkillImage3,
@@ -378,16 +402,22 @@ export async function InsertSkill(skill){
         
         skill.Ability,
         skill.CastRange,
-        skill.IsAghanim]);
+        skill.IsAghanim,
+        skill.IsInitSkill,
+        skill.SkillType]);
 
         if(results.affectedRows) {
+            console.log('200')
             return {code: 200, message:`技能${skill.SkillName}已成功添加至数据库中！`};
         }
         else{
+            console.log('404')
             return {code: 404, message:`技能${skill.SkillName}未能添加至数据库中！`};
         }
     } 
     catch (error) {
+        console.log('500')
+        console.log('error.message :', error.message)
         return {code: 500, message:`技能${skill.SkillName}信息插入失败，错误信息：${error.message}`};
     }
 }
@@ -422,6 +452,8 @@ export async function UpdateSkill(skill){
 
             CastRange = ?,
             IsAghanim = ?
+            IsInitSkill = ?,
+            SkillType = ?
         where SkillName = ? `;
 
         try {
@@ -452,6 +484,8 @@ export async function UpdateSkill(skill){
 
                 skill.CastRange,
                 skill.IsAghanim,
+                skill.IsInitSkill,
+                skill.SkillType,
                 
                 skill.SkillName,
             ]);
@@ -467,6 +501,7 @@ export async function UpdateSkill(skill){
         }
 }
 
+// 阿哈利姆
 export async function GetAghanimByHeroName(heroName){
     const sql = `select * from aghanim where EffectOwner = ?`;
 
@@ -630,6 +665,7 @@ export async function UpdateAghanim(aghanim){
         }
 }
 
+// 命石
 export async function GetInitTalentByHeroName(heroName){
     const sql = `select * from inittalent where InitTalentOwner = ?`;
 
@@ -732,6 +768,8 @@ export async function InsertInitTalent(initTalent){
 }
 
 export async function UpdateInitTalent(initTalent){
+    console.log(initTalent)
+
     const sql = `
         update inittalent 
         set
@@ -763,7 +801,7 @@ export async function UpdateInitTalent(initTalent){
             const [results] = await pool.promise().query(sql, [
                 initTalent.InitTalentOwner,
                 initTalent.InitTalentSequence,
-                initTalent.InitTalentImage,
+                initTalent.InitTalentImage[1],
                 initTalent.InitTalentName,
                 initTalent.InitTalentCNName,
 
@@ -796,4 +834,417 @@ export async function UpdateInitTalent(initTalent){
         } catch (error) {
             return {code: 500, message:`更新命石${initTalent.InitTalentCNName}的数据失败，错误信息：${error.message}`};
         }
+}
+
+// 天赋
+export async function GetTalentByHeroName(heroName){
+    const sql = `select * from talent where TalentOwner = ?`;
+
+    try{
+        const [results, ] = await pool.promise().query(sql, [heroName])
+        if(results.length){
+            return {code: 200, data: results}
+        }
+        else{
+            return {code: 404, message: `未能取得${heroName}的天赋数据！`}
+        }
+    }
+    catch(error){
+        return {code: 500, message: `获取${heroName}的天赋数据失败，错误信息：${error.message}`};
+    }
+}
+
+export async function InsertTalent(talent){
+    const sql = `insert into talent (
+        TalentOwner,
+        Lvl10TalentL,
+        Lvl10TalentR,
+        Lvl15TalentL,
+        Lvl15TalentR,
+
+        Lvl20TalentL,
+        Lvl20TalentR,
+        Lvl25TalentL,
+        Lvl25TalentR) values (?,?,?,?,?,
+            ?,?,?,?)`;
+
+    try {
+        const [results] = await pool.promise().query(sql, [
+            talent.TalentOwner,
+            talent.Lvl10TalentL,
+            talent.Lvl10TalentR,
+            talent.Lvl15TalentL,
+            talent.Lvl15TalentR,
+            talent.Lvl20TalentL,
+            talent.Lvl20TalentR,
+            talent.Lvl25TalentL,
+            talent.Lvl25TalentR
+        ]);
+
+        if(results.affectedRows) {
+            return {code: 200, message:`${talent.TalentOwner}的天赋数据已成功添加至数据库中！`};
+        }
+        else{
+            return {code: 404, message:`${talent.TalentOwner}的天赋数据未能添加至数据库中！`};
+        }
+    } 
+    catch (error) {
+        return {code: 500, message:`${talent.TalentOwner}的天赋数据插入失败，错误信息：${error.message}`};
+    }
+}
+
+export async function UpdateTalent(talent){
+    const sql = `
+        update talent 
+        set
+            TalentOwner = ?,
+            Lvl10TalentL = ?,
+            Lvl10TalentR = ?,
+            Lvl15TalentL = ?,
+            Lvl15TalentR = ?,
+
+            Lvl20TalentL = ?,
+            Lvl20TalentR = ?,
+            Lvl25TalentL = ?,
+            Lvl25TalentR = ?
+        where TalentOwner = ?`;
+
+    try {
+        const [results] = await pool.promise().query(sql, [
+            talent.TalentOwner,
+            talent.Lvl10TalentL,
+            talent.Lvl10TalentR,
+            talent.Lvl15TalentL,
+            talent.Lvl15TalentR,
+            talent.Lvl20TalentL,
+            talent.Lvl20TalentR,
+            talent.Lvl25TalentL,
+            talent.Lvl25TalentR,
+            talent.TalentOwner
+        ]);
+
+        if(results.affectedRows) {
+            return {code: 200, message:`已成功更新${talent.TalentOwner}的天赋数据！`};
+        }
+        else{
+            return {code: 404, message:`未能更新${talent.TalentOwner}的天赋数据！`};
+        }
+    } catch (error) {
+        return {code: 500, message:`更新${talent.TalentOwner}的天赋数据失败，错误信息：${error.message}`};
+    }
+}
+
+// 装备
+export async function GetAllItems(){
+    const sql = `select * from items`;
+
+    try{
+        const [results, ] = await pool.promise().query(sql, [])
+        if(results.length){
+            return {code: 200, data: results}
+        }
+        else{
+            return {code: 404, message: `未能取得物品数据！`}
+        }
+    }
+    catch(error){
+        return {code: 500, message: `获取物品数据失败，错误信息：${error.message}`};
+    }
+}
+
+export async function InsertItem(item){
+
+    const sql = `insert into items (
+        ItemName,
+        ItemCNName,
+        ItemImage1,
+        ItemImage2,
+        ItemType,
+
+        ItemExtraInfo,
+        ItemDescription,
+        ItemBackground,
+        Health,
+        Mana,
+
+        HealthRecover,
+        ManaRecover,
+        Damage,
+        Strength,
+        Agility,
+
+        Intelligence,
+        Armor,
+        MagicResist,
+        AttackSpeed,
+        Movespeed,
+
+        MovespeedPercentage,
+        HealthSteal,
+        SkillHealthSteal,
+        SkillEnhence,
+        Dodge,
+
+        OtherAttribute,
+        ItemPrice) values (?,?,?,?,?,
+            ?,?,?,?,?,
+            ?,?,?,?,?,
+            ?,?,?,?,?,
+            ?,?,?,?,?,
+            ?,?)`;
+
+    try {
+        const [results] = await pool.promise().query(sql, [
+            item.ItemName,
+            item.ItemCNName,
+            item.ItemImage1,
+            item.ItemImage2,
+            item.ItemType,
+
+            item.ItemExtraInfo,
+            item.ItemDescription,
+            item.ItemBackground,
+            item.Health,
+            item.Mana,
+
+            item.HealthRecover,
+            item.ManaRecover,
+            item.Damage,
+            item.Strength,
+            item.Agility,
+
+            item.Intelligence,
+            item.Armor,
+            item.MagicResist,
+            item.AttackSpeed,
+            item.Movespeed,
+
+            item.MovespeedPercentage,
+            item.HealthSteal,
+            item.SkillHealthSteal,
+            item.SkillEnhence,
+            item.Dodge,
+
+            item.OtherAttribute,
+            item.ItemPrice
+        ]);
+
+        if(results.affectedRows) {
+            return {code: 200, message:`物品${item.ItemCNName}已成功添加至数据库中！`};
+        }
+        else{
+            return {code: 404, message:`物品${item.ItemCNName}未能添加至数据库中！`};
+        }
+    }
+    catch(error){
+        return {code: 500, message: `物品${item.ItemCNName}信息插入失败，错误信息：${error.message}`};
+    }
+}
+
+export async function UpdateItem(item){
+    const sql = `
+        update items 
+        set
+            ItemName = ?,
+            ItemCNName = ?,
+            ItemImage1 = ?,
+            ItemImage2 = ?,
+            ItemType = ?,
+
+            ItemExtraInfo = ?,
+            ItemDescription = ?,
+            ItemBackground = ?,
+            Health = ?,
+            Mana = ?,
+
+            HealthRecover = ?,
+            ManaRecover = ?,
+            Damage = ?,
+            Strength = ?,
+            Agility = ?,
+
+            Intelligence = ?,
+            Armor = ?,
+            MagicResist = ?,
+            AttackSpeed = ?,
+            Movespeed = ?,
+
+            MovespeedPercentage = ?,
+            HealthSteal = ?,
+            SkillHealthSteal = ?,
+            SkillEnhence = ?,
+            Dodge = ?,
+
+            OtherAttribute = ?
+            ItemPrice = ?
+        where ItemName = ?`;
+
+    try {
+        const [results] = await pool.promise().query(sql, [
+            item.ItemName,
+            item.ItemCNName,
+            item.ItemImage1,
+            item.ItemImage2,
+            item.ItemType,
+
+            item.ItemExtraInfo,
+            item.ItemDescription,
+            item.ItemBackground,
+            item.Health,
+            item.Mana,
+
+            item.HealthRecover,
+            item.ManaRecover,
+            item.Damage,
+            item.Strength,
+            item.Agility,
+
+            item.Intelligence,
+            item.Armor,
+            item.MagicResist,
+            item.AttackSpeed,
+            item.Movespeed,
+
+            item.MovespeedPercentage,
+            item.HealthSteal,
+            item.SkillHealthSteal,
+            item.SkillEnhence,
+            item.Dodge,
+
+            item.OtherAttribute,
+            item.ItemPrice,
+
+            item.ItemName,
+        ]);
+
+        if(results.affectedRows) {
+            return {code: 200, message:`已成功更新物品${item.ItemName}的数据！`};
+        }
+        else{
+            return {code: 404, message:`未能更新物品${item.ItemName}的数据！`};
+        }
+    } catch (error) {
+        return {code: 500, message:`更新物品${item.ItemName}的数据失败，错误信息：${error.message}`};
+    }
+}
+
+export async function GetItemByName(itemName){
+    const sql = `select * from items where ItemName = ?`;
+
+    try{
+        const [results, ] = await pool.promise().query(sql, [itemName])
+        if(results.length){
+            return {code: 200, data: results[0]}
+        }
+        else{
+            return {code: 404, message: `未能取得${itemName}的数据！`}
+        }
+    }
+    catch(error){
+        return {code: 500, message: `获取${itemName}数据失败，错误信息：${error.message}`};
+    }
+}
+
+//用户
+export async function InsertUser(user){
+    const sql = `insert into useraccount (
+        UserName,
+        UserIcon,
+        AccountPassword,
+        UserRole,
+        AccountState,
+
+        LoginState,
+        CreateAt,
+        LastLogin,
+        CommunityLevel,
+        CurrentExp) values (?,?,?,?,?,
+            ?,?,?,?,?)`;
+
+    try {
+        const [results] = await pool.promise().query(sql, [
+            user.UserName,
+            user.UserIcon,
+            user.AccountPassword,
+            user.UserRole,
+            user.AccountState,
+
+            user.LoginState,
+            user.CreateAt,
+            user.LastLogin,
+            user.CommunityLevel,
+            user.CurrentExp]);
+
+        if(results.affectedRows) {
+            return {code: 200, message:`用户${user.UserName}创建成功！`};
+        }
+        else{
+            return {code: 404, message:`用户${user.UserName}创建失败`};
+        }
+    } 
+    catch (error) {
+        return {code: 500, message:`用户${user.UserName}创建错误，错误信息：${error.message}`};
+    }
+}
+
+export async function UpdateUser(user, userId){
+    const sql = `
+        update useraccount 
+        set
+            UserName = ?,
+            UserIcon = ?,
+            AccountPassword = ?,
+            UserRole = ?,
+            AccountState = ?,
+
+            LoginState = ?,
+            CreateAt = ?,
+            LastLogin = ?,
+            CommunityLevel = ?,
+            CurrentExp = ?
+        where UserId = ?`;
+
+    try {
+        const [results] = await pool.promise().query(sql, [
+            user.UserName,
+            user.UserIcon,
+            user.AccountPassword,
+            user.UserRole,
+            user.AccountState,
+
+            user.LoginState,
+            user.CreateAt,
+            user.LastLogin,
+            user.CommunityLevel,
+            user.CurrentExp,
+            
+            userId
+        ]);
+
+        if(results.affectedRows) {
+            return {code: 200, message:`已成功更新用户${user.UserName}的数据！`};
+        }
+        else{
+            return {code: 404, message:`未能更新用户${user.UserName}的数据！`};
+        }
+    } catch (error) {
+        return {code: 500, message:`更新用户${user.UserName}的数据失败，错误信息：${error.message}`};
+    }
+}
+
+export async function GetUserByUserName(username){
+    const sql = `select * from useraccount where UserName = ?`;
+
+    try{
+        const [results, ] = await pool.promise().query(sql, [username])
+        if(results.length){
+            return {code: 200, data: results[0]}
+        }
+        else{
+            return {code: 404, message: `没有发现${username}的账户！`}
+        }
+    }
+    catch(error){
+        return {code: 500, message: `获取${username}账户失败，错误信息：${error.message}`};
+    }
 }

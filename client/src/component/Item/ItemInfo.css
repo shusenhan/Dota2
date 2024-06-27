@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap');
+
+.ItemInfoContent {
+    position: absolute;
+    top:50%;
+    left: 103%;
+    transform: translateY(-35%);
+    background-color: rgb(22, 34, 39);
+    z-index: 5;
+    pointer-events: none;
+}
+
+.ItemInfoTitle {
+    display: flex;
+    background-color: rgb(37, 68, 83);
+}
+
+.ItemInfoImage {
+    display: flex;
+    flex-basis: 27%;
+    justify-content: center;
+    align-items: center;
+    padding: 3%;
+}
+
+.ItemInfoImage img {
+    width: 100%;
+}
+
+.ItemInfoNameAndPrice {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    padding-top: 2%;
+}
+
+.ItemInfoName {
+    font-family: "Ma Shan Zheng", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.75vh;
+    line-height: 2vh;
+    color: rgb(213, 213, 213);
+}
+
+.ItemInfoPrice {
+    color: gold;
+}
+
+.ItemInfoSkillInfo1 {
+    margin: 2% 4%;
+    font-size: 1.5vh;
+    border-top: 1px solid rgb(111, 111, 111);
+    border-bottom: 1px solid rgb(111, 111, 111);
+    color: rgb(111, 111, 111);
+}
+
+.ItemInfoAttribute {
+    margin: 2% 4%;
+    font-size: 1.5vh;
+    color: rgb(227, 227, 227);
+}
+
+.ItemInfoPositiveSkill {
+    background-color: rgba(75, 101, 233, 0.15);
+    font-size: 1.5vh;
+    margin: 2%;
+}
+
+.ItemInfoPositiveSkillTitle {
+    display: flex;
+    padding: 1% 2%;
+    background: linear-gradient(to right, rgba(75, 101, 233, 0.8), rgba(75, 101, 233, 0.15));
+}
+
+.ItemInfoPositiveSkillName {
+    flex-basis: 50%;
+}
+
+.ItemInfoSkillDescription {
+    padding: 2%;
+}
+
+.ItemInfoPositiveSkillCostAndCD {
+    flex-basis: 50%;
+    display: flex;
+}
+
+.ItemInfoPositiveSkillCD {
+    flex-basis: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ItemInfoPositiveSkillCost {
+    flex-basis: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ItemInfoNegativeSkill {
+    background-color: rgba(95, 106, 114, 0.15);
+    font-size: 1.5vh;
+    margin: 2%;
+}
+
+.ItemInfoNegativeSkillTitle {
+    display: flex;
+    padding: 1% 2%;
+    background: linear-gradient(to right, rgba(95, 106, 114, 0.8), rgba(95, 106, 114, 0.15));
+}
+
+.ItemInfoPositiveSkillName {
+    flex-basis: 50%;
+}
+
+.ItemInfoSkillDescription {
+    padding: 2%;
+}
+
+.ItemInfoPositiveSkillCostAndCD {
+    flex-basis: 50%;
+    display: flex;
+}
+
+.ItemInfoPositiveSkillCD {
+    flex-basis: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ItemInfoPositiveSkillCost {
+    flex-basis: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ItemInfoPageExtraInfo {
+    margin: 2%;
+    padding: 1% 2%;
+    background-color: rgb(58, 69, 81);
+    color: rgb(156, 165, 174);
+    font-size: 1.5vh;
+}
+
+.ItemInfoPageBackground {
+    margin: 2%;
+    padding: 1% 2%;
+    background-color: rgb(41, 41, 41);
+    color: rgb(88, 88, 88);
+    font-size: 1.35vh;
+}

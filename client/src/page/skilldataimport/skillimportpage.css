@@ -168,6 +168,19 @@
 .SkillImportPageAghanim{
     position: absolute;
     top: 12.4%;
+    right: 43.5%;
+    background-color: gray;
+    border-radius: 50%;
+    height: 4%;
+    width:2.2%;
+    border: 2px solid black;
+    text-align: center;
+    color: rgb(190, 190, 210);
+}
+
+.SkillImportPageSkillType {
+    position: absolute;
+    top: 12.4%;
     right: 40%;
     background-color: gray;
     border-radius: 50%;

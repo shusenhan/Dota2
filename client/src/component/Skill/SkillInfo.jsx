@@ -75,7 +75,7 @@ const SkillInfo = ({skill}) => {
                                 marginRight:'5%'
                             }}>
                             </div>
-                            {skill.SkillCD}
+                            {skill.SkillCD !== '0' && skill.SkillCD}
                         </div>
 
                         <div style={{flexBasis:'33%', display: 'flex'}}>
@@ -86,7 +86,7 @@ const SkillInfo = ({skill}) => {
                                     marginRight:'5%',
                                     borderRadius:'3px',
                             }}/>
-                            {skill.Cost}
+                            {skill.Cost !== '0' && skill.Cost}
                         </div>
                         
                         <div style={{flexBasis:'33%', display: 'flex'}}>
@@ -98,7 +98,7 @@ const SkillInfo = ({skill}) => {
                                     borderRadius:'3px',
                             }}>
                             </div>
-                            {skill.CastRange}
+                            {skill.CastRange !== '0' && skill.CastRange}
                         </div>
                     </div>
 

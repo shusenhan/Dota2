@@ -1,7 +1,12 @@
 import './UserCard.css';
 import { Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import {useSelector} from 'react-redux';
 
 const UserCard = () => {
+    const navigate = useNavigate();
+    const user = useSelector(state => state.user);
+
     return(
         <div className="UserCardContent">
             <div className='UserCardTitle'>
@@ -16,7 +21,9 @@ const UserCard = () => {
                     }}/>
                 </Box>
                 
-                <Box className='UserCardTitleItem' 
+                <Box
+                    onClick={() => navigate('/personal')}
+                    className='UserCardTitleItem' 
                     style={{
                         flexBasis: '60%',
                         maxWidth: '60%',
@@ -38,7 +45,7 @@ const UserCard = () => {
                             whiteSpace: 'nowrap',
                             height: '50%'
                         }}>
-                            MalakanataSublahamatina
+                            {user ? "以登录" : "未登录"}
                         </div>
                         <div style={{
                             width: '100%',
@@ -50,7 +57,7 @@ const UserCard = () => {
                             height: '50%',
                             fontSize: '12px'
                         }}>
-                            主菜单
+                            {user ? user.LoginState : ""}
                         </div>
                     </div>
                 </Box>

@@ -64,13 +64,6 @@
     padding: 1% 0;
 }
 
-.SkillInfoInitTalentName {
-    font-family: "Ma Shan Zheng", cursive;
-    font-weight: 400;
-    font-style: normal;
-    color: rgb(181, 181, 181)
-}
-
 .SkillInfoDescription {
     color: rgb(190, 190, 210);
     font-size: 1.5vh;

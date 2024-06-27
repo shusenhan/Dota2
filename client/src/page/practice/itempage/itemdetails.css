@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap');
+
+.ItemDetialsContent{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.ItemDetailsTitle {
+    flex-basis: 10%;
+    display: flex;
+    background-color: rgb(32, 46, 57);
+    font-size: 1.6vh;
+}
+
+.ItemDetailsTitleImage {
+    flex-basis: 27%;
+    padding: 4%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ItemDetailsTitleName {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    justify-content: center;
+    flex-basis: 35%;
+}
+
+.ItemDetailsTitleCNName {
+    font-family: "Ma Shan Zheng", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.75vh;
+}
+
+.ItemDetailsTitlePrice {
+    color: gold;
+}
+
+.ItemDetailsDescription {
+    flex-basis: 63%;
+    overflow-y: scroll;
+    text-align: start;
+}
+
+.ItemDetailsDescription::-webkit-scrollbar{
+    width: 6px;
+}
+
+.ItemDetailsDescription::-webkit-scrollbar-thumb{
+    background-color: rgb(185, 185, 185);
+}
+
+.ItemDetailsDescription::-webkit-scrollbar-track{
+    background-color: rgb(20, 30, 37);
+}
+
+.ItemDetailsLargeImage {
+    flex-basis: 27%;
+    display: flex;
+}
+
+.ItemDetailsLargeImageBorder {
+    flex: 1;
+    background-color: rgb(33, 33, 33);
+    margin: 2%;
+    border: 2px solid black;
+}

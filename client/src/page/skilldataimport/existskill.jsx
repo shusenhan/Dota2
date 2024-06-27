@@ -3,7 +3,9 @@ import './existskill.css'
 import { useNavigate } from 'react-router-dom';
 import {strenghHeroList, agilityHeroList, intelligenceHeroList, universalHeroList} from'../../heroList.js'
 import HeroTypeCell from '../heropage/TypeCell.jsx';
-import { Button } from '@mui/material';
+import { Button, Box } from '@mui/material';
+import { Tier1 } from '../../itemList.js';
+import ItemCell from '../practice/itempage/itemcell.jsx';
 
 const ExistedSkill = () => {
     const [skillList, setSkillList] = useState(null);
@@ -12,6 +14,8 @@ const ExistedSkill = () => {
     const [exsitAgilityHeroList, setAgilityHeroList] = useState([]);
     const [exsitIntelligenceHeroList, setIntelligenceHeroList] = useState([]);
     const [exsitUniversalHeroList, setSUniversalHeroList] = useState([]);
+    const [pageType, setPageType] = useState('英雄');
+    const [itemSkillList, setItemSkillList] = useState(null);
 
     const GetExistedSkill = async() => {
         const serverResponse = await fetch(
@@ -25,6 +29,21 @@ const ExistedSkill = () => {
 
         if(serverResponse.status === 200){
             setSkillList(result.data);
+        }
+    }
+
+    const GetItemSkills = async() => {
+        const serverResponse = await fetch(
+            'http://localhost:3001/skill/allitemskill',
+            {
+                method: 'GET'
+            }
+        )
+
+        const result = await serverResponse.json();
+
+        if(serverResponse.status === 200){
+            setItemSkillList(result.data);
         }
     }
 
@@ -69,6 +88,7 @@ const ExistedSkill = () => {
 
     useEffect(() => {
         GetExistedSkill();
+        GetItemSkills();
     }, []);
 
     useEffect(() => {
@@ -80,6 +100,91 @@ const ExistedSkill = () => {
 
     return(
         <div className="ExistedSkillContent">
+            <div className='ExistedSkillNavbar'>
+                <Box 
+                    onClick={() => setPageType('英雄')} 
+                    sx={{
+                        position: 'absolute',
+                        left: '21.5%',
+                        width: "5%",
+                        height: '100%',
+                        color: (pageType === '英雄' ? 'rgb(255, 255, 255)' : 'rgb(161, 161, 161)'),
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        '&:hover':{
+                            color:'rgb(255, 255, 255)',
+                            cursor:'pointer'
+                        }
+                }}>
+                    英雄
+                </Box>
+
+                <Box style={{
+                    position: 'absolute',
+                    height: '100%',
+                    left: '26.5%',
+                    color: 'rgb(161, 161, 161)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontWeight: 700
+                }}>
+                    /
+                </Box>
+
+                <Box 
+                    onClick={() => setPageType('物品')} 
+                    sx={{
+                        position: 'absolute',
+                        left: '26.5%',
+                        width: "5%",
+                        height: '100%',
+                        color: (pageType === '物品' ? 'rgb(255, 255, 255)' : 'rgb(161, 161, 161)'),
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        '&:hover':{
+                            color:'rgb(255, 255, 255)',
+                            cursor:'pointer'
+                        }
+                }}>
+                    物品
+                </Box>
+
+                <Box style={{
+                    position: 'absolute',
+                    height: '100%',
+                    left: '31.5%',
+                    color: 'rgb(161, 161, 161)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontWeight: 700
+                }}>
+                    /
+                </Box>
+
+                <Box 
+                    onClick={() => setPageType('单位')} 
+                    sx={{
+                        position: 'absolute',
+                        left: '31.5%',
+                        width: "5%",
+                        height: '100%',
+                        color: (pageType === '单位' ? 'rgb(255, 255, 255)' : 'rgb(161, 161, 161)'),
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        '&:hover':{
+                            color:'rgb(255, 255, 255)',
+                            cursor:'pointer'
+                        }
+                }}>
+                    单位
+                </Box>
+            </div>
+
             <div className='ExistedSkillTitle'>
                 已有技能
                 <div className='ExistedSkillImportButton'>
@@ -93,7 +198,7 @@ const ExistedSkill = () => {
                     导入新技能</Button>
                 </div>
             </div>
-            <div className='ExistedSkillContainer'>
+            {pageType === '英雄' && <div className='ExistedSkillContainer'>
                 {skillList &&
                 <div className='ExistedSkills'>
                     <HeroTypeCell heroList={exsitStrengthHeroList} type='Strength' cnType='力量' skill={true}/>
@@ -101,7 +206,34 @@ const ExistedSkill = () => {
                     <HeroTypeCell heroList={exsitIntelligenceHeroList} type='Intelligence' cnType='智力' skill={true}/>
                     <HeroTypeCell heroList={exsitUniversalHeroList} type='Universal' cnType='全才' skill={true}/>
                 </div>}
-            </div>
+            </div>}
+
+            {pageType === '物品' && <div className='ExistedItemSkillContainer'>
+                <div className='ExistedItemPositiveSkill'>
+                    主动技能
+                    <div className='ExistedSkillItems'>
+                        {itemSkillList && itemSkillList.map((item, index) => {
+                            if(item.Ability !== '被动'){
+                                return (
+                                    <ItemCell name={item.Owner}/>
+                                )
+                            }
+                        })}
+                    </div>
+                </div>
+                <div className='ExistedItemNegativeSkill'>
+                    被动技能
+                    <div className='ExistedSkillItems'>
+                        {itemSkillList && itemSkillList.map((item, index) => {
+                            if(item.Ability === '被动'){
+                                return (
+                                    <ItemCell name={item.Owner}/>
+                                )
+                            }
+                        })}
+                    </div>
+                </div>
+            </div>}
         </div>
     )
 };

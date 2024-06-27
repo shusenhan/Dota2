@@ -1,5 +1,5 @@
 import Skill from '../models/skill.js';
-import { GetSkillByName, InsertSkill, UpdateSkill, GetSkillByHeroName, GetAllHeroName, GetAllSkills } from '../Database.js';
+import { GetSkillByName, InsertSkill, UpdateSkill, GetSkillByHeroName, GetAllItemSkills, GetAllSkills } from '../Database.js';
 
 export const getSkillByName = async(req, res) => {
     try{
@@ -23,7 +23,6 @@ export const insertSkill = async(req, res) => {
         const skillInfo = req.body;
         const skill = new Skill(skillInfo);
         const isExist = await GetSkillByName(skill.SkillName);
-        console.log(skill);
 
         if(isExist.code == 200){
             const result = await UpdateSkill(skill);
@@ -65,6 +64,22 @@ export const getSkillByHeroName = async(req, res) => {
     }
     catch(error){
         res.status(500).json({message: error.message});
+    }
+}
+
+export const getAllItemSkills = async(req, res) => {
+    try{
+        const skills = await GetAllItemSkills();
+
+        if(skills.code === 200){
+            res.status(200).json(skills);
+        }
+        else{
+            res.status(skills.code).json({message: skills.message});
+        }
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
     }
 }
 

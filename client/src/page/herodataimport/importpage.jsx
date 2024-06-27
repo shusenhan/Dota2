@@ -22,6 +22,7 @@ import Talents from '../../component/Talents/Talents.jsx';
 import CustomTextArea from '../../component/MyTextArea.jsx';
 import AddIcon from '@mui/icons-material/Add';
 import ChangeExistedInitTalent from './ChangeExistedInitTalent.jsx'
+import ChangeExistedTalent from './ChangeExistedTalent.jsx'
 
 const heroSchema = yup.object().shape({
     HeroName: yup.string().required('请输入值'),
@@ -238,6 +239,8 @@ const HeroDataImportPage = () => {
     const [initValue, setInitValue] = useState(null);
     const [currentInitTalent, setCurrentInitTalent] = useState(null);
     const [openInitTalentForm, setOpenInitTalentForm] = useState(false);
+    const [talent, setTalent] = useState(null);
+    const [openTalentForm, setOpenTalentForm] = useState(false);
 
     const GetHeroData = async () => {
         const serverResponse = await fetch(
@@ -292,11 +295,27 @@ const HeroDataImportPage = () => {
         }
     };
 
+    const GetTalentData = async () => {
+        const serverResponse = await fetch(
+            `http://localhost:3001/talent/gettalent/${heroName}`, 
+            { 
+                method: "GET",
+            }
+        );
+
+        const result = await serverResponse.json();
+
+        if(serverResponse.status === 200){
+            setTalent(result.data[0]);
+        }
+    }
+
     useEffect(() => {
         if(heroName){
             GetHeroData();
             GetAghanimData();
             GetInitTalentData();
+            GetTalentData();
         }
     }, []);
 
@@ -405,6 +424,11 @@ const HeroDataImportPage = () => {
                 { openInitTalentForm && <InputPanel switcher={setOpenInitTalentForm}>
                     {inputPanelContent === 'InitTalent' && 
                         <ChangeExistedInitTalent Owner={values.HeroName} InitTalent={currentInitTalent}/>}
+                    </InputPanel>}
+
+                { openTalentForm && <InputPanel switcher={setOpenTalentForm}>
+                    {inputPanelContent === 'Talent' && 
+                        <ChangeExistedTalent Owner={values.HeroName} talent={talent}/>}
                     </InputPanel>}
 
                 
@@ -1025,8 +1049,6 @@ const HeroDataImportPage = () => {
                                         size="small"  
                                     />}
 
-                                {inputPanelContent === 'Talent' &&  <div style={{width: '330px', height:'200px'}}><Talents/></div> }
-
                                 {inputPanelContent === 'Aghanim' && 
                                     <div style={{
                                         display: 'flex', 
@@ -1456,9 +1478,6 @@ const HeroDataImportPage = () => {
                                             />
                                         </div>
                                     </div>}
-
-                                {/* {inputPanelContent === 'InitTalent' && 
-                                    <ChangeExistedInitTalent Owner={values.HeroCNName} InitTalent={currentInitTalent}/>} */}
                             </InputPanel>
                         }
 
@@ -1701,7 +1720,9 @@ const HeroDataImportPage = () => {
                                                 alignItems: 'center',
                                                 backgroundColor: 'rgba(0,0,0,0.5)',
                                                 fontSize: '1.75vh',
-                                            }}>图标</div>
+                                            }}>
+                                                <img src={`http://localhost:3001/assets/skills/${IT.InitTalentImage}`} style={{width: '60%'}}/>
+                                            </div>
 
                                             <div style={{
                                                 display: 'flex',
@@ -1730,7 +1751,7 @@ const HeroDataImportPage = () => {
                                 alignItems: 'center',
                                 width: '100%',
                             }}>
-                                <div className='HeroImportPageTalentTree' onClick={() => {setOpenInputPanel(!openInputPanel); setInputPanelContent('Talent')}}>
+                                <div className='HeroImportPageTalentTree' onClick={() => {setOpenTalentForm(!openTalentForm); setInputPanelContent('Talent')}}>
                                     <div></div>
                                     <img src='http://localhost:3001/assets/commons/Talent_tree_icon.svg'/>
                                 </div>

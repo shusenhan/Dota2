@@ -1,0 +1,70 @@
+.PersonalCenterContent {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+}
+
+.PersonalCenterNavbar {
+    width: 100%;
+    height: 4%;
+    background-color: rgba(16, 16, 16, 0.7);
+    position: relative;
+}
+
+.PersonalCenterData {
+    padding: 2% 3% 0% 15%;
+    height: 96%;
+}
+
+.PersonalCenterFirstRow {
+    display: flex;
+    height: 12%;
+}
+
+.PersonalCenterUserIcon {
+    flex-basis: 7%;
+}
+.PersonalCenterUserIcon img{
+    width: 100%;
+    border: 2px solid black;
+}
+
+.PersonalCenterBasicInfo {
+    display: flex;
+    flex-basis: 90%;
+    height: 60%;
+}
+
+.PersonalCenterCommunityLevel {
+    flex-basis: 6%;
+}
+
+.PersonalCenterCommunityLevelIcon img{
+    width: 100%;
+}
+
+.PersonalCenterNameAndID {
+    text-align: start;
+    flex-basis: 50%;
+}
+
+.PersonalCenterName {
+    height: 55%;
+    font-size: 2.75vh;
+    color: rgb(232, 232, 232);
+}
+
+.PersonalCenterID {
+    height: 35%;
+    font-size: 1.5vh;
+    display: flex;
+}
+
+.PersonalCenterLoginState {
+    flex-basis: 8%;
+    color: green;
+}
+
+.PersonalCenterIDNumber {
+    color: rgb(232, 232, 232);
+}

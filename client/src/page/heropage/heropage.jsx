@@ -8,6 +8,7 @@ import Talents from '../../component/Talents/Talents.jsx';
 import SkillInfo from '../../component/Skill/SkillInfo.jsx';
 import AghanimInfo from '../../component/Aghanim/AghanimInfo.jsx';
 import InitTalentInfo from '../../component/InitTalent/InitTalentInfo.jsx';
+import InitSkillInfo from '../../component/InitSkill/InitSkillInfo.jsx';
 
 const HeroPage = ({}) => {
     let [searchParams] = useSearchParams();  
@@ -17,6 +18,9 @@ const HeroPage = ({}) => {
     const [isHovered, setIsHovered] = useState(-1);  
     const [heroSkill, setHeroSkill] = useState(null);
     const [initTalent, setInitTalent] = useState(null);
+    const [initSkill, setInitSkill] = useState(null);
+    const [aghanim, setAghanim] = useState(null);
+    const [talent, setTalent] = useState(null);
   
     const handleMouseEnter = (index) => setIsHovered(index);  
     const handleMouseLeave = () => setIsHovered(-1);  
@@ -36,7 +40,6 @@ const HeroPage = ({}) => {
     const [extraMoveSpeed, setExtraMoveSpeed] = useState(0);
     const [extraMoveSpeedPercentage, setExtraMoveSpeedPercentage] = useState(0);
     const [extraDamage, setExtraDamage] = useState(0);
-    const [aghanim, setAghanim] = useState(null);
 
     const strengthToHealth = 18;
     const strengthToHealthRecover = 0.1;
@@ -150,6 +153,12 @@ const HeroPage = ({}) => {
                 setHeroSkill([result.data]);
             }
         }
+
+        for(var i = 0; i < result.data.length; i++){
+            if(result.data[i].IsInitSkill === 1){
+                setInitSkill(result.data[i]);
+            }
+        }
     }
 
     const GetInitTalentData = async () => {
@@ -173,6 +182,21 @@ const HeroPage = ({}) => {
         }
     };
 
+    const GetTalentData = async () => {
+        const serverResponse = await fetch(
+            `http://localhost:3001/talent/gettalent/${heroName}`, 
+            { 
+                method: "GET",
+            }
+        );
+
+        const result = await serverResponse.json();
+
+        if(serverResponse.status === 200){
+            setTalent(result.data[0]);
+        }
+    }
+
     useEffect(() => {
         GetHeroData()
     }, [])
@@ -181,6 +205,7 @@ const HeroPage = ({}) => {
         GetHeroSkills();
         GetAghanimData();
         GetInitTalentData();
+        GetTalentData();
     }, [hero])
 
     return(
@@ -417,6 +442,8 @@ const HeroPage = ({}) => {
                     gap:'2%'
                 }}>
                     {initTalent && initTalent.map((IT, index) => {
+                        console.log(IT.InitTalentColor)
+                        const backgroundColor = IT.InitTalentColor ? IT.InitTalentColor : 'radial-gradient(circle at 25% center, rgba(161, 161, 161, 0.75), rgba(50, 50, 50, 0.75))';
                         const keyNum = index + 10;
                         return(
                             <div 
@@ -424,7 +451,13 @@ const HeroPage = ({}) => {
                                 key={index}
                                 onMouseEnter={() => handleMouseEnter(keyNum)}
                                 onMouseLeave={() => handleMouseLeave()}
+                                style={{
+                                    background: backgroundColor,
+                                }}
                             >
+                                <div className='HeroPageInitTalentTransparentBK'>
+                                    
+                                </div>
                                 <div style={{
                                     flexBasis:'20%',
                                     display: 'flex',
@@ -432,7 +465,9 @@ const HeroPage = ({}) => {
                                     alignItems: 'center',
                                     backgroundColor: 'rgba(0,0,0,0.5)',
                                     fontSize: '1.75vh',
-                                }}>图标</div>
+                                }}>
+                                    <img src={`http://localhost:3001/assets/skills/${IT.InitTalentImage}`} style={{width: '60%'}}/>
+                                </div>
 
                                 <div className='HeroPageInitTalentName' style={{
                                     display: 'flex',
@@ -464,38 +499,48 @@ const HeroPage = ({}) => {
                         onMouseLeave={() => handleMouseLeave()}
                     >
                         {isHovered === 98 && <Box className='HeroPageTalentTreeContainer'>
-                            <Talents/>
+                            {talent && <Talents talent={talent}/>}
                         </Box>}
                         <div className='HeroPageTalentTreeBG'></div>
                         <img src='http://localhost:3001/assets/commons/Talent_tree_icon.svg'/>
                     </div>
 
-                    <div className='HeroPageInitSkill'>
-                        <img src='http://localhost:3001/assets/commons/Talent_tree_icon.svg'/>
+                    <div 
+                        className='HeroPageInitSkill'
+                        onMouseEnter={() => handleMouseEnter(97)}
+                        onMouseLeave={() => handleMouseLeave()}
+                    >
+                        <img src='http://localhost:3001/assets/commons/innate_icon.png' style={{height:'100%'}}/>
+                        {isHovered === 97 && initSkill &&
+                        <Box className='InitSkillContainer' >
+                            <InitSkillInfo skill={initSkill}/>
+                        </Box>}
                     </div>
 
                     {heroSkill && heroSkill.map((skill, index) => {
-                        const keyNumber = index;
-                        return(
-                            <div key={keyNumber} className='HeroPageSkill'>
-                                <div className='HeroPageSkillImage' 
-                                    onMouseEnter={() => handleMouseEnter(keyNumber)}
-                                    onMouseLeave={() => handleMouseLeave()}
-                                >
-                                    <img src={`http://localhost:3001/assets/skills/${skill.SkillImage1}`} style={{width: '100%'}}/>
-                                </div>
-                                {isHovered === keyNumber && <Box className='HeroPageSkillInfo' 
-                                    sx={{
-                                        top: '-200%',
-                                        left: '120%',
-                                }}>
-                                    <SkillInfo skill={skill}/>
-                                </Box>}
-                            </div>)
+                        if(skill.Sequence >= 0){
+                            const keyNumber = index;
+                            return(
+                                <div key={keyNumber} className='HeroPageSkill'>
+                                    <div className='HeroPageSkillImage' 
+                                        onMouseEnter={() => handleMouseEnter(keyNumber)}
+                                        onMouseLeave={() => handleMouseLeave()}
+                                    >
+                                        <img src={`http://localhost:3001/assets/skills/${skill.SkillImage1}`} style={{width: '100%'}}/>
+                                    </div>
+                                    {isHovered === keyNumber && <Box className='HeroPageSkillInfo' 
+                                        sx={{
+                                            top: '-200%',
+                                            left: '120%',
+                                    }}>
+                                        <SkillInfo skill={skill}/>
+                                    </Box>}
+                                </div>)}
                     })}
 
                     <div className='HeroPageInitSkill'>
-                        <img src='http://localhost:3001/assets/commons/Talent_tree_icon.svg' 
+                        <img src='http://localhost:3001/assets/commons/Talent_tree_icon.svg'
+                            style={{width: '100%'}} 
                             onMouseEnter={() => handleMouseEnter(99)}
                             onMouseLeave={() => handleMouseLeave()}/>
                         {isHovered === 99 && <div className='HeroPageAghanimContainer'>
@@ -509,7 +554,7 @@ const HeroPage = ({}) => {
                             力量
                         </div>
                         <div className='HeroPageAttributeData1'>
-                            <img src='http://localhost:3001/assets/commons/Strength_attribute_symbol.webp'/>
+                            <img src='http://localhost:3001/assets/commons/Strength_attribute_symbol.webp' />
                             {hero ? (Math.floor(hero.InitStrength
                             + level * hero.StrengthGrowth
                             + extraStrength)) : 0 } + {hero ? hero.StrengthGrowth.toFixed(1) : 0}
@@ -679,7 +724,11 @@ const HeroPage = ({}) => {
                 </div>
             </div>
             <div className='HeroPageMiddle'>
-               
+                {heroName && <div className='HeroPageHeroVideo'>
+                    <video autoPlay loop muted style={{height: '65%'}}>
+                        <source src={`http://localhost:3001/assets/videos/heros/${heroName}.webm`}/>
+                    </video>
+                </div>}
             </div>
             <div className='HeroPageRight'>
                 

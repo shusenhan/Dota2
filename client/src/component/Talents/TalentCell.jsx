@@ -19,14 +19,14 @@ const TalentCell = ({text, L=true}) => {
                 display:'flex',
                 justifyContent: 'center',
                 color: color,
-                fontSize: '1.5vh',
+                fontSize: '1.4vh',
                 alignItems: 'center',
                 '&:hover': {
                     color: 'white',
                     background: `radial-gradient(circle at ${percentage} center, #E6D801, #3E3A01)`
                 }
         }}>
-            天赋
+            {text}
         </Box>
     )
 }

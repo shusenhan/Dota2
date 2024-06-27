@@ -36,6 +36,9 @@ const heroSchema = yup.object().shape({
     Ability: yup.string().required('请输入值'),
     CastRange: yup.string().required('请输入值'),
     IsAghanim: yup.number().required('请输入值'),
+
+    IsInitSkill: yup.number().required('请输入值'),
+    SkillType: yup.number().required('请输入值'),
 });
 
 const initValue = {
@@ -62,6 +65,9 @@ const initValue = {
     Ability: '点目标',
     CastRange: '0',
     IsAghanim: 0,
+
+    IsInitSkill: 0,
+    SkillType: 0,
 };
 
 const SkillDataImportPage = () => {
@@ -239,6 +245,30 @@ const SkillDataImportPage = () => {
                                             }}  
                                             size="small"  
                                         />
+
+                                        {values.SkillType === 0 && <FormControl fullWidth sx={{gridColumn: "span 2"}}>
+                                            <InputLabel id="IsInitSkill">先天技能</InputLabel>
+                                            <CustomSelect
+                                                labelId="IsInitSkill"
+                                                label="IsInitSkill"
+                                                onBlur={handleBlur}
+                                                onChange={handleChange}
+                                                value={values.IsInitSkill}
+                                                defaultValue={0}
+                                                name="IsInitSkill"
+                                                error={Boolean(touched.IsInitSkill) && Boolean(errors.IsInitSkill)}
+                                                helperText={touched.IsInitSkill && errors.IsInitSkill}
+                                                style={{  
+                                                    gridColumn: "span 2",  
+                                                    display: 'flex',  
+                                                    alignItems: 'center',
+                                            }}>
+                                                <MenuItem value={0}>否
+                                                </MenuItem>
+                                                <MenuItem value={1}>是
+                                                </MenuItem>
+                                            </CustomSelect>
+                                        </FormControl>}
                                     </div>}
                             
                             {inputPanelContent === 'SkillImage1' &&
@@ -603,6 +633,33 @@ const SkillDataImportPage = () => {
                                         </MenuItem>
                                     </CustomSelect>
                                 </FormControl>}
+
+                            {inputPanelContent === 'SkillType' && 
+                                <FormControl fullWidth sx={{gridColumn: "span 2"}}>
+                                    <InputLabel id="SkillType">技能类型</InputLabel>
+                                    <CustomSelect
+                                        labelId="SkillType"
+                                        label="SkillType"
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        value={values.SkillType}
+                                        defaultValue={0}
+                                        name="SkillType"
+                                        error={Boolean(touched.SkillType) && Boolean(errors.SkillType)}
+                                        helperText={touched.SkillType && errors.SkillType}
+                                        style={{  
+                                            gridColumn: "span 2",  
+                                            display: 'flex',  
+                                            alignItems: 'center',
+                                    }}>
+                                        <MenuItem value={0}>英雄技能
+                                        </MenuItem>
+                                        <MenuItem value={1}>物品技能
+                                        </MenuItem>
+                                        <MenuItem value={2}>单位技能
+                                        </MenuItem>
+                                    </CustomSelect>
+                                </FormControl>}
                         </InputPanel>}
 
                         <div className='SkillImportPageNavbar'>
@@ -666,10 +723,13 @@ const SkillDataImportPage = () => {
                                         {values.Sequence ? values.Sequence : '序'}
                                     </div>
 
-                                    <div className='SkillImportPageAghanim' onClick={() => {setOpenInputPanel(!openInputPanel); setInputPanelContent('Aghanim')}}>
-                                        {/* {values.Sequence ? values.Sequence : '序'} */}
-                                        <img src='http://localhost:3001/assets/commons/Aghanim_Scepter.webp' style={{width: '100%', borderRadius:'50%'}}></img>
+                                    <div className='SkillImportPageSkillType' onClick={() => {setOpenInputPanel(!openInputPanel); setInputPanelContent('SkillType')}}>
+                                        {values.SkillType === 0 ? '英' : values.SkillType === 1 ? '物' : '单'}
                                     </div>
+
+                                    {values.SkillType === 0 && <div className='SkillImportPageAghanim' onClick={() => {setOpenInputPanel(!openInputPanel); setInputPanelContent('Aghanim')}}>
+                                        <img src='http://localhost:3001/assets/commons/Aghanim_Scepter.webp' style={{width: '100%', borderRadius:'50%'}}></img>
+                                    </div>}
                                     技能视频，暂无。技能视频，暂无。技能视频，暂无
                                 </div>
                                 <div className='SkillImportPageInfo1'>
@@ -694,7 +754,7 @@ const SkillDataImportPage = () => {
                                     {values.SkillDescription ? values.SkillDescription : '技能描述'}
                                 </div>
 
-                                <div onClick={() => {setOpenInputPanel(!openInputPanel); setInputPanelContent('InitTalent')}}>
+                                {values.SkillType === 0 && <div onClick={() => {setOpenInputPanel(!openInputPanel); setInputPanelContent('InitTalent')}}>
                                     <div className='SkillImportPageInitTalent' >
                                         <div style={{
                                             paddingRight: '3%',
@@ -716,7 +776,7 @@ const SkillDataImportPage = () => {
                                     <div className='SkillImportPageInitTalentDescription' >
                                         {values.InitTalentDescription ? values.InitTalentDescription : '命石效果描述'}
                                     </div>
-                                </div>
+                                </div>}
 
                                 <div className='SkillImportPageDetails' onClick={() => {setOpenInputPanel(!openInputPanel); setInputPanelContent('Details')}}>
                                     {values.ExtraInfo1 ? values.ExtraInfo1.split('?').map((str, index) => <div key={index}>{str}</div>) : 'alt额外信息'}
@@ -770,6 +830,7 @@ const SkillDataImportPage = () => {
                         
                         <Button
                             type="submit"
+                            onAbort={()=> {console.log(errors)}}
                         >
                             提交信息
                         </Button>

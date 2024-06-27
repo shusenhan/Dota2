@@ -1,10 +1,10 @@
 import { Box } from "@mui/material";
 
-const InputPanel = ({children, switcher}) => {
+const InputPanel = ({children, switcher, width='100%'}) => {
     return (
         <Box sx={{
             height: '100%',
-            width: '100%',
+            width: width,
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -14,7 +14,7 @@ const InputPanel = ({children, switcher}) => {
             zIndex:5
         }}>
             <Box sx={{
-                height: '50%',
+                height: '100%',
                 width: '50%',
                 // backgroundColor: 'black',
                 position: 'relative',

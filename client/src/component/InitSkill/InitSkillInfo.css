@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap');
+
+.InitSkillInfoContent {
+    height: 100%;
+    width: 100%;
+    text-align: start;
+}
+
+.InitSkillTitle {
+    height: 100%;
+    background: radial-gradient(circle at 25% center, rgba(161, 161, 161, 0.75), rgba(50, 50, 50, 0.75));
+    font-size: 1.75vh;
+    font-family: "Ma Shan Zheng", cursive;
+    font-weight: 400;
+    font-style: normal;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    text-align: start;
+}
+
+.InitSkillTitleImage {
+    flex-basis: 17%;
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    padding: 2%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.InitSkillTiltleSkillName {
+    font-size: 1.25vh;
+    background-color: rgba(248, 237, 91, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.InitSkillInfoInfo1{
+    text-align: start;
+    padding: 1% 0;
+    font-size: 1.5vh;
+    border-top: 1px solid rgb(111, 111, 111);
+    border-bottom: 1px solid rgb(111, 111, 111);
+    color: rgb(111, 111, 111);
+}
+
+.InitSkillInfoDescription {
+    color: rgb(190, 190, 210);
+    font-size: 1.5vh;
+    padding: 1% 0;
+}
+
+.InitSkillInfoInitTalent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35vh;
+    color: rgb(111, 111, 111);
+}
+
+.InitSkillInfoInitTalentName {
+    font-family: "Ma Shan Zheng", cursive;
+    font-weight: 400;
+    font-style: normal;
+    color: rgb(181, 181, 181)
+}
+
+.InitSkillInfoInitTalentDescription {
+    color: rgb(190, 190, 210);
+    font-size: 1.5vh;
+    padding: 1% 0;
+}
+
+.InitSkillInfoDetails {
+    color: rgb(190, 190, 210);
+    font-size: 1.5vh;
+    padding: 1% 1%;
+    background-color: rgb(66, 66, 66);
+}
+
+.InitSkillInfoSkillStatistic {
+    font-size: 1.5vh;
+    color: rgb(111, 111, 111);
+    padding: 1% 0;
+}
+
+.InitSkillInfoCostCD{
+    display: flex;
+}
+
+.InitSkillInfoExtraInfo{
+    background-color: rgb(13, 13, 13);
+    padding: 1%;
+    font-size: 1.5vh;
+    color: rgb(88, 88, 88);
+}
+
+.InitSkillInfoSkillPanel{
+    padding: 1%;
+    text-align: start;
+} 

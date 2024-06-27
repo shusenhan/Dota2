@@ -11,6 +11,8 @@ import heroRouter from './routes/heros.js';
 import skillRouter from './routes/skills.js'
 import aghanimRouter from "./routes/aghanim.js";
 import inittalentRouter from "./routes/inittalent.js";
+import talentRouter from "./routes/talent.js";
+import itemRouter from "./routes/item.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -43,13 +45,25 @@ const storageSkill = multer.diskStorage({
     },
 });
 
+const storageInitTalent = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "public/assets/inittalents");
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname);
+    },
+});
+
 const upload1 = multer({ storage: storageHero });
 const upload2 = multer({ storage: storageSkill });
+const upload3 = multer({ storage: storageInitTalent });
 
 app.use("/hero", upload1.single("Image1"), heroRouter);
 app.use("/skill",upload2.single("ImageFile1"), skillRouter);
 app.use("/aghanim", aghanimRouter);
-app.use("/inittalent", inittalentRouter);
+app.use("/inittalent",upload2.single("ImageFile1"), inittalentRouter);
+app.use("/talent", talentRouter);
+app.use("/item", itemRouter);
 
 const PORT = 3001;
 
