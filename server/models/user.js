@@ -6,7 +6,9 @@ class User {
         AccountPassword,
         UserRole,
         AccountState,
+        // 0：激活， 1：停用
         LoginState,
+        // 0：离线， 1：在线， 2：离开，3：隐身
         CreateAt,
         LastLogin,
         CommunityLevel,

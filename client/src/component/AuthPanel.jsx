@@ -1,15 +1,15 @@
 import { Box } from "@mui/material";
 
-const AuthPanel = ({children, switcher}) => {
+const AuthPanel = ({children, switcher, height='2150%', top='0%'}) => {
     return (
         <Box sx={{
-            height: '2150%',
+            height: height,
             width: '100%',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
             position: 'absolute',
-            top: 0,
+            top: top,
             left: 0,
             zIndex:15
         }}>

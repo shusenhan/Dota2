@@ -13,6 +13,10 @@ import aghanimRouter from "./routes/aghanim.js";
 import inittalentRouter from "./routes/inittalent.js";
 import talentRouter from "./routes/talent.js";
 import itemRouter from "./routes/item.js";
+import authRouter from "./routes/auth.js";
+import http from "http";
+import {Server} from "socket.io";
+// import { GetUserFriendList } from "./Database.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -56,7 +60,6 @@ const storageInitTalent = multer.diskStorage({
 
 const upload1 = multer({ storage: storageHero });
 const upload2 = multer({ storage: storageSkill });
-const upload3 = multer({ storage: storageInitTalent });
 
 app.use("/hero", upload1.single("Image1"), heroRouter);
 app.use("/skill",upload2.single("ImageFile1"), skillRouter);
@@ -64,12 +67,59 @@ app.use("/aghanim", aghanimRouter);
 app.use("/inittalent",upload2.single("ImageFile1"), inittalentRouter);
 app.use("/talent", talentRouter);
 app.use("/item", itemRouter);
+app.use("/auth", authRouter);
+
+const server = http.createServer(app);
+const io = new Server(server, {
+    cors: {  
+        origin: 'http://localhost:3000',
+        credentials: true // 如果需要发送 cookies，设置为 true  
+    }
+});
+
+const users = {};
+
+io.on('connection', (socket) => {  
+    socket.on('user:login', async (data) => {  
+        try { 
+            users[data.UserName] = socket;
+            console.log('用户登录！')
+
+            // const friendships = GetUserFriendList(data.UserName);
+
+            // if(friendships){
+            //     for(var friendship in friendships){
+            //         if(friendship.State === 1){
+            //             let friend = '';
+            //             if(friendship.User1 === data.UserName){
+            //                 friend = friendship.User2;
+            //             }
+            //             else{
+            //                 friend = friendship.User1;
+            //             }
+
+            //             const friendSocket = users[friend];
+
+            //             if(friendSocket){
+            //                 friendSocket.emit('friend:login', data.UserName);
+            //             }
+
+            //             // 根据id获取socket对象，然后发送
+            //         }
+            //     }
+            // }
+            
+        } catch (error) {  
+            socket.emit('error', { message: error.message });  
+        }  
+    }); 
+});
 
 const PORT = 3001;
 
 async function startServer() {
     try {
-        app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+        server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
     } catch (error) {
         console.error('Database connection failed:', error);
     }

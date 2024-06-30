@@ -10,7 +10,6 @@ const pool = mysql.createPool({
     waitForConnections: true,
 });
 
-
 // 英雄
 export async function GetHeroByName(heroName){
     const sql = `select * from heros where HeroName = ?`;
@@ -1237,6 +1236,9 @@ export async function GetUserByUserName(username){
 
     try{
         const [results, ] = await pool.promise().query(sql, [username])
+
+        console.log(results)
+        
         if(results.length){
             return {code: 200, data: results[0]}
         }
@@ -1246,5 +1248,142 @@ export async function GetUserByUserName(username){
     }
     catch(error){
         return {code: 500, message: `获取${username}账户失败，错误信息：${error.message}`};
+    }
+}
+
+export async function GetUserFriendList(username){
+    const sql = `select * from friendships where User1 = ? or User2 = ?`;
+
+    try{
+        const [results, ] = await pool.promise().query(sql, [username, username]);
+        if(results.length){ 
+            return {code: 200, data: results}
+        }
+        else{
+            return {code: 404, message: `没有发现任何好友！`}
+        }
+    }
+    catch(error){
+        return {code: 500, message: `获取好友列表失败，错误信息：${error.message}`};
+    }
+}
+
+export async function SetFriendShip(friendship){
+    const sql = `insert into friendships (
+        User1,
+        User2,
+        State) values (?,?,?)`;
+
+    try {
+        const [results] = await pool.promise().query(sql, [
+            friendship.User1,
+            friendship.User2,
+            friendship.State]);
+
+        if(results.affectedRows) {
+            return {code: 200, message:`发送好友请求成功！`};
+        }
+        else{
+            return {code: 404, message:`发送好友请求失败`};
+        }
+    } 
+    catch (error) {
+        return {code: 500, message:`发送好友请求错误，错误信息：${error.message}`};
+    }
+}
+
+export async function ConfirmFriendShip(friendship){
+    const sql = `
+        update friendships 
+        set
+            State = ?
+        where 
+            User1 = ? and User2 = ?`;
+
+    try {
+        const [results] = await pool.promise().query(sql, [
+            friendship.State,
+            friendship.User1,
+            friendship.User2]);
+
+        if(results.affectedRows) {
+            return {code: 200, message:`已成功添加好友！`};
+        }
+        else{
+            return {code: 404, message:`未能添加好友！`};
+        }
+    } catch (error) {
+        return {code: 500, message:`添加好友失败，错误信息：${error.message}`};
+    }
+}
+
+export async function DeleteFriendShip(friendship){
+    const sql = `
+        delete from friendships
+        where 
+            (User1 = ? and User2 = ?) or (User1 = ? and User2 = ?)`;
+
+    try {
+        const [results] = await pool.promise().query(sql, [
+            friendship.User1,
+            friendship.User2,
+            friendship.User2,
+            friendship.User1]);
+
+        if(results.affectedRows) {
+            return {code: 200, message:`已成功删除好友！`};
+        }
+        else{
+            return {code: 404, message:`未能删除好友！`};
+        }
+    } catch (error) {
+        return {code: 500, message:`删除好友失败，错误信息：${error.message}`};
+    }
+}
+
+export async function SearchUser(UserName){
+    const sql = `
+        select 
+            UserName, 
+            UserId, 
+            UserIcon,
+            UserRole,
+            AccountState,
+            CommunityLevel,
+            CurrentExp
+        from 
+            useraccount 
+        where 
+            UserName = ?`;
+
+    try{
+        const [results, ] = await pool.promise().query(sql, [UserName])
+        if(results.length){
+            return {code: 200, data: results}
+        }
+        else{
+            return {code: 404, message: `没有发现任何用户！`}
+        }
+    }
+    catch(error){
+        return {code: 500, message: `搜索用户失败，错误信息：${error.message}`};
+    }
+}
+
+export async function IsFriend(User1, User2){
+    const sql = `select * from friendships where (User1 = ? and User2 = ?) or (User1 = ? and User2 = ?)`;
+
+    try{
+        const [results, ] = await pool.promise().query(sql, [User1, User2, User2, User1])
+
+        if(results.length){
+            return {code: 200, data: results[0]}
+        }
+        else{
+            return {code: 404, message: `还不是好友关系！`}
+        }
+    }
+    catch(error){
+        return {code: 500, message: `获取好友关系失败，错误信息：${error.message}`};
     }
 }

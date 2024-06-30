@@ -3,10 +3,14 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { useState } from 'react';
 import LoginTextField from '../../component/LoginTextField';
+import notify from '../../component/ToastBox.tsx';
+import { useDispatch, useSelector } from 'react-redux';
+import { userlogin } from '../../state/state.js';
 
 const loginSchema = yup.object().shape({
     UserName: yup.string().required('用户名不能为空'),
-    AccountPassword: yup.string().required('密码不能为空')
+    AccountPassword: yup.string().required('密码不能为空'),
+    ConfirmPassword: yup.string(),
 });
 
 const registerSchema = yup.object().shape({
@@ -17,7 +21,8 @@ const registerSchema = yup.object().shape({
 
 const loginValue = {
     UserName: '',
-    AccountPassword: ''
+    AccountPassword: '',
+    ConfirmPassword: ''
 };
 
 const registerValue = {
@@ -26,11 +31,69 @@ const registerValue = {
     ConfirmPassword: ''
 };
 
-const LoginPage = () => {
+const LoginPage = ({switcher}) => {
     const [pageType, setPageType] = useState('login');
+    const dispatch = useDispatch();
+
+    const HandleLogin = async (values, resetForm) => {
+        const response = await fetch(
+            'http://localhost:3001/auth/login', 
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type" : "application/json"
+                },
+                body: JSON.stringify(values)
+            }
+        )
+
+        const result = await response.json();
+
+        if(response.status === 200){
+            notify('success', '登录成功');
+            switcher(false);
+            dispatch(userlogin({
+                user: result.data.data, 
+                token: result.token
+            }));
+            resetForm();
+        }
+        else{
+            notify('error', result.message);
+        }
+    };
+    
+    const HandleRegister = async (values, resetForm) => {
+        const response = await fetch(
+            'http://localhost:3001/auth/register', 
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type" : "application/json",
+                },
+                body: JSON.stringify(values)
+            }
+        )
+
+        const result = await response.json();
+
+        if(response.status === 200){
+            notify('success', '注册成功');
+            setPageType('login');
+            resetForm();
+        }
+        else{
+            notify('error', result.message);
+        }
+    };
 
     const handleFormSubmit = async (values, onSubmitProps) => {
-
+        if(pageType === 'login'){
+            HandleLogin(values, onSubmitProps.resetForm);
+        }
+        else{
+            HandleRegister(values, onSubmitProps.resetForm);
+        }
     };
 
     return (
@@ -43,6 +106,7 @@ const LoginPage = () => {
                     onSubmit={handleFormSubmit}
                     initialValues={pageType === 'login' ? loginValue : registerValue}
                     validationSchema={pageType === 'login' ? loginSchema : registerSchema}
+                    enableReinitialize={true}
                 >
                     {({
                         values,
@@ -99,16 +163,8 @@ const LoginPage = () => {
                                     )
                                 } 
                                 <button className='LoginContentLoginButton'
-                                    // type="submit" 
-                                    style={{
-                                        // width: '100px',
-                                        // height: '35px',
-                                        // backgroundColor: 'rgba(0, 0, 0, 0.75)',
-                                        // border: '1px solid rgb(180, 180, 180)',
-                                        // borderRadius: '5px',
-                                        // fontSize: '16px',
-                                        // color: 'rgb(225, 225, 225)',
-                                }}>
+                                    type='submit'
+                                >
                                     {pageType === 'login' ? '登录' : '注册'}
                                 </button>
                             </div>

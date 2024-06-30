@@ -13,12 +13,19 @@ const UserCard = () => {
                 <Box className='UserCardTitleItem'
                     style={{
                         flexBasis: '20%',
-                        minWidth: '20%',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
                 }}>
-                    <img src='http://localhost:3001/assets/commons/user_icon.jpg' width='100%'
-                        style={{
-                            padding: '10%',
-                    }}/>
+                    <Box style={{
+                        background: 'url(http://localhost:3001/assets/commons/user_icon.jpg)',
+                        backgroundSize: 'cover',
+                        width: '80%',
+                        height: '80%',
+                        padding: '10%',
+                    }}>
+
+                    </Box>
                 </Box>
                 
                 <Box
@@ -45,7 +52,7 @@ const UserCard = () => {
                             whiteSpace: 'nowrap',
                             height: '50%'
                         }}>
-                            {user ? "以登录" : "未登录"}
+                            {user ? user.UserName : "未登录"}
                         </div>
                         <div style={{
                             width: '100%',

@@ -1,12 +1,13 @@
 .FriendComponentContent {
     height: 59%;
     width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
 .FriendSearch {
-    height: 10%;
+    height: 8%;
     width: 100%;
-    background-color: rgb(10, 10, 10);
+    background-color: rgb(0, 0, 0);
     padding: 0% 2%;
     display: flex;
     align-items: center;
@@ -20,6 +21,11 @@
     border: 2px solid gray;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     margin-right: 1%;
+}
+
+.FriendList {
+    height: 92%;
+    width: 100%;
 }

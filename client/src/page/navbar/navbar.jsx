@@ -24,25 +24,20 @@ const Navbar = () => {
     const [BK1, setBK1] = useState('radial-gradient(circle at 15% center, #ff7847 0%, rgb(48, 48, 48) 10%, rgb(17, 17, 17))');
     const [BK2, setBK2] = useState('radial-gradient(circle at center, gold, #ca6642)');
     const [BB, setBB] = useState('3px solid #eebb79');
-
-    const Logout = () => {
-        dispatch(logout());
-    }
-
-    const Login = () => {
-        
-    }
+    const [BB2, setBB2] = useState('3px solid #B07721');
 
     useMemo(() => {
         if(selected === 'home'){
             setBK1('radial-gradient(circle at 15% center, #ff7847 0%, rgb(48, 48, 48) 10%, rgb(17, 17, 17))');
             setBK2('radial-gradient(circle at center, gold, #ca6642)');
             setBB('3px solid #eebb79');
+            setBB2('3px solid #B07721');
         }
         else{
             setBK1('radial-gradient(circle at 15% center, rgb(48, 48, 48) 0%, rgb(48, 48, 48) 10%, rgb(17, 17, 17))');
             setBK2('radial-gradient(circle at center, #4f4f4f, rgb(48, 48, 48))');
             setBB('3px solid #414141');
+            setBB2('3px solid #414141');
         }
     },[selected])
 
@@ -52,13 +47,13 @@ const Navbar = () => {
         }}>
             {openPanel === 'login' && <AuthPanel switcher={setOpenPanel}> 
                 <div>
-                    <LoginPage/>
+                    <LoginPage switcher={setOpenPanel}/>
                 </div>
             </AuthPanel>}
 
             {openPanel === 'logout' && <AuthPanel switcher={setOpenPanel}> 
                 <div>
-                    <LogoutPage/>
+                    <LogoutPage switcher={setOpenPanel}/>
                 </div>
             </AuthPanel>}
 
@@ -75,7 +70,9 @@ const Navbar = () => {
 
                         style={{
                             background: BK2,
-                            borderBottom: BB
+                            borderBottom: BB,
+                            borderRight: BB2,
+                            borderLeft: BB2,
                     }}>
                         <img src="http://localhost:3001/assets/commons/dota2_logo.png" alt="Dota2 Logo" height="75%"/>
                     </div>
