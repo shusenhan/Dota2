@@ -153,6 +153,9 @@ const HeroPage = ({}) => {
                 setHeroSkill([result.data]);
             }
         }
+        else{
+            return;
+        }
 
         for(var i = 0; i < result.data.length; i++){
             if(result.data[i].IsInitSkill === 1){
@@ -392,6 +395,8 @@ const HeroPage = ({}) => {
             </div>
 
             <div className='HeroPageLeft'>
+
+                
                 <div className='HeroPageHeroName'
                     style={{
                         height: '18%',
@@ -442,7 +447,7 @@ const HeroPage = ({}) => {
                     gap:'2%'
                 }}>
                     {initTalent && initTalent.map((IT, index) => {
-                        console.log(IT.InitTalentColor)
+                        // console.log(IT.InitTalentColor)
                         const backgroundColor = IT.InitTalentColor ? IT.InitTalentColor : 'radial-gradient(circle at 25% center, rgba(161, 161, 161, 0.75), rgba(50, 50, 50, 0.75))';
                         const keyNum = index + 10;
                         return(

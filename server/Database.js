@@ -3,9 +3,9 @@ import Skill from "./models/skill.js";
 import Hero from "./models/hero.js";
 
 const pool = mysql.createPool({
-    host: 'localhost', 
-    user: 'root', 
-    password: 'admin123', 
+    host: '34.72.250.255', 
+    user: 'cs409-fp', 
+    password: 'Cs409-fp-password!', 
     database: 'dota' ,
     waitForConnections: true,
 });

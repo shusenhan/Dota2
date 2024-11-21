@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './existhero.css';
 import { useNavigate } from 'react-router-dom';
 import HeroTypeCell from '../heropage/TypeCell';
+import { Button } from '@mui/material';
 
 const ExistedHero = () => {
     const [heroList, setHeroList] = useState(null);
@@ -72,6 +73,16 @@ const ExistedHero = () => {
         <div className='ExistedHeroContent'>
             <div className='ExistedHeroTitle'>
                 已有英雄
+                <div className='ExistedHeroImportButton'>
+                    <Button onClick={() => navigate('\import')} 
+                        sx={{
+                            color:'rgb(161, 161, 161)',
+                            '&:hover': {
+                                color: 'rgb(210, 210, 210)',
+                            }
+                    }}>
+                    导入新英雄</Button>
+                </div>
             </div>
             <div className='ExistedHeroContainer'>
                 {heroList &&
