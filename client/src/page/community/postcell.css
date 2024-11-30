@@ -1,0 +1,55 @@
+.PostCellContent {
+    height: 13%;
+    margin: 1% 2%;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.25);
+    display: flex;
+    justify-content: space-between;
+    color: rgb(235, 235, 235);
+}
+
+.PostCellLeft, .PostCellRight {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    width: 45%;
+    justify-content: start;
+    gap: 2%;
+}
+
+.PostCellRight {
+    width: 52%;
+}
+
+.PostCellPostTitle {
+    width: 100%;
+    text-align: start;
+    padding: 0% 4%;
+    font-size: 1.75vh;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.PostCellTextData{
+    width: 100%;
+}
+
+.PostAuthorIcon {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 4%;
+}
+
+.PostCellAuhtorName {
+    height: 100%;
+    text-align: start;
+    padding: 0 4%;
+    font-size: 1.5vh;
+    color: rgb(112, 187, 187);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

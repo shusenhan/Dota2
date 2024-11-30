@@ -9,7 +9,9 @@ import {
     IsFriend,
     SetFriendShip,
     DeleteFriendShip,
-    ConfirmFriendShip
+    ConfirmFriendShip,
+    SearchUserByLike,
+    GetUserByUserId
  } from "../Database.js";
 import jwt from "jsonwebtoken";
 
@@ -164,6 +166,23 @@ export const searchUser = async (req, res) => {
     }
 }
 
+export const searchUserByLike = async (req, res) => {
+    try{
+        const {userName} = req.params;
+        const users = await SearchUserByLike(userName);
+
+        if(users){
+            res.status(200).json({data: users.data});
+        }
+        else{
+            res.status(404).json({message: "没有找到用户!"});
+        }
+    }
+    catch(error){
+        res.status(500).json({message: error.message});
+    }
+}
+
 export const isFriend = async (req, res) => {
     try{
         const {user1, user2} = req.params;
@@ -287,4 +306,22 @@ export const deleteFriendShip = async (req, res) => {
     catch(error){
         res.status(500).json({message: error.message});
     }
+}
+
+export const getUserByUserId = async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const user = await GetUserByUserId(userId);
+
+        if (user) {
+            res.status(200).json({ data: user.data });
+        }
+        else {
+            res.status(404).json({ message: "没有发现用户" });
+        }
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+
 }

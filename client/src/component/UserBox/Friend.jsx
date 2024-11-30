@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const Friend = ({friend}) => {
+const Friend = ({friend, height='10%'}) => {
     const navigate = useNavigate();
 
     return (
@@ -9,7 +9,7 @@ const Friend = ({friend}) => {
             onClick={() => navigate(`/personal/?username=${friend.UserName}`)}
             sx={{
                 width: '100%',
-                height: '10%',
+                height: height,
                 margin: '1% 0% 0% 3%',
                 display: 'flex',
                 alignItems: 'center',
@@ -20,7 +20,7 @@ const Friend = ({friend}) => {
             <div style={{
                 height: '80%',
             }}>
-                <img src='http://localhost:3001/assets/commons/user_icon.jpg' style={{height:'100%'}}/>
+                <img src={`http://localhost:3001/assets/user/${friend.UserIcon}`} style={{height:'100%'}}/>
             </div>
             <div style={{
                 marginLeft: '2%',

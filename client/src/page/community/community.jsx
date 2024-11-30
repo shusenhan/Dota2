@@ -1,11 +1,31 @@
 import './community.css';
 import { Box } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CommunityCell from './communitycell';
 
 const CommunityMianPage = () => {
     const [heroPageType, setHeroPageType] = useState('英雄');
-    const [classification, setClassification] = useState('')
+    const [classification, setClassification] = useState('');
+    const [visableCommunities, setVisableCommunities] = useState([]);
+
+    const GetVisableCommunities = async () => {
+        const response = await fetch(
+            'http://localhost:3001/community/visableCommunities',
+            {
+                method: 'GET'
+            }
+        );
+
+        const result = await response.json();
+
+        if(response.status === 200){
+            setVisableCommunities(result.data);
+        }
+    };
+
+    useEffect(() => {
+        GetVisableCommunities();
+    }, [])
 
     return(
         <div className="CommunityMianPageContent">
@@ -117,16 +137,11 @@ const CommunityMianPage = () => {
                         </div>
                     </div>
                     <div className='CommunityMianPageLeftPartCommunities'>
-                        <CommunityCell />
-                        <CommunityCell />
-                        <CommunityCell />
-                        <CommunityCell />
-                        <CommunityCell />
-                        <CommunityCell />
-                        <CommunityCell />
-                        <CommunityCell />
-                        <CommunityCell />
-                        <CommunityCell />
+                        {visableCommunities && visableCommunities.map((item, index) => 
+                            <CommunityCell 
+                                key={index} 
+                                community={item} />
+                        )}
                     </div>
                 </div>
                 <div className='CommunityMianPageRightPart'>

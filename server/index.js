@@ -7,6 +7,9 @@ import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
 import { fileURLToPath } from "url";
+import http from "http";
+import {Server} from "socket.io";
+
 import heroRouter from './routes/heros.js';
 import skillRouter from './routes/skills.js'
 import aghanimRouter from "./routes/aghanim.js";
@@ -14,8 +17,8 @@ import inittalentRouter from "./routes/inittalent.js";
 import talentRouter from "./routes/talent.js";
 import itemRouter from "./routes/item.js";
 import authRouter from "./routes/auth.js";
-import http from "http";
-import {Server} from "socket.io";
+import communityRouter from "./routes/community.js";
+import postRouter from "./routes/post.js";
 // import { GetUserFriendList } from "./Database.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -58,8 +61,28 @@ const storageInitTalent = multer.diskStorage({
     },
 });
 
+const storageCommons = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "public/assets/commons");
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname);
+    },
+});
+
+const storagePost = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "public/assets/posts");
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname);
+    },
+});
+
 const upload1 = multer({ storage: storageHero });
 const upload2 = multer({ storage: storageSkill });
+const upload4 = multer({ storage: storageCommons });
+const upload5 = multer({ storage: storagePost });
 
 app.use("/hero", upload1.single("Image1"), heroRouter);
 app.use("/skill",upload2.single("ImageFile1"), skillRouter);
@@ -68,6 +91,8 @@ app.use("/inittalent",upload2.single("ImageFile1"), inittalentRouter);
 app.use("/talent", talentRouter);
 app.use("/item", itemRouter);
 app.use("/auth", authRouter);
+app.use("/community", upload4.single("ImageFile1"),communityRouter);
+app.use("/post", upload5.array("ImageFiles", 4), postRouter);
 
 const server = http.createServer(app);
 const io = new Server(server, {

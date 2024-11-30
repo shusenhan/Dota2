@@ -25,6 +25,10 @@ import TrainPage from "./page/practice/trainpage";
 import ExistedItem from "./page/itemdataimport/existeditem";
 import CommunityMianPage from "./page/community/community";
 import PersonalCenter from "./page/personal/peronalcenter";
+import CommunityAdministrationCenter from "./page/communitymanage/communitycenter";
+import CreateCommunity from "./page/communitymanage/createcommunity";
+import CommunityPage from "./page/community/communitypage";
+import PostPage from "./page/community/postpage";
 
 function App() {
   const [mode, setMode] = useState("1");
@@ -71,10 +75,14 @@ function App() {
               <Route path='/importcenter/hero/import' element={<div className='Content'><HeroDataImportPage/></div>}/>
               <Route path='/importcenter/skill' element={<div className='Content'><ExistedSkill/></div>}/>
               <Route path='/importcenter/skill/import' element={<div className='Content'><SkillDataImportPage/></div>}/>
+              <Route path='/importcenter/community' element={<div className='Content'><CommunityAdministrationCenter/></div>}/>
+              <Route path='/importcenter/community/import' element={<div className='Content'><CreateCommunity/></div>}/>
               <Route path='/train' element={<div className='Content'><TrainPage/></div>}/>
               <Route path='/heroinfo' element={<div className='Content'><HeroPage/></div>}/>
               <Route path='/importcenter/item' element={<div className='Content'><ExistedItem/></div>}/>
               <Route path='/community' element={<div className='Content'><CommunityMianPage/></div>}/>
+              <Route path='/community/:communityId' element={<div className='Content'><CommunityPage/></div>}/>
+              <Route path='/post/:postId' element={<div className='Content'><PostPage/></div>}/>
             </Routes>
 
             <div className="Footer">

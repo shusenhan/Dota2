@@ -36,3 +36,7 @@
     left: 60%;
     top: 65%;
 }
+
+.ExistedHeroImportButton > button {
+    font-size: 2vh;
+}

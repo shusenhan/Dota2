@@ -3,5 +3,25 @@
     margin: 0% 2%;
     border-top: 2px solid rgba(122, 122, 122, 0.6);
     background-color: rgba(0, 0, 0, 0.25);
+    display: flex;
+    justify-content: space-between;
+    color: rgb(139, 208, 217);
 }
 
+.CommunityCellLeft, .CommunityCellRight {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.CommunityIcon {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10vh;
+}
+
+.CommunityIcon > img {
+    height: 90%;
+}

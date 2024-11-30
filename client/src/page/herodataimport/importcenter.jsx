@@ -51,8 +51,17 @@ const ImportCenter = () => {
                     ))}
                 </div>
             </div>
-            <div className='ImportCenterHero'>
-
+            <div className='ImportCenterHero' onClick={() => navigate('\community')}>
+                <div className='ImportCenterText'>
+                    {"社区管理中心".split('').map((char, index) => (
+                        <Box key={index}
+                            sx={{  
+                                margin: '0px'
+                        }}>  
+                            {char}
+                        </Box>
+                    ))}
+                </div>
             </div>
 
 

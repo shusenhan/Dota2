@@ -1,0 +1,26 @@
+.CommunityAdministrationCenterContent {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+}
+
+.CommunityAdministrationCenterContentTitle {
+    color: rgb(210, 210, 210);
+    font-size: 3.25vh;
+    font-family: "Ma Shan Zheng", cursive;
+    font-weight: 400;
+    font-style: normal;
+    padding-top: 2%;
+    position: relative;
+}
+
+.CreateCommunityButton {
+    position: absolute;
+    left: 60%;
+    top: 65%;
+
+}
+
+.CreateCommunityButton > button {
+    font-size: 2vh;
+}

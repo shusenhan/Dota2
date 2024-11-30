@@ -138,7 +138,7 @@ const PersonalCenter = () => {
     }, [userName]);
 
     useEffect(() => {
-        if(otherUser){
+        if(otherUser && user){
             getFriendShipState();
         }
     }, [otherUser]);

@@ -9,7 +9,9 @@ import {
     setFriendShip,
     confirmFriendShip,
     deleteFriendShip,
-    getUserFriendList
+    getUserFriendList,
+    searchUserByLike,
+    getUserByUserId
 } from "../controller/user.js";
 
 const authRouter = express.Router();
@@ -24,5 +26,7 @@ authRouter.post("/setfriendship/:user1/:user2", setFriendShip);
 authRouter.post("/confirmfriendship/:user1/:user2", confirmFriendShip);
 authRouter.delete("/deletefriendship", deleteFriendShip);
 authRouter.get("/getfriendlist/:userName", getUserFriendList);
+authRouter.get("/getUserByLike/:userName", searchUserByLike);
+authRouter.get('/getUserById/:userId', getUserByUserId);
 
 export default authRouter;

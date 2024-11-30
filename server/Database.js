@@ -1251,6 +1251,24 @@ export async function GetUserByUserName(username){
     }
 }
 
+export async function GetUserByUserId(userId){
+    const sql = `select * from useraccount where UserId = ?`;
+
+    try{
+        const [results, ] = await pool.promise().query(sql, [userId])
+        
+        if(results.length){
+            return {code: 200, data: results[0]}
+        }
+        else{
+            return {code: 404, message: `没有发现ID为${userId}的账户！`}
+        }
+    }
+    catch(error){
+        return {code: 500, message: `获取ID为${userId}的账户失败，错误信息：${error.message}`};
+    }
+}
+
 export async function GetUserFriendList(username){
     const sql = `select * from friendships where User1 = ? or User2 = ?`;
 
@@ -1374,7 +1392,7 @@ export async function IsFriend(User1, User2){
     const sql = `select * from friendships where (User1 = ? and User2 = ?) or (User1 = ? and User2 = ?)`;
 
     try{
-        const [results, ] = await pool.promise().query(sql, [User1, User2, User2, User1])
+        const [results, ] = await pool.promise().query(sql, [User1, User2, User2, User1]);
 
         if(results.length){
             return {code: 200, data: results[0]}
@@ -1385,5 +1403,307 @@ export async function IsFriend(User1, User2){
     }
     catch(error){
         return {code: 500, message: `获取好友关系失败，错误信息：${error.message}`};
+    }
+}
+
+export async function SearchUserByLike(str){
+    const sql = `select * from useraccount where username like ?`;
+    const likeStr = `%${str}%`;
+
+    try{
+        const [results, ] = await pool.promise().query(sql, [likeStr]);
+        
+        if(results.length){
+            return {code: 200, data: results}
+        }
+        else{
+            return {code: 404, message: `没有发现任何用户！`}
+        }
+    }
+    catch(error){
+        return {code: 500, message: `搜索用户失败，错误信息：${error.message}`};
+    }
+}
+
+// 社区
+export async function CreateCommunity (community){
+    const sql = `insert into community (
+        CommunityName,
+        CommunityIcon,
+        CreatedDate,
+        State,
+        Description) values (?, ?, ?, ?, ?)`;
+    
+    const sql2 = `select * from community where CommunityID = LAST_INSERT_ID()` 
+
+    try {
+        const [results] = await pool.promise().query(sql, [
+            community.CommunityName,
+            community.CommunityIcon,
+            community.CreatedDate,
+            community.State,
+            community.Description]);
+
+        if(results.affectedRows) {
+            const [selectResult] = await pool.promise().query(sql2);
+            return {code: 200, message:`社区${community.CommunityName}创建成功！`, data: selectResult[0]};
+        }
+        else{
+            return {code: 404, message:`社区${community.CommunityName}创建失败`};
+        }
+    } 
+    catch (error) {
+        return {code: 500, message:`社区${community.CommunityName}创建错误，错误信息：${error.message}`};
+    }
+}
+
+export async function AddCommunityAdmin (communityId, userId) {
+    const sql = `insert into community_admins (CommunityId, UserId) values (?, ?)`;
+
+    try {
+        const [results] = await pool.promise().query(sql, [communityId, userId]);
+
+        if(results.affectedRows) {
+            return {code: 200, message:`添加管理员成功！`};
+        }
+        else{
+            return {code: 404, message:`添加管理员失败`};
+        }
+    } 
+    catch (error) {
+        return {code: 500, message:`添加管理员错误，错误信息：${error.message}`};
+    }
+}
+
+export async function GetVisableCommunities () {
+    const sql = `select * from community where State = 1 or State = 2`;
+
+    try{
+        const [results] = await pool.promise().query(sql, []);
+
+        if(results) {
+            return {code: 200, message:`获取所有可见社区成功！`, data: results};
+        }
+        else{
+            return {code: 404, message:`获取所有可见社区失败！`};
+        }
+    }
+    catch(error){
+        return {code: 501, message:`获取所有可见社区错误，错误信息：${error.message}`};
+    }
+}
+
+export async function GetCommunityById (communityId) {
+    const sql = `select * from community where CommunityId = ?`;
+
+    try{
+        const [results] = await pool.promise().query(sql, [communityId]);
+
+        if(results) {
+            return {code: 200, message:`获取${communityId}号社区成功！`, data: results};
+        }
+        else{
+            return {code: 404, message:`获取${communityId}号社区失败！`};
+        }
+    }
+    catch(error){
+        return {code: 501, message:`获取${communityId}号社区社区错误，错误信息：${error.message}`};
+    }
+}
+
+export async function GetCommunityAdmin (communityId){
+    const sql = `select * from community_admins where CommunityId = ?`;
+
+    try{
+        const [results] = await pool.promise().query(sql, [communityId]);
+
+        if(results) {
+            return {code: 200, message:`获取${communityId}号社区管理员名单成功！`, data: results};
+        }
+        else{
+            return {code: 404, message:`获取${communityId}号社区管理员名单失败！`};
+        }
+    }
+    catch(error){
+        return {code: 501, message:`获取${communityId}号社区管理员名单错误，错误信息：${error.message}`};
+    }
+}
+
+// Post
+export async function CreateNewPost (post){
+    const sql = `insert into post (
+        PostTitle,
+        CommunityId,
+        PostContent,
+        AuthorId,
+        CreatedDate,
+        State) values (?, ?, ?, ?, ?, ?)`
+    
+    const sql2 = `select PostId from post where PostId = LAST_INSERT_ID()`
+
+    try {
+        const [results] = await pool.promise().query(sql, [
+            post.PostTitle,
+            post.CommunityId,
+            post.PostContent,
+            post.AuthorId,
+            post.CreatedDate,
+            post.State]);
+        
+        const [result2] = await pool.promise().query(sql2, []);
+
+        if(results.affectedRows) {
+            return {code: 200, message:`创建帖子成功！`, data: result2[0]};
+        }
+        else{
+            return {code: 404, message:`创建帖子失败`};
+        }
+    } 
+    catch (error) {
+        return {code: 500, message:`创建帖子错误，错误信息：${error.message}`};
+    }
+}
+
+export async function InsertImageName (postId, commentId, fileName) {
+    const sql = `insert into post_images (
+        PostId,
+        CommentId,
+        FileName) values (?, ?, ?)`
+
+    try {
+        const [results] = await pool.promise().query(sql, [
+            postId, commentId, fileName]);
+
+        if(results.affectedRows) {
+            return {code: 200, message:`保存图片成功！`};
+        }
+        else{
+            return {code: 404, message:`保存图片失败`};
+        }
+    } 
+    catch (error) {
+        return {code: 500, message:`保存图片错误，错误信息：${error.message}`};
+    }
+}
+
+export async function GetPostsByCommunityId (communityId) {
+    const sql = `select * from post where CommunityId = ?`;
+
+    try{
+        const [results] = await pool.promise().query(sql, [communityId]);
+
+        if(results) {
+            return {code: 200, message:`获取${communityId}社区帖子成功！`, data: results};
+        }
+        else{
+            return {code: 404, message:`获取${communityId}社区帖子失败`};
+        }
+    }
+    catch (error) {
+        return {code: 500, message:`获取${communityId}社区帖子错误，错误信息：${error.message}`};
+    }
+}
+
+export async function GetPostImages (postId) {
+    const sql = `select * from post_images where PostId = ? and CommentId = 0`;
+
+    try{
+        const [results] = await pool.promise().query(sql, [postId]);
+
+        if(results) {
+            return {code: 200, message:`获取${postId}帖子图片成功！`, data: results};
+        }
+        else{
+            return {code: 404, message:`获取${postId}帖子图片失败`};
+        }
+    }
+    catch (error) {
+        return {code: 500, message:`获取${postId}帖子图片错误，错误信息：${error.message}`};
+    }
+}
+
+export async function GetPostById (postId){
+    const sql = `select * from post where PostId = ?`;
+
+    try{
+        const [results] = await pool.promise().query(sql, [postId]);
+
+        if(results) {
+            return {code: 200, message:`获取${postId}帖子成功！`, data: results[0]};
+        }
+        else{
+            return {code: 404, message:`获取${postId}帖子失败`};
+        }
+    }
+    catch (error) {
+        return {code: 500, message:`获取${postId}帖子错误，错误信息：${error.message}`};
+    }
+}
+
+export async function GetCommentImages (postId, commentId) {
+    const sql = `select * from post_images where PostId = ? and CommentId = ?`;
+
+    try{
+        const [results] = await pool.promise().query(sql, [postId, commentId]);
+
+        if(results) {
+            return {code: 200, message:`获取${commentId}回复图片成功！`, data: results};
+        }
+        else{
+            return {code: 404, message:`获取${commentId}回复图片失败`};
+        }
+    }
+    catch (error) {
+        return {code: 500, message:`获取${commentId}回复图片错误，错误信息：${error.message}`};
+    }
+}
+
+export async function CreateNewComment (comment){
+    const sql = `insert into comment (
+        PostId,
+        AuthorId,
+        CommentContent,
+        CreatedDate,
+        State) values (?, ?, ?, ?, ?)`
+    
+    const sql2 = `select CommentId from comment where CommentId = LAST_INSERT_ID()`
+
+    try {
+        const [results] = await pool.promise().query(sql, [
+            comment.PostId,
+            comment.AuthorId,
+            comment.CommentContent,
+            comment.CreatedDate,
+            comment.State]);
+        
+        const [result2] = await pool.promise().query(sql2, []);
+
+        if(results.affectedRows) {
+            return {code: 200, message:`创建回复成功！`, data: result2[0]};
+        }
+        else{
+            return {code: 404, message:`创建回复失败`};
+        }
+    } 
+    catch (error) {
+        return {code: 500, message:`创建回复错误，错误信息：${error.message}`};
+    }
+}
+
+export async function GetPostComments (postId){
+    const sql = `select * from comment where PostId = ?`;
+
+    try{
+        const [results] = await pool.promise().query(sql, [postId]);
+
+        if(results) {
+            return {code: 200, message:`获取${postId}帖子回复成功！`, data: results};
+        }
+        else{
+            return {code: 404, message:`获取${postId}帖子回复失败`};
+        }
+    }
+    catch (error) {
+        return {code: 500, message:`获取${postId}帖子回复错误，错误信息：${error.message}`};
     }
 }

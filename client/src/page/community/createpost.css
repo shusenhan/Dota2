@@ -1,0 +1,26 @@
+.CreatePostContent {
+    position: absolute;
+    bottom: 7%;
+    width: 96%;
+    border: 2px dashed gray;
+    background-color: rgb(54, 54, 54);
+    margin: 1% 2%;
+}
+
+.CreatePostButton {
+    display: flex;
+    justify-content: end;
+    margin: 0.5% 0;
+}
+
+.CreatePostTitle {
+    margin: 1.5% 0;
+}
+
+.CreatePostAddImage {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-left: 10%;
+    gap: 4.75%;
+}
