@@ -39,28 +39,11 @@ const FriendComponent = () => {
         const result = await response.json();
 
         if(response.status === 200){
-            dispatch(setFriendList({friendList: GetFriendFromFriendShip(result.data.data)}));
+            dispatch(setFriendList({friendList: result.data}));
         }
         else{
             notify('error', result.message);
         }
-    }
-
-    const GetFriendFromFriendShip = (frienship) => {
-        const allFriends = [];
-        if(!frienship){
-            return allFriends;
-        }
-        frienship.forEach((item) => {
-            if(item.User1 === user.UserName){
-                allFriends.push({UserName: item.User2, LoginState: 0});
-            }
-            else{
-                allFriends.push({UserName: item.User1, LoginState: 0});
-            }
-        })
-
-        return allFriends;
     }
 
     useEffect(() => {

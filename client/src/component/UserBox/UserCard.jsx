@@ -17,8 +17,8 @@ const UserCard = () => {
                         justifyContent: 'center',
                         alignItems: 'center',
                 }}>
-                    <Box style={{
-                        background: 'url(http://localhost:3001/assets/commons/user_icon.jpg)',
+                    <Box key={user ? user.UserID : 'default'} style={{
+                        background: user === null ? 'url(http://localhost:3001/assets/commons/user_icon.jpg)': `url(http://localhost:3001/assets/user/${user.UserIcon})`,
                         backgroundSize: 'cover',
                         width: '80%',
                         height: '80%',

@@ -1231,13 +1231,55 @@ export async function UpdateUser(user, userId){
     }
 }
 
-export async function GetUserByUserName(username){
-    const sql = `select * from useraccount where UserName = ?`;
+export async function UserLogin(username) {
+    const sql = `
+        select 
+            AccountPassword
+        from 
+            useraccount 
+        where 
+            UserName = ?`;
 
     try{
         const [results, ] = await pool.promise().query(sql, [username])
+        
+        if(results.length){
+            return {code: 200, data: results[0]}
+        }
+        else{
+            return {code: 404, message: `没有发现${username}的账户！`}
+        }
+    }
+    catch(error){
+        return {code: 500, message: `获取${username}账户失败，错误信息：${error.message}`};
+    }
+}
 
-        console.log(results)
+export async function GetUserByUserName(username){
+    // const sql = `
+    //     select 
+    //         UserName,
+    //         UserIcon,
+    //         UserRole,
+    //         AccountState,
+    //         LoginState,
+    //         CommunityLevel,
+    //         CurrentExp 
+    //     from 
+    //         useraccount 
+    //     where 
+    //         UserName = ?`;
+
+    const sql = `
+        select 
+            * 
+        from 
+            useraccount 
+        where 
+            UserName = ?`;
+
+    try{
+        const [results, ] = await pool.promise().query(sql, [username])
         
         if(results.length){
             return {code: 200, data: results[0]}
@@ -1252,7 +1294,27 @@ export async function GetUserByUserName(username){
 }
 
 export async function GetUserByUserId(userId){
-    const sql = `select * from useraccount where UserId = ?`;
+    // const sql = `
+    //     select 
+    //         UserName,
+    //         UserIcon,
+    //         UserRole,
+    //         AccountState,
+    //         LoginState,
+    //         CommunityLevel,
+    //         CurrentExp 
+    //     from 
+    //         useraccount 
+    //     where 
+    //         UserId = ?`;
+
+    const sql = `
+        select 
+            * 
+        from 
+            useraccount 
+        where 
+            UserId = ?`;
 
     try{
         const [results, ] = await pool.promise().query(sql, [userId])

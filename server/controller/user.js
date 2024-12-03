@@ -11,7 +11,8 @@ import {
     DeleteFriendShip,
     ConfirmFriendShip,
     SearchUserByLike,
-    GetUserByUserId
+    GetUserByUserId,
+    UserLogin
  } from "../Database.js";
 import jwt from "jsonwebtoken";
 
@@ -103,10 +104,11 @@ export const updateUser = async (req, res) => {
 export const login = async (req, res) => {
     try{
         const {UserName, AccountPassword} = req.body;
-        const user = await GetUserByUserName(UserName);
+        const password = await UserLogin(UserName);
 
-        if(user){
-            if(user.data.AccountPassword === AccountPassword){
+        if(password){
+            if(password.data.AccountPassword === AccountPassword){
+                const user = await GetUserByUserName(UserName);
                 const token = jwt.sign({UserId: user.data.UserId, UserName: user.data.UserName, UserRole: user.data.UserRole}, "secret");
 
                 res.status(200).json({message: "登录成功", data: user, token: token});
@@ -134,10 +136,19 @@ export const getUserFriendList = async (req, res) => {
             res.status(401).json({message: "没有权限查看该用户的好友列表"});
         }
         else{
-            const friendships = await GetUserFriendList(userName);
+            const result = await GetUserFriendList(userName);
+            const friendships = result.data;
+            let friends = [];
 
-            if(friendships){
-                res.status(200).json({data: friendships});
+            for(const friendship of friendships){
+                const friendName = friendship.User1 === userName ? friendship.User2 : friendship.User1;
+                const result2 = await GetUserByUserName(friendName);
+                const friend = result2.data;
+                friends.push(friend);
+            }
+
+            if(friends){
+                res.status(200).json({data: friends});
             }
             else{
                 res.status(404).json({message: "还没有好友"});
