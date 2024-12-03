@@ -1,8 +1,5 @@
 {
     "version": 2,
-    "env": {
-      "MY_CUSTOM_VARIABLE": "value"
-    },
     "builds": [
       {
         "src": "index.js",
@@ -12,7 +9,7 @@
     "routes": [
       {
         "src": "/(.*)",
-        "dest": "/index.js"
+        "dest": "/"
       }
     ]
   }
