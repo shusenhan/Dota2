@@ -140,7 +140,7 @@ const CreateComment = ({postId, refresh}) => {
                                         />  
                                     </div>
                                 )}
-                                <Dropzone
+                                {/* <Dropzone
                                     acceptedFiles=".jpg,.jpeg,.png,.webp"
                                     multiple={true}
                                     onDrop={(acceptedFiles) => {
@@ -188,7 +188,7 @@ const CreateComment = ({postId, refresh}) => {
                                         <p style={{fontSize: '1.75vh'}}>添加图片</p>
                                     </Box>
                                     )}
-                                </Dropzone>
+                                </Dropzone> */}
                             </div>
                         </div>
 

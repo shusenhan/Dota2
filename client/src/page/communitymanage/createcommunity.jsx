@@ -189,7 +189,7 @@ const CreateCommunity = () => {
                                 />
 
                                 <div className="CommunityDataFormItemTitle">社区图标</div>
-                                <Dropzone
+                                {/* <Dropzone
                                     acceptedFiles=".jpg,.jpeg,.png,.webp"
                                     multiple={false}
                                     onDrop={(acceptedFiles) => {
@@ -230,7 +230,7 @@ const CreateCommunity = () => {
                                         )}
                                     </Box>
                                     )}
-                                </Dropzone>
+                                </Dropzone> */}
 
                                 <div className="CommunityDataFormItemTitle">指定管理员</div>
                                 <div>

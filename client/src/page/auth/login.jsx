@@ -37,7 +37,8 @@ const LoginPage = ({switcher}) => {
 
     const HandleLogin = async (values, resetForm) => {
         const response = await fetch(
-            'http://localhost:3001/auth/login', 
+            'http://localhost:3001/auth/login',
+            // 'https://server-kappa-khaki.vercel.app/auth/login',
             {
                 method: "POST",
                 headers: {
