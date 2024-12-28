@@ -1,11 +1,13 @@
 import './login.css';
 import { Formik } from "formik";
 import * as yup from "yup";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import LoginTextField from '../../component/LoginTextField';
 import notify from '../../component/ToastBox.tsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { userlogin } from '../../state/state.js';
+import { useChat } from '../../component/Chat/useChat.jsx';
+import { SocketInitialize } from '../../socket/socketfunction.js';
 
 const loginSchema = yup.object().shape({
     UserName: yup.string().required('用户名不能为空'),
@@ -34,6 +36,8 @@ const registerValue = {
 const LoginPage = ({switcher}) => {
     const [pageType, setPageType] = useState('login');
     const dispatch = useDispatch();
+    const {InitializeSocket, socket} = useChat();
+    const user = useSelector(state => state.user);
 
     const HandleLogin = async (values, resetForm) => {
         const response = await fetch(
@@ -44,6 +48,7 @@ const LoginPage = ({switcher}) => {
                 headers: {
                     "Content-Type" : "application/json"
                 },
+                credentials: 'include',
                 body: JSON.stringify(values)
             }
         )
@@ -54,7 +59,7 @@ const LoginPage = ({switcher}) => {
             notify('success', '登录成功');
             switcher(false);
             dispatch(userlogin({
-                user: result.data.data, 
+                user: result.data, 
                 token: result.token
             }));
             resetForm();
@@ -96,6 +101,13 @@ const LoginPage = ({switcher}) => {
             HandleRegister(values, onSubmitProps.resetForm);
         }
     };
+
+    useEffect(() => {
+        if(user){
+            const connection = SocketInitialize(user.UserName);
+            InitializeSocket(connection);
+        }
+    }, [user])
 
     return (
         <div className="LoginContent">

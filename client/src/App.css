@@ -37,3 +37,8 @@
   width: 100%;
   object-fit: cover;
 }
+
+.Background > img {
+  width: 100%;
+  object-fit: cover;
+}

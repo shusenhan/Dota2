@@ -1,0 +1,32 @@
+{
+    "idle": [
+        {
+            "name": "idle_aggro",
+            "path": "heroes/medusa/smd/idle_aggro.smd"
+        },
+        {
+            "name": "idle",
+            "path": "heroes/medusa/smd/idle.smd"
+        }
+    ],
+    "attack": [
+        {
+            "name": "attack",
+            "path": "heroes/medusa/smd/attack.smd"
+        }
+    ],
+    "run": [
+        {
+            "name": "run_aggro",
+            "path": "heroes/medusa/smd/run_aggro.smd"
+        },
+        {
+            "name": "run",
+            "path": "heroes/medusa/smd/run.smd"
+        }
+    ],
+    "default": {
+        "name": "idle",
+        "path": "heroes/medusa/smd/idle.smd"
+    }
+}

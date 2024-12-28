@@ -1,0 +1,32 @@
+{
+    "idle": [
+        {
+            "name": "idle_alt1",
+            "path": "heroes/twin_headed_dragon/smd/idle_alt1.smd"
+        },
+        {
+            "name": "idle",
+            "path": "heroes/twin_headed_dragon/smd/idle.smd"
+        }
+    ],
+    "attack": [
+        {
+            "name": "attack_alt1",
+            "path": "heroes/twin_headed_dragon/smd/attack_alt1.smd"
+        },
+        {
+            "name": "attack",
+            "path": "heroes/twin_headed_dragon/smd/attack.smd"
+        }
+    ],
+    "run": [
+        {
+            "name": "run",
+            "path": "heroes/twin_headed_dragon/smd/run.smd"
+        }
+    ],
+    "default": {
+        "name": "idle",
+        "path": "heroes/twin_headed_dragon/smd/idle.smd"
+    }
+}

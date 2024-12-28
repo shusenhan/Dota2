@@ -11,7 +11,8 @@ import {
     deleteFriendShip,
     getUserFriendList,
     searchUserByLike,
-    getUserByUserId
+    getUserByUserId,
+    autoLogin
 } from "../controller/user.js";
 
 const authRouter = express.Router();
@@ -28,5 +29,6 @@ authRouter.delete("/deletefriendship", deleteFriendShip);
 authRouter.get("/getfriendlist/:userName", getUserFriendList);
 authRouter.get("/getUserByLike/:userName", searchUserByLike);
 authRouter.get('/getUserById/:userId', getUserByUserId);
+authRouter.post("/autoLogin", autoLogin);
 
 export default authRouter;

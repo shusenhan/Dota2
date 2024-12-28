@@ -1,22 +1,22 @@
 import jwt from 'jsonwebtoken';
-import { GetUserByUserId } from './Database';
+import { GetUserByUserId } from './Database.js';
 
-const ValidateToken = (token, isRefreshToken=false) => {
+export const ValidateToken = (token, isRefreshToken=false) => {
     try{
         const key = isRefreshToken ? process.env.REFRESH_JWT_SECRET : process.env.JWT_SECRET;
         const decode = jwt.verify(token, key);
 
-        return { result: true, message:"令牌有效！", data: decode };
+        return { result: true, message:"令牌有效", data: decode };
     }
     catch(error){
         if(error instanceof jwt.TokenExpiredError){
-            return { result: false, message: "令牌过期！", detail: error.message };
+            return { result: false, message: "令牌过期", detail: error.message };
         } 
         else if(error instanceof jwt.JsonWebTokenError){
-            return { result: false, message: "令牌无效！", detail: error.message };
+            return { result: false, message: "令牌无效", detail: error.message };
         } 
         else{
-            return { result: false, message: "验证身份错误！", detail: error.message };
+            return { result: false, message: "验证身份错误", detail: error.message };
         }
     }
 }
@@ -63,7 +63,7 @@ export const IsAdmin = (token) => {
     if(valid.result){
         const decode = valid.data;
 
-        if(decode.UserRole === "admin"){
+        if(decode.UserRole === "admin" || decode.UserRole === "root admin"){
             return { result: true, message: "权限通过！"};
         }
         else{
@@ -75,23 +75,32 @@ export const IsAdmin = (token) => {
     }
 }
 
-export const GenerateToken = (user, time=3600, time2='7d') => {
+export const GenerateToken = (user, time=3600) => {
     // time单位：秒
     try{
         const token = jwt.sign({
             UserId: user.UserId,
-            UserName: user.data.UserName, 
-            UserRole: user.data.UserRole
+            UserName: user.UserName, 
+            UserRole: user.UserRole
         }, process.env.JWT_SECRET, { expiresIn: time});
-
-        const refreshToken = jwt.sign({
-            UserId: user.UserId,
-        }, process.env.REFRESH_JWT_SECRET, { expiresIn: time2});
     
-        return {result: true, message: "生成令牌成功！", token: [token, refreshToken]};
+        return {result: true, message: "生成令牌成功！", token};
     }
     catch(error){
-        return { success: false, message: "生成令牌错误！", detail: error.message };
+        return { result: false, message: "生成令牌错误！", detail: error.message };
+    }
+} 
+
+export const GenerateRefreshToken = (user, time='7d') => {
+    try{
+        const refreshToken = jwt.sign({
+            UserId: user.UserId,
+        }, process.env.REFRESH_JWT_SECRET, { expiresIn: time});
+    
+        return {result: true, message: "生成刷新令牌成功！", refreshToken};
+    }
+    catch(error){
+        return { result: false, message: "生成刷新令牌错误！", detail: error.message };
     }
 } 
 

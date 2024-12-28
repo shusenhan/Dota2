@@ -1,15 +1,13 @@
 import { Box } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import FriendMenu from "./FriendMenu";
 
-const Friend = ({friend, height='10%'}) => {
-    const navigate = useNavigate();
-
+const Friend = ({friend, openMenu, setOpenMenu}) => {
     return (
-        <Box 
-            onClick={() => navigate(`/personal/?username=${friend.UserName}`)}
+        <Box
             sx={{
+                position: 'relative',
                 width: '100%',
-                height: height,
+                height: '100%',
                 margin: '1% 0% 0% 3%',
                 display: 'flex',
                 alignItems: 'center',
@@ -46,6 +44,10 @@ const Friend = ({friend, height='10%'}) => {
                     {friend.LoginState === 2 && <div style={{color: 'rgb(50, 100, 180)'}}>离开</div>}
                 </div>
             </div>
+
+            {openMenu && 
+                <FriendMenu friend={friend} setOpenMenu={setOpenMenu}/>
+            }
         </Box>
     )
 }

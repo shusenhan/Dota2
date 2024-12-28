@@ -1,0 +1,32 @@
+{
+    "idle": [
+        {
+            "name": "idle_alt1",
+            "path": "heroes/faceless_void/smd/idle_alt1.smd"
+        },
+        {
+            "name": "idle",
+            "path": "heroes/faceless_void/smd/idle.smd"
+        }
+    ],
+    "attack": [
+        {
+            "name": "attack_alt1",
+            "path": "heroes/faceless_void/smd/attack_alt1.smd"
+        },
+        {
+            "name": "attack",
+            "path": "heroes/faceless_void/smd/attack.smd"
+        }
+    ],
+    "run": [
+        {
+            "name": "run",
+            "path": "heroes/faceless_void/smd/run.smd"
+        }
+    ],
+    "default": {
+        "name": "idle",
+        "path": "heroes/faceless_void/smd/idle.smd"
+    }
+}

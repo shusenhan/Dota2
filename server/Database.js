@@ -75,7 +75,7 @@ export async function InsertHero(hero){
 
         IsInitiator,
         IsNuker,
-        IsPuher,) values (?,?,?,?,?,
+        IsPusher) values (?,?,?,?,?,
             ?,?,?,?,?,
             ?,?,?,?,?,
             ?,?,?,?,?,
@@ -84,6 +84,7 @@ export async function InsertHero(hero){
             ?,?,?,?,?,
             ?,?,?)`;
 
+    console.log(hero)
     try {
         const [results] = await pool.promise().query(sql, [
             hero.HeroName,
@@ -91,36 +92,43 @@ export async function InsertHero(hero){
             hero.HeroType,
             hero.Image1,
             hero.Image2,
+
             hero.Image3,
             hero.InitStrength,
             hero.StrengthGrowth,
             hero.InitAgility,
             hero.AgilityGrowth,
+
             hero.InitIntelligence,
             hero.IntelligenceGrowth,
             hero.InitHealth,
             hero.InitHealthRecover,
             hero.InitMana,
+
             hero.InitManaRecover,
             hero.InitArmor,
             hero.InitMagicResist,
             hero.DamageMin,
             hero.DamageMax,
+
             hero.AttackType,
             hero.AttackRange,
             hero.InitAttackSpeed,
             hero.AttackRate,
             hero.AttackAnimation1,
+
             hero.AttackAnimation2,
             hero.ProjectileSpeed,
             hero.MoveSpeed,
             hero.TurnRate,
             hero.DayVision,
+
             hero.NightVision,
             hero.Complixity,
             hero.IsDisable,
             hero.IsDurable,
             hero.IsEscape,
+
             hero.IsInitiator,
             hero.IsNuker,
             hero.IsPuher]);
@@ -450,7 +458,7 @@ export async function UpdateSkill(skill){
             Ability = ?,
 
             CastRange = ?,
-            IsAghanim = ?
+            IsAghanim = ?,
             IsInitSkill = ?,
             SkillType = ?
         where SkillName = ? `;

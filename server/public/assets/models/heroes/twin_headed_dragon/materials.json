@@ -1,0 +1,9 @@
+{
+    "Material #35": {
+        "diffuseMap": "heroes/twin_headed_dragon/textures/twin_headed_dragon_color.png",
+        "normalMap": "heroes/twin_headed_dragon/textures/flatnormal.png",
+        "u_SpecularExponent": 10,
+        "u_SpecularScale": 10,
+        "u_RimLightScale": 1
+    }
+}

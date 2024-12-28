@@ -213,14 +213,16 @@ const PersonalCenter = () => {
 
                         <div className='PersonalCenterNameAndID'>
                             <div className='PersonalCenterName'>
-                                Malakanata Sublahamatina
+                                {/* Malakanata Sublahamatina */}
+                                { user.UserName }
                             </div>
                             <div className='PersonalCenterID'>
                                 <div className='PersonalCenterLoginState'>
                                     在线
                                 </div>
                                 <div className='PersonalCenterIDNumber'>
-                                    ID: 123456789
+                                    {/* ID: 123456789 */}
+                                    ID: {user.UserId}
                                 </div>
                             </div>
                         </div>

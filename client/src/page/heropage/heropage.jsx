@@ -9,6 +9,7 @@ import SkillInfo from '../../component/Skill/SkillInfo.jsx';
 import AghanimInfo from '../../component/Aghanim/AghanimInfo.jsx';
 import InitTalentInfo from '../../component/InitTalent/InitTalentInfo.jsx';
 import InitSkillInfo from '../../component/InitSkill/InitSkillInfo.jsx';
+import Model3D from './3Dmodel.jsx';
 
 const HeroPage = ({}) => {
     let [searchParams] = useSearchParams();  
@@ -444,7 +445,8 @@ const HeroPage = ({}) => {
                     justifyContent: 'flex-start',
                     alignItems: 'center',
                     width: '100%',
-                    gap:'2%'
+                    gap:'2%',
+                    pointerEvents: 'auto'
                 }}>
                     {initTalent && initTalent.map((IT, index) => {
                         // console.log(IT.InitTalentColor)
@@ -498,6 +500,7 @@ const HeroPage = ({}) => {
                     alignItems: 'center',
                     position: 'relative',
                     width: '100%',
+                    pointerEvents: 'auto'
                 }}>
                     <div className='HeroPageTalentTree' 
                         onMouseEnter={() => handleMouseEnter(98)}
@@ -730,14 +733,15 @@ const HeroPage = ({}) => {
             </div>
             <div className='HeroPageMiddle'>
                 {heroName && <div className='HeroPageHeroVideo'>
-                    <video autoPlay loop muted style={{height: '65%'}}>
+                    {/* <video autoPlay loop muted style={{height: '65%'}}>
                         <source src={`http://localhost:3001/assets/videos/heros/${heroName}.webm`}/>
-                    </video>
+                    </video> */}
                 </div>}
             </div>
             <div className='HeroPageRight'>
                 
             </div>
+            <Model3D heroName={heroName}/>
         </div>
     )
 }

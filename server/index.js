@@ -9,6 +9,9 @@ import path from "path";
 import { fileURLToPath } from "url";
 import http from "http";
 import {Server} from "socket.io";
+import swaggerUi from "swagger-ui-express";
+import swaggerConfig from "./swagger.js";
+import cookieParser from "cookie-parser";
 
 import heroRouter from './routes/heros.js';
 import skillRouter from './routes/skills.js'
@@ -19,7 +22,8 @@ import itemRouter from "./routes/item.js";
 import authRouter from "./routes/auth.js";
 import communityRouter from "./routes/community.js";
 import postRouter from "./routes/post.js";
-// import { GetUserFriendList } from "./Database.js";
+
+import SocketBasedFunction from "./socket.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -31,8 +35,10 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerConfig));
+app.use(cookieParser());
 
 const storageHero = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -102,43 +108,7 @@ const io = new Server(server, {
     }
 });
 
-const users = {};
-
-io.on('connection', (socket) => {  
-    socket.on('user:login', async (data) => {  
-        try { 
-            users[data.UserName] = socket;
-            console.log('用户登录！')
-
-            // const friendships = GetUserFriendList(data.UserName);
-
-            // if(friendships){
-            //     for(var friendship in friendships){
-            //         if(friendship.State === 1){
-            //             let friend = '';
-            //             if(friendship.User1 === data.UserName){
-            //                 friend = friendship.User2;
-            //             }
-            //             else{
-            //                 friend = friendship.User1;
-            //             }
-
-            //             const friendSocket = users[friend];
-
-            //             if(friendSocket){
-            //                 friendSocket.emit('friend:login', data.UserName);
-            //             }
-
-            //             // 根据id获取socket对象，然后发送
-            //         }
-            //     }
-            // }
-            
-        } catch (error) {  
-            socket.emit('error', { message: error.message });  
-        }  
-    }); 
-});
+SocketBasedFunction(io);
 
 const PORT = process.env.PORT1;
 

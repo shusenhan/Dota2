@@ -15,6 +15,8 @@ import {
     UserLogin
  } from "../Database.js";
 import jwt from "jsonwebtoken";
+import UserService from "../service/user.js";
+import { ValidateToken } from "../token.js";
 
 export const register = async (req, res) => {
     try {
@@ -104,14 +106,29 @@ export const updateUser = async (req, res) => {
 export const login = async (req, res) => {
     try{
         const {UserName, AccountPassword} = req.body;
-        const password = await UserLogin(UserName);
+        const password = await UserService.Login(UserName);
 
         if(password){
             if(password.data.AccountPassword === AccountPassword){
-                const user = await GetUserByUserName(UserName);
-                const token = jwt.sign({UserId: user.data.UserId, UserName: user.data.UserName, UserRole: user.data.UserRole}, "secret");
+                const userResult = await UserService.CheckUserExist(UserName);
+                const user = userResult.data
+                const tokenResult = UserService.CreateToken(user);
+                const refreshTokenResult = UserService.CreateRefreshToken(user);
 
-                res.status(200).json({message: "登录成功", data: user, token: token});
+                if(tokenResult.result && refreshTokenResult.result){
+                    const token = tokenResult.token;
+                    const refreshToken = refreshTokenResult.refreshToken;
+
+                    res.cookie('refreshToken', refreshToken, {
+                        httpOnly: true,
+                        // secure: true,
+                        maxAge: 24 * 60 * 60 * 1000 * 7
+                    });
+                    res.status(200).json({message: "登录成功", data: user, token});
+                }
+                else{
+                    res.status(401).json({message: tokenResult.message + " " + refreshTokenResult.message});
+                }
             }
             else{
                 res.status(401).json({message: "密码错误"});
@@ -119,6 +136,48 @@ export const login = async (req, res) => {
         }
         else{
             res.status(404).json({message: "用户不存在"});
+        }
+    }
+    catch(error){
+        res.status(500).json({message: error.message});
+    }
+}
+
+export const autoLogin = async (req, res) => {
+    try{
+        const refreshToken = req.cookies['refreshToken'];
+        const result = ValidateToken(refreshToken, true);
+
+        if(!result.result){
+            res.status(401).json({message: result.message});
+            return;
+        }
+
+        const userId = result.data.UserId
+
+        if(userId){
+            const userResult = await UserService.CheckUserIdExist(userId);
+            const user = userResult.data;
+
+            if(!user){
+                res.status(404).json({message: "用户不存在"});
+                return;
+            }
+
+            const tokenResult = UserService.CreateToken(user);
+
+            if(tokenResult.result){
+                const token = tokenResult.token;
+                
+
+                res.status(200).json({message: "登录成功", data: user, token});
+            }
+            else{
+                res.status(500).json({message: tokenResult.message});
+            }
+        }
+        else{
+            res.status(404).json({message: "验证信息为空"});
         }
     }
     catch(error){

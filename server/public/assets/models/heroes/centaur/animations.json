@@ -1,0 +1,48 @@
+{
+    "idle": [
+        {
+            "name": "idle_alt",
+            "path": "heroes/centaur/smd/idle_alt.smd"
+        },
+        {
+            "name": "idle_injured",
+            "path": "heroes/centaur/smd/idle_injured.smd"
+        },
+        {
+            "name": "idle",
+            "path": "heroes/centaur/smd/idle.smd"
+        }
+    ],
+    "attack": [
+        {
+            "name": "attack",
+            "path": "heroes/centaur/smd/attack.smd"
+        },
+        {
+            "name": "attackb",
+            "path": "heroes/centaur/smd/attackb.smd"
+        },
+        {
+            "name": "attackc",
+            "path": "heroes/centaur/smd/attackc.smd"
+        }
+    ],
+    "run": [
+        {
+            "name": "run_new_haste",
+            "path": "heroes/centaur/smd/run_new_haste.smd"
+        },
+        {
+            "name": "run_new_injured",
+            "path": "heroes/centaur/smd/run_new_injured.smd"
+        },
+        {
+            "name": "run",
+            "path": "heroes/centaur/smd/run.smd"
+        }
+    ],
+    "default": {
+        "name": "idle",
+        "path": "heroes/centaur/smd/idle.smd"
+    }
+}

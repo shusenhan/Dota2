@@ -1,11 +1,14 @@
 import './logout.css';
 import { logout } from '../../state/state';
 import { useDispatch } from 'react-redux';
+import { useChat } from '../../component/Chat/useChat';
 
 const LogoutPage = ({switcher}) => {
     const dispatch = useDispatch();
+    const {CloseChat} = useChat();
 
     const HandleLogout = () => {
+        CloseChat();
         dispatch(logout());
         switcher(false);
     }

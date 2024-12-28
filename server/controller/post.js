@@ -10,11 +10,22 @@ import {
     GetPostComments,
     GetCommentImages
 } from "../Database.js";
+import { ValidateToken } from "../token.js";
 
 export const createNewPost = async(req, res) => {
     try{
         const { PostTitle,CommunityId, PostContent, AuthorId, CreatedDate, State, FilesName } = req.body;
         const post = new Post({PostTitle, CommunityId, PostContent, AuthorId, CreatedDate, State});
+
+        console.log(req.body)
+
+        const token = req.headers.authorization.split(" ")[1];
+        const validateResult = ValidateToken(token);
+
+        if(!validateResult.result){
+            res.status(401).json({message: validateResult.message});
+            return;
+        }
 
         const result = await CreateNewPost(post);
 

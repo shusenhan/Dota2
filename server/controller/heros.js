@@ -1,5 +1,8 @@
 import Hero from '../models/hero.js';
 import { GetHeroByName, InsertHero, UpdateHero, GetAllHeroName } from '../Database.js';
+import path from "path";
+import { promises as fs } from 'fs';
+import { fileURLToPath } from "url";
 
 export const getHeroByName = async(req, res) => {
     try{
@@ -59,6 +62,33 @@ export const getAllHeroName = async(req, res) => {
         else{
             res.status(result.code).json(result.message);
         }
+    }
+    catch(error){
+        res.status(500).json({message: error.message});
+    }
+}
+
+export const getHero3DModelFile = async(req, res) => {
+    try{
+        const __filename = fileURLToPath(import.meta.url);
+        const __dirname = path.dirname(__filename);
+
+        const {heroName} = req.params;
+        const dirPath = path.join(__dirname, '../', 'public', 'assets', 'models', 'heroes', heroName.toLowerCase());
+
+        try {
+            await fs.access(dirPath, fs.constants.F_OK);
+        } 
+        catch(error){
+            res.status(404).json({ message: `${heroName}暂无3D模型` });
+            return;
+        }
+
+        const animations = await fs.readFile(path.join(__dirname, '../', 'public', 'assets', 'models', 'heroes', heroName.toLowerCase(), 'animations.json'), 'utf8');
+        const jsonData= JSON.parse(animations);
+        const smdPath = jsonData['default']['path'];
+        console.log(smdPath)
+        res.status(200).json({smdFileName: smdPath});
     }
     catch(error){
         res.status(500).json({message: error.message});

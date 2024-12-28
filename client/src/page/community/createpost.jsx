@@ -29,6 +29,7 @@ const CreatePost = ({CommunityId, refresh}) => {
 
     const [isOpen, setIsOpen] = useState(false);
     const user = useSelector((state) => state.user);
+    const token = useSelector((state) => state.token);
 
     const CreateNewPost = async(values, onSubmitProps) => {
         const formData = new FormData();
@@ -55,6 +56,9 @@ const CreatePost = ({CommunityId, refresh}) => {
             "http://localhost:3001/post/create",
             {
                 method: "POST",
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
                 body: formData,
             }
         );
@@ -156,7 +160,7 @@ const CreatePost = ({CommunityId, refresh}) => {
                                         />  
                                     </div>
                                 )}
-                                {/* <Dropzone
+                                <Dropzone
                                     acceptedFiles=".jpg,.jpeg,.png,.webp"
                                     multiple={true}
                                     onDrop={(acceptedFiles) => {
@@ -204,7 +208,7 @@ const CreatePost = ({CommunityId, refresh}) => {
                                         <p style={{fontSize: '1.75vh'}}>添加图片</p>
                                     </Box>
                                     )}
-                                </Dropzone> */}
+                                </Dropzone>
                             </div>
                         </div>
 
