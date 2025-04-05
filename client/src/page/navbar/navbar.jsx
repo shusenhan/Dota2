@@ -4,7 +4,7 @@ import { useTheme } from "@emotion/react";
 import { useNavigate } from "react-router-dom";
 import NavbarContentItem from "./item";
 import { useDispatch, useSelector } from "react-redux";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { changePage, logout } from "../../state/state";
 import NavbarContentItem2 from "./item2";
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
@@ -12,14 +12,24 @@ import MailIcon from '@mui/icons-material/Mail';
 import AuthPanel from "../../component/AuthPanel.jsx";
 import LoginPage from "../auth/login.jsx";
 import LogoutPage from "../auth/logout.jsx";
+import SettingPanel from "../setting/setting.jsx";
+import useOutsideClick from "../../component/useOutsideClick.jsx";
+import DownloadIcon from '@mui/icons-material/Download';
+import { useGame } from "../../component/useGame.jsx";
 
 const Navbar = () => {
     const theme = useTheme();
     const navigate = useNavigate();
     const dispatch = useDispatch()
     const selected = useSelector(state => state.selectedPage);
+    const game = useSelector(state => state.game);
     const user = useSelector(state => state.user);
     const [openPanel, setOpenPanel] = useState("");
+    const ref = useRef(null);
+    const [openSetting, setOpenSetting] = useState(false);
+    const {ShowGame} = useGame();
+
+    useOutsideClick(ref, () => setOpenSetting(false));
 
     const [BK1, setBK1] = useState('radial-gradient(circle at 15% center, #ff7847 0%, rgb(48, 48, 48) 10%, rgb(17, 17, 17))');
     const [BK2, setBK2] = useState('radial-gradient(circle at center, gold, #ca6642)');
@@ -57,8 +67,28 @@ const Navbar = () => {
                 </div>
             </AuthPanel>}
 
+            {/* { openSetting && <div className="SettingPanelContainer">
+                <div ref={ref}>
+                    <SettingPanel setOpenSetting={setOpenSetting}/>
+                </div>
+            </div>} */}
+
+            <div className="SettingPanelContainer" style={{
+                    height: openSetting ? '100vh' : '0',
+                    width: openSetting ? '178vh' : '0',
+                    opacity: openSetting ? 1 : 0,
+            }}>
+                <div ref={ref} style={{height: '86%', width: '83%'}}>
+                    <SettingPanel setOpenSetting={setOpenSetting}/>
+                </div>
+            </div>
+
             <FlexBetween>
-                    <div className="SettingLogo">
+                    <div className="ShowGameLogo" onClick={() => ShowGame()}>
+                        {game && <DownloadIcon sx={{fontSize: '3vh'}}/>}
+                    </div>
+
+                    <div className="SettingLogo" onClick={() => setOpenSetting(true)}>
                         <img src="http://localhost:3001/assets/commons/setting.png" alt="Setting" height="50%"/>
                     </div>
 

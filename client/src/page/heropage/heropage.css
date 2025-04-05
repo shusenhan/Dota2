@@ -291,6 +291,7 @@
     background-color: rgba(16, 16, 16, 0.7);
     position: absolute;
     z-index: 2;
+    font-size: 2vh;
 }
 
 .HeroPageTalentTreeContainer{
@@ -338,8 +339,4 @@
     height: 100%;
     left: -250%;
     top: 100%;
-}
-
-.SingleHeroPageNavbar {
-    font-size: 2vh;
 }

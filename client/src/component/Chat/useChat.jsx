@@ -19,7 +19,6 @@ export function ChatProvider({children}) {
     }
 
     const AddHistory = (message, friendName) => {
-        console.log(friendName,': ',message);
         setChatHistory(prevHistory => {
             const newHistory = new Map(prevHistory);
             const targetHistory = newHistory.get(friendName) || [];

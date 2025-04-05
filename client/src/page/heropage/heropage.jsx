@@ -594,6 +594,7 @@ const HeroPage = ({}) => {
                             justifyContent: 'center',
                             alignItems: 'center',
                             paddingLeft: '5%',
+                            pointerEvents: 'auto'
                         }}>
                             <ArrowBackIosIcon onClick={() => ChangeLevel('down')} sx={{
                                 color: 'rgb(180, 180, 180)',

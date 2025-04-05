@@ -2,9 +2,10 @@ import './homepage.css'
 import UserBox from "../../component/UserBox/UserBox";
 import { useTheme } from "../../theme/themes";
 import { Suspense } from "react";
+import { useSetting } from '../setting/useSetting';
 
 const HomePage = () => {
-    const {currentTheme} = useTheme();
+    const {currentTheme} = useSetting();
 
     return (
         <div className="HomePageContent">

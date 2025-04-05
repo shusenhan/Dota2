@@ -5,6 +5,7 @@ const initState = {
     token: '',
     selectedPage: 'home',
     friendList: null,
+    game: null
 };
 
 const globalState = createSlice({
@@ -26,9 +27,15 @@ const globalState = createSlice({
         },
         setFriendList(state, action){
             state.friendList = action.payload.friendList;
+        },
+        setGame(state, action){
+            state.game = action.payload.game;
+        },
+        endGame(state){
+            state.game = null;
         }
     },
 });
 
-export const { changePage, logout, userlogin, setFriendList } = globalState.actions;
+export const { changePage, logout, userlogin, setFriendList, setGame, endGame } = globalState.actions;
 export default globalState.reducer;

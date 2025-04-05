@@ -6,9 +6,9 @@
 
 .BeginDOTA {
     position: absolute;
-    right: 2%;
+    right: 1.25%;
     bottom: 35%;
-    z-index: 1;
+    z-index: 6;
     width: 17.5%;
     height: 90%;
     background-color: rgb(58, 149, 88);
@@ -17,6 +17,35 @@
     letter-spacing: 0.15em;
     border: none;
     box-shadow: 0px 0px 4px 0px #27a3f5;
+    transition: box-shadow 0.3s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+.BeginDOTA:hover {
+    background-color: rgb(71, 184, 109);
+    box-shadow: 0px 0px 4px 0px #cacaca;
+    cursor: pointer;
+}
+
+.EndDOTA {
+    position: absolute;
+    right: 1.25%;
+    bottom: 35%;
+    z-index: 6;
+    width: 17.5%;
+    height: 90%;
+    background-color: rgb(136, 54, 39);
+    color: white;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    border: none;
+    box-shadow: 0px 0px 4px 0px #27a3f5;
+    transition: box-shadow 0.3s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+.EndDOTA:hover {
+    background-color: rgb(168, 81, 65);
+    box-shadow: 0px 0px 4px 0px #cacaca;
+    cursor: pointer;
 }
 
 .HomePageChatBox {
@@ -54,4 +83,58 @@
     width: 19.4%; /* 96.5% * 20% */
     background-color: rgb(40, 40, 40);
     color:rgb(203, 203, 203)
+}
+
+.BeginGamePanel {
+    position: absolute;
+    height: 95vh;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgb(50, 50, 50), rgb(0, 0, 0));
+    z-index: 5;
+    transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    display: flex;
+}
+
+.BeginGamePanelLeft {
+    height: 100%;
+    width: 85%;
+    
+}
+
+.BeginGamePanelUp {
+    height: 30%;
+   
+}
+
+.BeginGamePanelDown {
+    height: 55%;
+    display: grid;
+    margin: 0 6.5% 0 6.5%;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 3% 5%;
+}
+
+.GameCell {
+    background-color: green;
+    margin: 3%;
+}
+
+.BeginGamePanelRight {
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(105, 116, 125);
+    transition: background-color 0.2s ease-in-out;
+}
+
+.BeginGamePanelRight:hover {
+    background-color: rgb(56, 56, 56);
+}
+
+.GameCell:hover {
+    box-shadow: 0px 0px 4px 0px #27a3f5;
+    transition: box-shadow 0.3s ease-in-out, background-color 0.2s ease-in-out;
 }

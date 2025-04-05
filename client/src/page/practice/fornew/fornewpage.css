@@ -1,0 +1,54 @@
+.ForNewPageContent {
+    height: 100%;
+    width: 100%;
+    color: white;
+    display: flex;
+    padding: 4% 10% 12% 10%;
+}
+
+.ForNewPageContentLeft {
+    width: 73%;
+    /* background-color: green; */
+}
+
+.ForNewItems {
+    
+}
+
+.ForNewPageContentLeftContent {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    height: 75%;
+    width: 100%;
+    gap: 5% 2%;
+}
+
+.ForNewPageContentTop {
+    height: 10%;
+    width: 100%;
+}
+
+.ForNewPageContentBottom {
+    height: 15%;
+    width: 100%;
+}
+
+.ForNewItemsPicture {
+    height: 70%;
+    width: 100%;
+}
+
+.ForNewItemsDescription{
+    height: 30%;
+    width: 100%;
+    font-size: 1.75vh;
+    font-family: "Ma Shan Zheng", cursive;
+    font-weight: 400;
+    font-style: normal;
+    text-align: start;
+    padding: 2%;
+}
+
+.ForNewCreeps  {
+    
+}

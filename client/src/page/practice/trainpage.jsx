@@ -2,6 +2,7 @@ import './trainpage.css';
 import { Box } from '@mui/material'; 
 import { useState } from 'react';
 import ItemPage from './itempage/itempage';
+import ForNewPage from './fornew/fornewpage';
 
 const TrainPage = () => {
     const [pageType, setPageType] = useState('新手');
@@ -127,6 +128,7 @@ const TrainPage = () => {
             </div>
 
             {pageType === '物品' && <ItemPage/>}
+            {pageType === '新手' && <ForNewPage/>}
         </div>
     )
 }

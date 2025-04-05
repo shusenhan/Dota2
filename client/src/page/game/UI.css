@@ -1,0 +1,101 @@
+.GameUITop {
+    height: 5%;
+    position: relative;
+    width: 100%;
+}
+
+.GameUIHiddenGameButton {
+    position: absolute;
+    left: 1.5%;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: rgb(220, 220, 220);
+}
+
+.GameUIContent {
+   height: 100vh;
+   width: 178vh; 
+   position: relative;
+}
+
+.GameUIAttributePanel {
+    position: absolute;
+    bottom: 1%;
+    left: 26.5%;
+    height: 15%;
+    width: 45.5%;
+}
+
+.GameUIRoleName {
+    height: 15%;
+    margin-left: 4.5%;
+    width: 95.5%;
+    background-color: azure;
+    font-size: 1.65vh;
+    text-align: start;
+    padding: 0 1%;
+}
+
+.GameUIMainInfo {
+    height: 90%;
+    width: 100%;
+    display: flex;
+}
+
+.GameUILevel {
+    width: 4.5%;
+    height: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.GameUILevel2 {
+    width: 100%;
+    background-color: rgb(3, 3, 3);
+    height: 26%;
+    border-radius: 50%;
+    border: 3px solid rgb(63, 63, 63);
+    margin: 10% 0;
+    color: gold;
+    font-size: 1.9vh;
+    text-align: center;
+}
+
+.GameUIBasicInfo {
+    width: 19%;
+    height: 100%;
+    background-color: aquamarine;
+}
+
+.GameUIMiddle {
+    width: 48%;
+    height: 100%;
+    background-color: blue;
+}
+
+.GameUIInventory {
+    width: 29%;
+    height: 100%;
+    background-color: aqua;
+}
+
+.GameUIOtherAttribute {
+    height: 90%;
+    display: flex;
+    justify-content: end;
+}
+
+.GameUIOtherAttribute2 {
+    width: 45%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9) 25%, rgba(0, 0, 0, 0.9) 100%);
+}
+
+.GameUIThreeAttribute {
+    height: 12.5%;
+    background-color: aliceblue;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7) 35%, rgba(0, 0, 0, 0.9) 100%);
+}

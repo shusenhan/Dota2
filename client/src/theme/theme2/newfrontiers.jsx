@@ -370,7 +370,7 @@ const NewFrontiers = () => {
 
             <div style={{
                 position: 'absolute',
-                left: '27.3%',
+                left: '27.1%',
                 top: '54.2%'
             }}>
                 <LocationCell>
@@ -384,7 +384,7 @@ const NewFrontiers = () => {
 
             <div style={{
                 position: 'absolute',
-                left: '68.4%',
+                left: '68.3%',
                 top: '30.6%'
             }}>
                 <LocationCell>
@@ -403,7 +403,7 @@ const NewFrontiers = () => {
                 position:'absolute',
                 height: '28vh',
                 width: '31.5vh',
-                left: '78.4%',
+                left: '79.1%',
                 top: '10%',
                 textAlign: 'start',
                 color: 'rgb(200, 200, 200)',

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import notify from '../../component/ToastBox.tsx';
+import PersonalThing from './costomdisplay.jsx';
 
 const PersonalCenter = () => {
     let [searchParams] = useSearchParams();  
@@ -145,6 +146,7 @@ const PersonalCenter = () => {
 
     return (
         <div className='PersonalCenterContent'>
+            <PersonalThing/>
             <div className='PersonalCenterNavbar'>
                 <Box 
                     onClick={() => setHeroPageType('主页')} 

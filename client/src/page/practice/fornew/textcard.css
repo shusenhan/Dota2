@@ -1,0 +1,75 @@
+.DescrptionContent{
+    width: 30vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.DescrptionContentItems {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.DescrptionContentText {
+    height: 50%;
+    width: 80%;
+    background-color: rgba(41, 41, 41, 0.8);
+    border-radius: 10px;
+    border: 2px solid rgb(65, 87, 97);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.NPCHPMP {
+    width: 85%;
+}
+
+.NPCHPBar {
+    margin: 2% 0;
+    color: white;
+    font-size: 1.5vh;
+    font-weight: 700;
+    height: 2.25vh;
+    background: linear-gradient(to right, #286323, #7AF03C);
+    width: 100%;
+    text-align: center;
+}
+
+.NPCMPBar {
+    margin: 2% 0;
+    color: white;
+    font-size: 1.5vh;
+    font-weight: 700;
+    height: 2.25vh;
+    background: linear-gradient(to right, #1056DB, #73F5FE);
+    width: 100%;
+    text-align: center;
+}
+
+.NPCAttributes {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    margin: 2% 0;
+    font-size: 1.5vh;
+    color: white;
+}
+
+.NPCAttributesItems {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.NPCDescription {
+    margin: 2% 0;
+    padding: 0 4%;
+    color: rgb(206, 206, 206);
+    font-size: 1.35vh;
+    text-align: start;
+}

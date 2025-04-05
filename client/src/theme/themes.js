@@ -1,9 +1,9 @@
-import { createContext, useContext, useState, lazy } from "react"
+import { lazy } from "react"
 
 const Crownfall1_1 = lazy(() => import('./theme1/crownfall1_1'));
 const NewFrontiers = lazy(() => import('./theme2/newfrontiers'))
 
-export const themes = {
+const themes = {
     theme1: {
         name: '倾天之战',
         background: {
@@ -28,8 +28,8 @@ export const themes = {
         images: [],
         component: [
             {   
-                zIndex: 5,
-                position: {x: '58%', y: '80.4%'},
+                zIndex: 4,
+                position: {x: '58%', y: '81.1%'},
                 type: Crownfall1_1
             }
         ]
@@ -45,7 +45,7 @@ export const themes = {
         images: [],
         component: [
             {   
-                zIndex: 5,
+                zIndex: 4,
                 position: {x: '1%', y: '2%'},
                 type: NewFrontiers
             }
@@ -53,22 +53,4 @@ export const themes = {
     }
 }
 
-const themeContext = createContext();
-
-export function ThemeProvider({children}) {
-    const [currentTheme, setCurrentTheme] = useState(themes.theme1);
-
-    const ChangeTheme = (theme) => {
-        setCurrentTheme(theme);
-    }
-
-    return (
-        <themeContext.Provider value={{currentTheme, ChangeTheme}}>
-            {children}
-        </themeContext.Provider>
-    )
-}
-
-export function useTheme(){
-    return useContext(themeContext);
-}
+export default themes;

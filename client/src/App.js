@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { 
   CssBaseline, 
   createTheme,
@@ -30,74 +30,80 @@ import CommunityPage from "./page/community/communitypage";
 import PostPage from "./page/community/postpage";
 import { ChatProvider } from "./component/Chat/useChat.jsx";
 import AutoLogin from "./component/autoLogin.jsx";
-import { ThemeProvider } from "./theme/themes.js";
 import Background from "./Background.jsx";
+import { SettingProvider } from "./page/setting/useSetting.js";
+import Introduction3D from "./page/practice/fornew/introduction3D.jsx";
+import GamePage from "./page/game/gamepage.jsx";
+import { GameContextProvider } from "./component/useGame.jsx";
+import { AnimationProvider } from "./component/useAnimations.jsx";
+import { useSelector } from "react-redux";
 
 function App() {
   const [mode, setMode] = useState("1");
   const theme = useMemo(() => createTheme(themeSetting(mode),[mode]))
   const animation = CreateLoginAnimation('#F78C00');
   const largeScreen = useMediaQuery("(min-width:1000px)");
+  const game = useSelector(state => state.game)
 
-  const SwitchTheme = () => {
-    console.log("switchtheme");
-    if(mode === "1"){
-      setMode("2");
-    }
-    else{
-      setMode("1");
-    }
-    console.log("mode: ",theme);
-  };
+
 
   return (
-    <ChatProvider>
-      <ThemeProvider>
-        <div className="App">
-          <div className="AppBox2">
-            <ToastContainer/>
-            <BrowserRouter>
-              <CssBaseline/>
-              <GlobalStyles styles={animation}/>
+    <AnimationProvider>
+      <GameContextProvider>
+        <ChatProvider>
+          <SettingProvider>
+            <div className="App">
+              <div className="AppBox2">
+                <ToastContainer/>
+                <BrowserRouter>
+                  <CssBaseline/>
+                  <GlobalStyles styles={animation}/>
 
-              <AutoLogin/>
-        
-              <div className='Navbar'>
-                <Navbar/>
-              </div>
+                  <AutoLogin/>
+            
+                  <div className='Navbar'>
+                    <Navbar/>
+                  </div>
 
-              <div className='Background'>
-                <Background/>
-              </div>
-                
-              <Routes>
-                <Route path='/personal' element={<div className='Content'><PersonalCenter/></div>}/>
-                <Route path='/' element={<div className='Content'><HomePage/></div>}/>
-                <Route path='/allhero' element={<div className='Content'><AllHeroPage/></div>}/>
-                <Route path='/importcenter' element={<div className='Content'><ImportCenter/></div>}/>
-                <Route path='/importcenter/hero' element={<div className='Content'><ExistedHero/></div>}/>
-                <Route path='/importcenter/hero/import' element={<div className='Content'><HeroDataImportPage/></div>}/>
-                <Route path='/importcenter/skill' element={<div className='Content'><ExistedSkill/></div>}/>
-                <Route path='/importcenter/skill/import' element={<div className='Content'><SkillDataImportPage/></div>}/>
-                <Route path='/importcenter/community' element={<div className='Content'><CommunityAdministrationCenter/></div>}/>
-                <Route path='/importcenter/community/import' element={<div className='Content'><CreateCommunity/></div>}/>
-                <Route path='/train' element={<div className='Content'><TrainPage/></div>}/>
-                <Route path='/heroinfo' element={<div className='Content'><HeroPage/></div>}/>
-                <Route path='/importcenter/item' element={<div className='Content'><ExistedItem/></div>}/>
-                <Route path='/community' element={<div className='Content'><CommunityMianPage/></div>}/>
-                <Route path='/community/:communityId' element={<div className='Content'><CommunityPage/></div>}/>
-                <Route path='/post/:postId' element={<div className='Content'><PostPage/></div>}/>
-              </Routes>
+                  <div className='Background'>
+                    <Background/>
+                  </div>
 
-              <div className="Footer">
-                <Footer/>
+                  <div>
+                    {game && <GamePage/>}
+                  </div>
+                    
+                  <Routes>
+                    <Route path='/personal' element={<div className='Content'><PersonalCenter/></div>}/>
+                    <Route path='/' element={<div className='Content'><HomePage/></div>}/>
+                    <Route path='/allhero' element={<div className='Content'><AllHeroPage/></div>}/>
+                    <Route path='/importcenter' element={<div className='Content'><ImportCenter/></div>}/>
+                    <Route path='/importcenter/hero' element={<div className='Content'><ExistedHero/></div>}/>
+                    <Route path='/importcenter/hero/import' element={<div className='Content'><HeroDataImportPage/></div>}/>
+                    <Route path='/importcenter/skill' element={<div className='Content'><ExistedSkill/></div>}/>
+                    <Route path='/importcenter/skill/import' element={<div className='Content'><SkillDataImportPage/></div>}/>
+                    <Route path='/importcenter/community' element={<div className='Content'><CommunityAdministrationCenter/></div>}/>
+                    <Route path='/importcenter/community/import' element={<div className='Content'><CreateCommunity/></div>}/>
+                    <Route path='/train' element={<div className='Content'><TrainPage/></div>}/>
+                    <Route path='/train/intro3D/:type' element={<div className='Content'><Introduction3D/></div>}/>
+                    <Route path='/heroinfo' element={<div className='Content'><HeroPage/></div>}/>
+                    <Route path='/importcenter/item' element={<div className='Content'><ExistedItem/></div>}/>
+                    <Route path='/community' element={<div className='Content'><CommunityMianPage/></div>}/>
+                    <Route path='/community/:communityId' element={<div className='Content'><CommunityPage/></div>}/>
+                    <Route path='/post/:postId' element={<div className='Content'><PostPage/></div>}/>
+                  </Routes>
+
+                  <div className="Footer">
+                    <Footer/>
+                  </div>
+                    
+                </BrowserRouter>
               </div>
-                
-            </BrowserRouter>
-          </div>
-        </div>
-      </ThemeProvider>
-    </ChatProvider>
+            </div>
+          </SettingProvider>
+        </ChatProvider>
+      </GameContextProvider>
+    </AnimationProvider>
   );
 }
 

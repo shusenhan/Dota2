@@ -33,6 +33,11 @@
   z-index: -1;
 }
 
+.Background > div {
+  width: 100%;
+  object-fit: cover;
+}
+
 .Background > video {
   width: 100%;
   object-fit: cover;
